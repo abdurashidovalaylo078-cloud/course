@@ -1,0 +1,152 @@
+/* Header Dropdowns */
+.header-actions {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 320px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Notifications Dropdown */
+.notifications-dropdown {
+    right: 50px;
+    /* Adjust based on icon position */
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.dropdown-header span {
+    font-weight: 600;
+}
+
+.read-all-btn {
+    font-size: 0.75rem;
+    color: var(--color-primary);
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.notification-item.unread {
+    background-color: rgba(245, 158, 11, 0.05);
+}
+
+.notif-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--color-bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.notif-icon.success {
+    color: #10b981;
+}
+
+.notif-content {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.notif-content .time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 0.2rem;
+}
+
+/* Profile Dropdown */
+.profile-menu {
+    width: 220px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.profile-header .name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.profile-header .role {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.menu-list {
+    padding: 0.5rem;
+}
+
+.menu-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+.menu-list li a:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-main);
+}
+
+.menu-list li a.danger:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.menu-list .divider {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 0.5rem 0;
+}

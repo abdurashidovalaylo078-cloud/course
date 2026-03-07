@@ -1,0 +1,703 @@
+/* ======================================================
+   INTERACTIVE.CSS — Premium Interactive Enhancements
+   3D Max Pro Platform
+   ====================================================== */
+
+/* ---- 1. Keyframes ---- */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    15% {
+        transform: translateX(-8px);
+    }
+
+    30% {
+        transform: translateX(8px);
+    }
+
+    45% {
+        transform: translateX(-6px);
+    }
+
+    60% {
+        transform: translateX(6px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    90% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes fadeSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    70% {
+        transform: scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: var(--progress-target, 100%);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -600px 0;
+    }
+
+    100% {
+        background-position: 600px 0;
+    }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInSidebar {
+    from {
+        opacity: 0;
+        transform: translateX(-260px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes spin3d {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes messagePop {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes notifBadgePulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+}
+
+@keyframes navActiveSlide {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ---- 2. Sidebar Entrance ---- */
+.sidebar {
+    animation: slideInSidebar 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 3. Logo Icon Float & 3D spin on hover ---- */
+.logo-icon {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+.logo-icon:hover {
+    animation: spin3d 0.8s linear;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+}
+
+/* ---- 4. Nav Item Interactive ---- */
+.nav-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-primary);
+    border-radius: 0 2px 2px 0;
+    transform: scaleY(0);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+}
+
+.nav-item.active::before,
+.nav-item:hover::before {
+    transform: scaleY(1);
+    animation: navActiveSlide 0.3s ease both;
+}
+
+.nav-item i {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: scale(1.2) rotate(-5deg);
+    color: var(--color-primary);
+}
+
+.nav-item.active i {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ---- 5. Header Top Bar ---- */
+.top-header {
+    transition: box-shadow 0.3s ease;
+}
+
+.top-header.scrolled {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- 6. Search Bar Enhanced ---- */
+.search-bar input {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.search-bar input:focus {
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+    transform: scaleX(1.02);
+    transform-origin: left;
+}
+
+/* ---- 7. Icon Buttons ---- */
+.icon-btn {
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.12);
+    color: var(--color-primary) !important;
+}
+
+.icon-btn:active {
+    transform: scale(0.93);
+}
+
+/* ---- 8. Notification Badge Pulse ---- */
+.badge {
+    animation: notifBadgePulse 2s ease-in-out infinite;
+}
+
+/* ---- 9. Card Tilt & Glow on Hover ---- */
+.card {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.15),
+        0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(245, 158, 11, 0.5);
+}
+
+/* ---- 10. Course Cards Special ---- */
+.course-card {
+    overflow: hidden;
+    position: relative;
+}
+
+.course-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.course-card:hover::after {
+    opacity: 1;
+}
+
+/* ---- 11. Page Content Entrance ---- */
+.page-content {
+    transition: opacity 0.25s ease;
+}
+
+/* ---- 12. Section Title Underline Grow ---- */
+.section-title::after {
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-title:hover::after {
+    width: 100%;
+}
+
+/* ---- 13. Animated Progress Bars ---- */
+.progress-fill {
+    animation: progressFill 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    background: linear-gradient(90deg, var(--color-primary), #fbbf24, var(--color-primary));
+    background-size: 200% 100%;
+    animation: progressFill 1s ease forwards, shimmer 2s linear infinite;
+}
+
+/* ---- 14. Button Ripple ---- */
+.btn-primary,
+.btn-cta {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+}
+
+.btn-primary:active,
+.btn-cta:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(0);
+    animation: rippleAnim 0.6s linear;
+    pointer-events: none;
+}
+
+/* ---- 15. Send Button ---- */
+.send-btn {
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.send-btn:hover {
+    transform: scale(1.12) rotate(-10deg) !important;
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+/* ---- 16. Message Bubble Entrance ---- */
+.message-wrapper {
+    animation: messagePop 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---- 17. Chat List Item ---- */
+.chat-list-item {
+    transition: background 0.2s, transform 0.2s, border-left-color 0.2s;
+}
+
+.chat-list-item:hover {
+    transform: translateX(4px);
+}
+
+/* ---- 18. Lesson Item in Playlist ---- */
+.lesson-item {
+    transition: background 0.2s, transform 0.2s, border-left-color 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-item:hover {
+    transform: translateX(3px);
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.08), transparent);
+}
+
+.lesson-item.active {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.04)) !important;
+}
+
+.lesson-item .status-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.lesson-item:hover .status-icon {
+    transform: scale(1.3);
+}
+
+/* ---- 19. Settings Nav Item ---- */
+.settings-nav-item {
+    transition: background 0.2s, transform 0.2s, color 0.2s;
+}
+
+.settings-nav-item:hover {
+    transform: translateX(4px);
+}
+
+.settings-nav-item.active {
+    position: relative;
+}
+
+.settings-nav-item.active::after {
+    content: '';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* ---- 20. Toggle Switch Enhanced ---- */
+.slider {
+    transition: background-color 0.4s, box-shadow 0.3s;
+}
+
+input:checked+.slider {
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.slider:before {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s;
+}
+
+/* ---- 21. Avatar Hover ---- */
+.avatar,
+.avatar-sm,
+.header-avatar {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar:hover,
+.avatar-sm:hover,
+.header-avatar:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+/* ---- 22. Profile Dropdown & Notification Dropdown ---- */
+.dropdown-menu {
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s;
+}
+
+.dropdown-menu.active {
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- 23. Form Input Focus Glow ---- */
+.form-input {
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+/* ---- 24. Playlist Header ---- */
+.playlist-header {
+    background: linear-gradient(135deg,
+            rgba(245, 158, 11, 0.08) 0%,
+            rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* ---- 25. Video Wrapper Glow on Hover ---- */
+.video-wrapper {
+    transition: box-shadow 0.4s ease;
+}
+
+.video-wrapper:hover {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- 26. Upload Area Drag Highlight ---- */
+.upload-area {
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    border: 2px dashed var(--color-border);
+}
+
+.upload-area:hover {
+    transform: scale(1.02);
+    border-color: var(--color-primary);
+}
+
+.upload-area.drag-over {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--color-primary);
+    transform: scale(1.03);
+}
+
+/* ---- 27. Page Transition ---- */
+#content-area {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#content-area.page-entering {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+#content-area.page-entered {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- 28. Scrollbar Interactive ---- */
+::-webkit-scrollbar-thumb {
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary) !important;
+}
+
+/* ---- 29. Notification Item Hover ---- */
+.notification-item {
+    transition: background 0.2s, transform 0.2s;
+}
+
+.notification-item:hover {
+    transform: translateX(4px);
+}
+
+/* ---- 30. Glassmorphism on top-header ---- */
+.top-header {
+    background: rgba(16, 18, 27, 0.7) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---- 31. Sidebar Glassmorphism ---- */
+.sidebar {
+    background: linear-gradient(180deg,
+            hsl(220, 20%, 13%) 0%,
+            hsl(220, 20%, 11%) 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ---- 32. Active Nav Item Glow ---- */
+.nav-item.active {
+    background: linear-gradient(90deg,
+            rgba(245, 158, 11, 0.18) 0%,
+            rgba(245, 158, 11, 0.04) 100%) !important;
+    box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+/* ---- 33. Card Background Subtle Noise ---- */
+.card {
+    background: linear-gradient(145deg,
+            var(--color-bg-card) 0%,
+            hsl(220, 20%, 12%) 100%) !important;
+}
+
+/* ---- 34. Section Card Entrance ---- */
+.card-animate {
+    animation: fadeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.card-animate:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.card-animate:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+.card-animate:nth-child(3) {
+    animation-delay: 0.19s;
+}
+
+.card-animate:nth-child(4) {
+    animation-delay: 0.26s;
+}
+
+.card-animate:nth-child(5) {
+    animation-delay: 0.33s;
+}
+
+/* ---- 35. Tooltip ---- */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
+    background: rgba(15, 17, 25, 0.95);
+    color: #fff;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    z-index: 9999;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* ---- 36. Floating Orbs Background ---- */
+body::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+/* ---- 37. User Profile Mini Hover ---- */
+.user-profile-mini {
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem;
+    margin: -0.6rem;
+    transition: background 0.2s;
+}
+
+.user-profile-mini:hover {
+    background: rgba(245, 158, 11, 0.08);
+}
+
+/* ---- 38. Section Title Wrapper Entrance ---- */
+.section-title {
+    animation: fadeSlideLeft 0.5s ease both;
+}
+
+/* ---- 39. Homework Box ---- */
+.homework-box {
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.homework-box:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+}
+
+/* ---- 40. Custom Skeleton Loader ---- */
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--color-bg-card) 25%,
+            var(--color-bg-hover) 50%,
+            var(--color-bg-card) 75%);
+    background-size: 600px 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
