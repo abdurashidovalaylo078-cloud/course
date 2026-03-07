@@ -1,44 +1,61 @@
 /* Design System & Variables */
 :root {
-    /* Colors - HSL for easy manipulation */
-    --hue-primary: 35;
-    /* Orange/Gold for creativity/3D Max vibe */
-    --hue-bg: 220;
-    /* Dark Blue/Grey background */
+    /* UI/UX Pro Max Premium Palette (Amber & Slate) */
+    --color-primary: #f59e0b;
+    /* Amber 500 */
+    --color-primary-hover: #fbbf24;
+    /* Amber 400 */
+    --color-primary-light: #fef3c7;
+    /* Amber 100 */
 
-    --color-primary: hsl(var(--hue-primary), 90%, 50%);
-    --color-primary-hover: hsl(var(--hue-primary), 90%, 60%);
-    --color-primary-light: hsl(var(--hue-primary), 90%, 90%);
+    /* Dark Mode (Default) - Deep rich slate */
+    --color-bg-dark: #020617;
+    /* Slate 950 */
+    --color-bg-card: #0f172a;
+    /* Slate 900 */
+    --color-bg-hover: #1e293b;
+    /* Slate 800 */
 
-    --color-bg-dark: hsl(var(--hue-bg), 20%, 10%);
-    --color-bg-card: hsl(var(--hue-bg), 20%, 14%);
-    --color-bg-hover: hsl(var(--hue-bg), 20%, 18%);
+    /* High contrast text */
+    --color-text-main: #f8fafc;
+    /* Slate 50 */
+    --color-text-muted: #94a3b8;
+    /* Slate 400 */
 
-    --color-text-main: hsl(0, 0%, 100%);
-    --color-text-muted: hsl(var(--hue-bg), 10%, 70%);
+    /* Visible borders */
+    --color-border: #334155;
+    /* Slate 700 */
 
-    --color-border: hsl(var(--hue-bg), 20%, 20%);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
-    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 8px 12px rgba(0, 0, 0, 0.2);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
-
-    --font-main: 'Inter', sans-serif;
-    --anim-fast: 0.2s ease;
+    --font-heading: 'Outfit', sans-serif;
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    --anim-fast: 0.2s ease-in-out;
 }
 
 body.light-mode {
-    --color-bg-dark: hsl(var(--hue-bg), 10%, 95%);
+    /* Light Mode - High contrast and clean */
+    --color-bg-dark: #f8fafc;
+    /* Slate 50 */
     --color-bg-card: #ffffff;
-    --color-bg-hover: hsl(var(--hue-bg), 10%, 90%);
+    /* White */
+    --color-bg-hover: #f1f5f9;
+    /* Slate 100 */
 
-    --color-text-main: hsl(var(--hue-bg), 30%, 15%);
-    --color-text-muted: hsl(var(--hue-bg), 20%, 50%);
+    /* UI/UX Pro Max Rule: Slate 900 and Slate 600 for text */
+    --color-text-main: #0f172a;
+    /* Slate 900 */
+    --color-text-muted: #475569;
+    /* Slate 600 */
 
-    --color-border: hsl(var(--hue-bg), 10%, 85%);
+    /* Visible borders */
+    --color-border: #e2e8f0;
+    /* Slate 200 */
 }
 
 
@@ -56,6 +73,18 @@ body {
     color: var(--color-text-main);
     height: 100vh;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 a {
@@ -200,8 +229,10 @@ ul {
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    background-color: rgba(30, 32, 40, 0.8);
-    backdrop-filter: blur(10px);
+    background-color: var(--color-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
 }
 
 .search-bar {

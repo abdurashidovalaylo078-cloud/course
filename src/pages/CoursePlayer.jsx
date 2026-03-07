@@ -1,0 +1,345 @@
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+    ArrowLeft, PlayCircle, FileText, CheckCircle,
+    Folder, PencilLine, Check, FileArrowUp, SealCheck,
+    Quotes, Clock, PaperPlaneTilt, ArrowClockwise,
+    UploadSimple, FileZip, Sparkle, DownloadSimple
+} from '@phosphor-icons/react';
+import { coursesData } from '../data';
+
+const CoursePlayer = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const course = coursesData.find(c => c.id === parseInt(id));
+
+    // Find first lesson for initial state
+    const firstLesson = course?.modules.find(m => m.lessons.length > 0)?.lessons[0];
+
+    const [activeLesson, setActiveLesson] = useState(firstLesson);
+    const [courseState, setCourseState] = useState(course);
+
+    // Homework local states
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [isUploading, setIsUploading] = useState(false);
+    const [showReuploader, setShowReuploader] = useState(false);
+
+    if (!course) {
+        return <h2>Kurs topilmadi</h2>;
+    }
+    if (!activeLesson) {
+        return <h2>Ushbu kursda hali darslar yo'q.</h2>;
+    }
+
+    const handleLessonChange = (lesson) => {
+        setActiveLesson(lesson);
+        setUploadProgress(0);
+        setIsUploading(false);
+        setShowReuploader(false);
+    };
+
+    const markAsComplete = () => {
+        if (activeLesson.completed) return;
+
+        // In a real app this would trigger an API call.
+        // For this migration, we mutably update state just like the legacy version.
+        const newCourse = { ...courseState };
+        const moduleIndex = newCourse.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
+        const lessonIndex = newCourse.modules[moduleIndex].lessons.findIndex(l => l.id === activeLesson.id);
+
+        newCourse.modules[moduleIndex].lessons[lessonIndex].completed = true;
+        newCourse.completedLessons = Math.min(newCourse.completedLessons + 1, newCourse.totalLessons);
+        newCourse.progress = Math.round((newCourse.completedLessons / newCourse.totalLessons) * 100);
+
+        setCourseState(newCourse);
+        setActiveLesson({ ...activeLesson, completed: true });
+
+        // Simple toast simulation
+        alert('Dars muvaffaqiyatli tugatildi! 🎉');
+    };
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files ? e.target.files[0] : e.dataTransfer?.files[0];
+        if (!file) return;
+
+        // Validate size (50MB)
+        if (file.size > 50 * 1024 * 1024) {
+            alert('❌ Fayl hajmi 50MB dan oshmasligi kerak!');
+            return;
+        }
+
+        setIsUploading(true);
+        let progress = 0;
+
+        const interval = setInterval(() => {
+            const remaining = 100 - progress;
+            progress += remaining * 0.18 + Math.random() * 4;
+
+            if (progress >= 97) {
+                progress = 97;
+                setUploadProgress(progress);
+                clearInterval(interval);
+
+                setTimeout(() => {
+                    setUploadProgress(100);
+
+                    setTimeout(() => {
+                        // Mark as uploaded
+                        setIsUploading(false);
+                        const newLesson = {
+                            ...activeLesson,
+                            status: 'submitted',
+                            uploadedFile: {
+                                name: file.name,
+                                size: file.size < 1024 * 1024 ? (file.size / 1024).toFixed(1) + ' KB' : (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+                                blobUrl: URL.createObjectURL(file), // Memory leak risk in real app without revoke
+                                isImage: file.type.startsWith('image/')
+                            }
+                        };
+                        setActiveLesson(newLesson);
+
+                        // Update course state
+                        const newCourse = { ...courseState };
+                        const mIdx = newCourse.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
+                        const lIdx = newCourse.modules[mIdx].lessons.findIndex(l => l.id === activeLesson.id);
+                        newCourse.modules[mIdx].lessons[lIdx] = newLesson;
+                        setCourseState(newCourse);
+
+                        alert('📤 Uyga vazifangiz muvaffaqiyatli yuklandi!');
+                    }, 500);
+                }, 500);
+            } else {
+                setUploadProgress(progress);
+            }
+        }, 80);
+    };
+
+    return (
+        <>
+            <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate('/app')}>
+                <ArrowLeft style={{ marginRight: '0.5rem' }} /> Kurslarga qaytish
+            </button>
+
+            <div className="player-container">
+                <div className="video-section">
+                    <div className="video-wrapper">
+                        {activeLesson.type === 'video' && activeLesson.videoUrl ? (
+                            <iframe
+                                src={`${activeLesson.videoUrl}?autoplay=1&rel=0`}
+                                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title={activeLesson.title}
+                            ></iframe>
+                        ) : activeLesson.type === 'homework' ? (
+                            <div className="video-placeholder-content" style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.03) 100%)', border: '2px dashed rgba(245,158,11,0.3)' }}>
+                                <FileArrowUp weight="fill" style={{ fontSize: '4rem', color: 'var(--color-primary)', marginBottom: '1rem' }} />
+                                <p style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.4rem' }}>Uyga Vazifa</p>
+                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Ishingizni pastdagi yuklash oynasiga yuboring</p>
+                            </div>
+                        ) : (
+                            <div className="video-placeholder-content">
+                                <PlayCircle weight="fill" />
+                                <p>Video yuklanmoqda: {activeLesson.title}</p>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="lesson-details card">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                            <div>
+                                <h2>{activeLesson.title}</h2>
+                                <div className="lesson-meta" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Folder /> {courseState.title}</span>
+                                    {activeLesson.type === 'homework' && (
+                                        <span style={{ marginLeft: '0.5rem', background: 'rgba(245,158,11,0.15)', color: 'var(--color-primary)', padding: '0.15rem 0.7rem', borderRadius: '999px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                                            <PencilLine /> Uyga Vazifa
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                            <button
+                                className="btn-primary"
+                                onClick={markAsComplete}
+                                disabled={activeLesson.completed}
+                                style={activeLesson.completed ? { opacity: 0.7, cursor: 'default' } : {}}
+                            >
+                                {activeLesson.completed ? <><Check weight="bold" style={{ marginRight: '0.3rem' }} /> Tugatilgan</> : 'Tugatdim'}
+                            </button>
+                        </div>
+
+                        <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.5rem', marginTop: '1rem' }}>
+                            {activeLesson.type === 'homework'
+                                ? "Vazifani bajaring va faylingizni quyidagi maydonga yuklang. Qo'llab-quvvatlanadigan formatlar: .rar, .zip, .max, .jpg, .png, .pdf"
+                                : `Ushbu darsda siz ${activeLesson.title.toLowerCase()} haqida batafsil ma'lumot olasiz. Diqqat bilan kuzating va amaliyotda qo'llang.`}
+                        </p>
+
+                        {/* HOMEWORK LOGIC */}
+                        {activeLesson.type === 'homework' && (
+                            <>
+                                <div style={{ marginBottom: '1.2rem' }}>
+                                    {activeLesson.reviewStatus === 'checked' ? (
+                                        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '1rem 1.2rem', borderRadius: '12px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, marginTop: '0.1rem' }}>
+                                                <SealCheck weight="fill" style={{ fontSize: '1.6rem', color: '#10B981' }} />
+                                            </div>
+                                            <div style={{ flex: 1 }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+                                                    <span style={{ fontWeight: 700, color: '#10B981', fontSize: '0.95rem' }}>O'qituvchi tekshirdi</span>
+                                                    {activeLesson.reviewGrade && <span style={{ background: '#10B981', color: '#fff', fontWeight: 700, padding: '0.1rem 0.65rem', borderRadius: '999px', fontSize: '0.82rem' }}>Baho: {activeLesson.reviewGrade}</span>}
+                                                </div>
+                                                {activeLesson.reviewComment && <p style={{ margin: 0, fontSize: '0.87rem', color: 'var(--color-text-muted)', lineHeight: 1.5 }}><Quotes weight="fill" style={{ color: '#10B981', marginRight: '0.3rem' }} /> {activeLesson.reviewComment}</p>}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '0.8rem 1.2rem', borderRadius: '12px', background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.25)' }}>
+                                            <Clock style={{ fontSize: '1.3rem', color: 'var(--color-primary)', flexShrink: 0 }} />
+                                            <div>
+                                                <p style={{ margin: 0, fontWeight: 600, color: 'var(--color-primary)', fontSize: '0.9rem' }}>O'qituvchi hali tekshirmadi</p>
+                                                <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Vazifangiz yuborilgandan so'ng o'qituvchi tekshirib, baho qo'yadi</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Submitted State Header */}
+                                {activeLesson.status === 'submitted' && !showReuploader && !isUploading && (
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '1rem 1.2rem', borderRadius: '12px', background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.25)' }}>
+                                        <PaperPlaneTilt weight="fill" style={{ fontSize: '1.4rem', color: '#3B82F6', flexShrink: 0 }} />
+                                        <div style={{ flex: 1 }}>
+                                            <p style={{ margin: 0, fontWeight: 600, color: '#3B82F6', fontSize: '0.9rem' }}>Vazifa yuborilgan</p>
+                                            <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Ish topshirildi. Yangi fayl yuklash uchun quyidagi tugmani bosing.</p>
+                                        </div>
+                                        <button
+                                            onClick={() => setShowReuploader(true)}
+                                            style={{ background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.4)', color: '#3B82F6', borderRadius: '8px', padding: '0.4rem 0.9rem', cursor: 'pointer', fontSize: '0.82rem', whiteSpace: 'nowrap', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                                        >
+                                            <ArrowClockwise /> Qayta yuklash
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Upload Box */}
+                                {(!activeLesson.status || activeLesson.status !== 'submitted' || showReuploader) && !isUploading && (
+                                    <label
+                                        htmlFor={`hw-file-input-${activeLesson.id}`}
+                                        style={{ display: 'block', position: 'relative', overflow: 'hidden', borderRadius: '16px', cursor: 'pointer', transition: 'transform 0.2s ease, box-shadow 0.2s ease', marginTop: showReuploader ? '1rem' : 0 }}
+                                        onDragOver={e => e.preventDefault()}
+                                        onDrop={e => { e.preventDefault(); handleFileUpload(e); }}
+                                    >
+                                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(217,119,6,0.03) 50%, rgba(245,158,11,0.08) 100%)', border: '1.5px dashed rgba(245,158,11,0.4)', borderRadius: '16px', pointerEvents: 'none' }}></div>
+                                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6), transparent)', borderRadius: '16px 16px 0 0', pointerEvents: 'none' }}></div>
+
+                                        <div style={{ position: 'relative', padding: '2.2rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                                            <div style={{ width: '72px', height: '72px', background: 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.08))', border: '1.5px solid rgba(245,158,11,0.35)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 24px rgba(245,158,11,0.12)' }}>
+                                                <UploadSimple style={{ fontSize: '2rem', color: 'var(--color-primary)' }} />
+                                            </div>
+                                            <div style={{ textAlign: 'center' }}>
+                                                <p style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 0.3rem', letterSpacing: '-0.2px' }}>Faylni bu yerga tashlang</p>
+                                                <p style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--color-text-muted)', margin: 0 }}>yoki <span style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: '3px' }}>kompyuterdan tanlang</span></p>
+                                            </div>
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', justifyContent: 'center' }}>
+                                                {['RAR', 'ZIP', 'MAX', 'JPG', 'PNG', 'PDF'].map(f => (
+                                                    <span key={f} style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.5px', padding: '0.2rem 0.55rem', borderRadius: '6px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', color: 'rgba(245,158,11,0.85)' }}>{f}</span>
+                                                ))}
+                                            </div>
+                                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: 0, opacity: 0.7 }}>Maksimal hajm: <strong style={{ color: 'var(--color-text)' }}>50 MB</strong></p>
+                                        </div>
+
+                                        <input type="file" id={`hw-file-input-${activeLesson.id}`} style={{ position: 'absolute', width: '1px', height: '1px', opacity: 0, pointerEvents: 'none' }} accept=".rar,.zip,.max,.jpg,.jpeg,.png,.pdf" onChange={handleFileUpload} />
+                                    </label>
+                                )}
+
+                                {/* Progress Bar */}
+                                {isUploading && (
+                                    <div style={{ display: 'block', marginTop: '1rem', padding: '1.2rem 1.4rem', borderRadius: '14px', background: 'var(--color-surface, rgba(255,255,255,0.04))', border: '1px solid var(--color-border)' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem', marginBottom: '1rem' }}>
+                                            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                                <FileZip weight="fill" style={{ color: 'var(--color-primary)', fontSize: '1.1rem' }} />
+                                            </div>
+                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                                <span style={{ fontSize: '0.88rem', fontWeight: 600, display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Yuklanmoqda...</span>
+                                                <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>{uploadProgress < 97 ? 'Yuklanmoqda...' : 'Tekshirilmoqda...'}</span>
+                                            </div>
+                                            <span style={{ fontSize: '1rem', color: 'var(--color-primary)', fontWeight: 700, flexShrink: 0 }}>{Math.floor(uploadProgress)}%</span>
+                                        </div>
+                                        <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '999px', height: '6px', overflow: 'hidden' }}>
+                                            <div style={{ height: '100%', width: `${uploadProgress}%`, background: 'linear-gradient(90deg,#F59E0B,#fbbf24,#d97706)', borderRadius: '999px', transition: 'width 0.25s ease', position: 'relative' }}>
+                                                <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', width: '10px', height: '10px', borderRadius: '50%', background: '#F59E0B', boxShadow: '0 0 6px rgba(245,158,11,0.8)' }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Success Final State */}
+                                {activeLesson.status === 'submitted' && !isUploading && !showReuploader && activeLesson.uploadedFile && (
+                                    <div style={{ display: 'flex', marginTop: '1rem', padding: '1.2rem 1.4rem', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.06))', border: '1px solid rgba(16,185,129,0.3)', alignItems: 'center', gap: '1rem' }}>
+                                        <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
+                                            {activeLesson.uploadedFile.isImage ? (
+                                                <img src={activeLesson.uploadedFile.blobUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="preview" />
+                                            ) : (
+                                                <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#10B981' }}>FILE</span>
+                                            )}
+                                        </div>
+                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                            <p style={{ fontWeight: 700, color: '#10B981', margin: '0 0 0.15rem', fontSize: '0.92rem' }}>Muvaffaqiyatli yuklandi!</p>
+                                            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{activeLesson.uploadedFile.name}</p>
+                                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: '0.1rem 0 0', opacity: 0.7 }}>{activeLesson.uploadedFile.size}</p>
+                                        </div>
+                                        <a
+                                            href={activeLesson.uploadedFile.blobUrl}
+                                            download={activeLesson.uploadedFile.name}
+                                            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.35)', color: '#10B981', borderRadius: '8px', padding: '0.45rem 0.85rem', fontSize: '0.82rem', fontWeight: 600, textDecoration: 'none', flexShrink: 0, cursor: 'pointer' }}
+                                        >
+                                            <DownloadSimple /> Yuklab olish
+                                        </a>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+                </div>
+
+                {/* Playlist aside */}
+                <aside className="course-playlist">
+                    <div className="playlist-header">
+                        <h3>Kurs Mundarijasi</h3>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{courseState.completedLessons}/{courseState.totalLessons} dars tugatildi</p>
+                    </div>
+                    <div className="playlist-content">
+                        {courseState.modules.map((module, mIdx) => (
+                            <div key={mIdx}>
+                                <div className="module-title">{module.title}</div>
+                                {module.lessons.map(lesson => {
+                                    const isActive = lesson.id === activeLesson.id;
+                                    const isCompleted = lesson.completed;
+                                    const IconComp = lesson.type === 'video' ? PlayCircle : FileText;
+
+                                    return (
+                                        <div
+                                            key={lesson.id}
+                                            className={`lesson-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+                                            onClick={() => handleLessonChange(lesson)}
+                                        >
+                                            {isCompleted ? (
+                                                <CheckCircle weight="fill" className="status-icon" />
+                                            ) : (
+                                                <IconComp weight="fill" className="status-icon" />
+                                            )}
+
+                                            <div className="lesson-info">
+                                                <span className="lesson-title">{lesson.title}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
+                </aside>
+            </div>
+        </>
+    );
+};
+
+export default CoursePlayer;

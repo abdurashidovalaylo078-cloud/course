@@ -190,3 +190,5 @@ const chatData = {
         { id: 4, sender: "Alisher Uzoqov", text: "Har bir darsning pastki qismida maxsus oynaga.", time: "10:36", isMe: false }
     ]
 };
+
+export { currentUser, coursesData, certificatesData, chatData };

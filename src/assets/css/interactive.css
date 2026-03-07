@@ -562,9 +562,9 @@ input:checked+.slider {
 /* ---- 31. Sidebar Glassmorphism ---- */
 .sidebar {
     background: linear-gradient(180deg,
-            hsl(220, 20%, 13%) 0%,
-            hsl(220, 20%, 11%) 100%) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+            var(--color-bg-card) 0%,
+            var(--color-bg-dark) 100%) !important;
+    border-right: 1px solid var(--color-border) !important;
 }
 
 /* ---- 32. Active Nav Item Glow ---- */
@@ -579,7 +579,7 @@ input:checked+.slider {
 .card {
     background: linear-gradient(145deg,
             var(--color-bg-card) 0%,
-            hsl(220, 20%, 12%) 100%) !important;
+            var(--color-bg-dark) 100%) !important;
 }
 
 /* ---- 34. Section Card Entrance ---- */
