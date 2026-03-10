@@ -21,10 +21,25 @@ const coursesData = [
                 title: "1-Modul. Kirish va Interfeys",
                 lessons: [
                     { id: 101, title: "3D Max va V-Ray o'rnatish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/9NmZNUSG1_E" },
-                    { id: 102, title: "Interfeys bilan tanishuv", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/TsolN2DWJOA" },
+                    { id: 102, title: "Interfeys bilan tanishuv", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/nkjDoWXD4ZM" },
                     { id: 103, title: "Viewport navigatsiyasi", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/wmF3iDIBVME" },
                     { id: 104, title: "Obyektlarni yaratish va o'zgartirish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/M_bMnvJAqIw" },
-                    { id: 105, title: "Uyga vazifa: Oddiy stol yasash", completed: true, type: "homework", status: "submitted", reviewStatus: "checked", reviewGrade: "A", reviewComment: "Ajoyib ish! Stol nisbatlari to'g'ri, modellash sifatli bajarilgan." }
+                    {
+                        id: 105,
+                        title: "Uyga vazifa: Oddiy stol yasash",
+                        completed: true,
+                        type: "homework",
+                        status: "submitted",
+                        reviewStatus: "checked",
+                        reviewGrade: "A",
+                        reviewComment: "Ajoyib ish! Stol nisbatlari to'g'ri, modellash sifatli bajarilgan.",
+                        criteria: [
+                            "Stol oyoqlari va ustki qismi nisbatlari to'g'ri bo'lishi",
+                            "Editable Poly modifikatoridan to'g'ri foydalanilganligi",
+                            "Modelda ortiqcha polygon va vertexlar yo'qligi",
+                            "Chamfer modifikatori orqali qirralarga ishlov berilganligi"
+                        ]
+                    }
                 ]
             },
             {

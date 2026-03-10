@@ -174,6 +174,19 @@ const CoursePlayer = () => {
                                 : `Ushbu darsda siz ${activeLesson.title.toLowerCase()} haqida batafsil ma'lumot olasiz. Diqqat bilan kuzating va amaliyotda qo'llang.`}
                         </p>
 
+                        {activeLesson.criteria && (
+                            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(245,158,11,0.04)', borderRadius: '12px', border: '1px solid rgba(245,158,11,0.15)' }}>
+                                <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem', fontSize: '0.95rem', color: 'var(--color-primary)' }}>
+                                    <Sparkle weight="fill" /> Baholanish talablari:
+                                </h4>
+                                <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+                                    {activeLesson.criteria.map((item, idx) => (
+                                        <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
                         {/* HOMEWORK LOGIC */}
                         {activeLesson.type === 'homework' && (
                             <>
