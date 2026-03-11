@@ -28,7 +28,11 @@ const Header = () => {
     const toggleTheme = () => {
         const newTheme = !isDark;
         setIsDark(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme ? 'dark' : 'light');
+        if (newTheme) {
+            document.body.classList.remove('light-mode');
+        } else {
+            document.body.classList.add('light-mode');
+        }
     };
 
     return (

@@ -22,8 +22,8 @@ const coursesData = [
                 lessons: [
                     { id: 101, title: "3D Max va V-Ray o'rnatish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/9NmZNUSG1_E" },
                     { id: 102, title: "Interfeys bilan tanishuv", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/nkjDoWXD4ZM" },
-                    { id: 103, title: "Viewport navigatsiyasi", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/wmF3iDIBVME" },
-                    { id: 104, title: "Obyektlarni yaratish va o'zgartirish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/M_bMnvJAqIw" },
+                    { id: 103, title: "Viewport navigatsiyasi", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/pnqOa_MerWM?si=y7AAHWmqRoGJ8EN-" },
+                    { id: 104, title: "Obyektlarni yaratish va o'zgartirish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/9qtlX5_Okds?si=ngaX9xiTR-Xx9Orq" },
                     {
                         id: 105,
                         title: "Uyga vazifa: Oddiy stol yasash",
@@ -45,10 +45,10 @@ const coursesData = [
             {
                 title: "2-Modul. Modellashtirish Asoslari",
                 lessons: [
-                    { id: 201, title: "Editable Poly modifikatori", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/hFqoPbCDMF8" },
-                    { id: 202, title: "Spline modellashtirish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/m-J_OILNBQY" },
+                    { id: 201, title: "Editable Poly modifikatori", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/9H1SCJNeS3Y?si=3RkGgCDzBeAa9iDb" },
+                    { id: 202, title: "Spline modellashtirish", completed: true, type: "video", videoUrl: "https://www.youtube.com/embed/apbzpfyk7SE?si=UTl__tAUWrnawpQA" },
                     { id: 203, title: "Modifierlar steck'i bilan ishlash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/qiLRXERyXA0" },
-                    { id: 204, title: "Boolean operatsiyalar", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/YOiMoECgDTQ" },
+                    { id: 204, title: "Boolean operatsiyalar", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/ID8-eEozNGg?si=juhvQC7HFa6QQ3VK" },
                     { id: 205, title: "Uyga vazifa: Xona devorlarini ko'tarish", completed: false, type: "homework", status: "pending", reviewStatus: "not_checked", reviewGrade: null, reviewComment: null }
                 ]
             },

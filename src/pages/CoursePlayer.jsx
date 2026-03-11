@@ -116,7 +116,7 @@ const CoursePlayer = () => {
 
     return (
         <>
-            <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate('/app')}>
+            <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate(-1)}>
                 <ArrowLeft style={{ marginRight: '0.5rem' }} /> Kurslarga qaytish
             </button>
 
