@@ -1,13 +1,15 @@
 import { PlayCircle } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import { coursesData } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const Courses = () => {
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
     return (
         <div>
-            <h2 className="section-title">Mening Kurslarim</h2>
+            <h2 className="section-title">{t('courses.title')}</h2>
             <div className="grid-3">
                 {coursesData.map(course => (
                     <div
@@ -39,9 +41,9 @@ const Courses = () => {
                         </div>
 
                         <div className="course-info" style={{ padding: '1.2rem' }}>
-                            <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>{course.title}</h3>
+                            <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>{t(`course.${course.id}.title`) || course.title}</h3>
                             <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                                {course.instructor}
+                                {t(`course.${course.id}.instructor`) || course.instructor}
                             </p>
 
                             <div className="progress-container">
@@ -49,8 +51,8 @@ const Courses = () => {
                                     <div style={{ width: `${course.progress}%`, background: 'var(--color-primary)', height: '100%' }}></div>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-                                    <span>{course.progress}% tugatildi</span>
-                                    <span>{course.completedLessons}/{course.totalLessons} dars</span>
+                                    <span>{course.progress}% {t('courses.completed')}</span>
+                                    <span>{course.completedLessons}/{course.totalLessons} {t('courses.lessons')}</span>
                                 </div>
                             </div>
                         </div>

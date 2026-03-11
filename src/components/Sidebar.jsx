@@ -1,8 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { Cube, Video, Certificate, ChatsCircle, Gear } from '@phosphor-icons/react';
 import { currentUser } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const Sidebar = () => {
+    const { t } = useLanguage();
+
     return (
         <aside className="sidebar">
             <div className="logo-area">
@@ -15,19 +18,19 @@ const Sidebar = () => {
             <nav className="nav-menu">
                 <NavLink to="/app" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Video />
-                    <span>Mening Kurslarim</span>
+                    <span>{t('sidebar.myCourses')}</span>
                 </NavLink>
                 <NavLink to="/app/certificates" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Certificate />
-                    <span>Sertifikatlar</span>
+                    <span>{t('sidebar.certificates')}</span>
                 </NavLink>
                 <NavLink to="/app/chat" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <ChatsCircle />
-                    <span>Guruh Chat</span>
+                    <span>{t('sidebar.groupChat')}</span>
                 </NavLink>
                 <NavLink to="/app/settings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Gear />
-                    <span>Sozlamalar</span>
+                    <span>{t('sidebar.settings')}</span>
                 </NavLink>
             </nav>
 

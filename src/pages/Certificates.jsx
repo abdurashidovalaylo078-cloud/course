@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Certificate as CertIcon, UserCircle, Calendar, Eye, DownloadSimple, XCircle, Printer, X, SealCheck } from '@phosphor-icons/react';
 import { currentUser, certificatesData } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const Certificates = () => {
     const [modalCert, setModalCert] = useState(null);
+    const { t } = useLanguage();
 
     const printCert = () => {
         // This simple approach recreates the print structure from legacy app
@@ -77,11 +79,11 @@ const Certificates = () => {
                         </div>
                         <div>
                             <div style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '1px', color: '#fff', lineHeight: 1.1 }}>3D Max <span style={{ color: '#F59E0B' }}>Pro</span></div>
-                            <div style={{ fontSize: '0.55rem', letterSpacing: '3px', color: 'rgba(245,158,11,0.7)', textTransform: 'uppercase' }}>Online Ta'lim Markazi</div>
+                            <div style={{ fontSize: '0.55rem', letterSpacing: '3px', color: 'rgba(245,158,11,0.7)', textTransform: 'uppercase' }}>{t('cert.center')}</div>
                         </div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>Sertifikat ID</div>
+                        <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>{t('cert.id')}</div>
                         <div style={{ fontSize: '0.75rem', color: 'rgba(245,158,11,0.8)', fontWeight: 600 }}>#3DMP-{cert.id.toString().padStart(4, '0')}-2024</div>
                     </div>
                 </div>
@@ -90,9 +92,9 @@ const Certificates = () => {
 
                 {/* Body */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: '0 2%' }}>
-                    <p style={{ fontSize: 'clamp(0.6rem,1.2vw,0.85rem)', letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(245,158,11,0.7)', marginBottom: '1rem' }}>Muvaffaqiyat Sertifikati</p>
+                    <p style={{ fontSize: 'clamp(0.6rem,1.2vw,0.85rem)', letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(245,158,11,0.7)', marginBottom: '1rem' }}>{t('cert.title')}</p>
                     <div style={{ marginBottom: '1rem' }}>
-                        <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem' }}>Ushbu sertifikat</p>
+                        <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem' }}>{t('cert.thisIsTo')}</p>
                         <h2 style={{
                             fontSize: 'clamp(1.6rem,4.5vw,3.2rem)',
                             fontWeight: 800,
@@ -105,12 +107,12 @@ const Certificates = () => {
                             letterSpacing: '-0.5px'
                         }}>{currentUser.name}</h2>
                     </div>
-                    <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.5rem' }}>quyidagi kursni to'liq yakunlagan holda taqdim etiladi</p>
+                    <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.5rem' }}>{t('cert.forCompleting')}</p>
                     <div style={{ display: 'inline-block', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.4)', borderRadius: '8px', padding: '0.6rem 2rem', margin: '0 auto 0.8rem' }}>
-                        <h3 style={{ fontSize: 'clamp(0.85rem,2vw,1.3rem)', color: '#F59E0B', margin: 0, fontWeight: 700, letterSpacing: '0.5px' }}>{cert.title}</h3>
+                        <h3 style={{ fontSize: 'clamp(0.85rem,2vw,1.3rem)', color: '#F59E0B', margin: 0, fontWeight: 700, letterSpacing: '0.5px' }}>{t(`course.${cert.id}.title`) || cert.title}</h3>
                     </div>
                     <p style={{ fontSize: 'clamp(0.55rem,1vw,0.75rem)', color: 'rgba(255,255,255,0.35)', maxWidth: '80%', margin: '0 auto' }}>
-                        Kurs davomida barcha modul va topshiriqlarni muvaffaqiyatli bajarib, kasbiy bilim va ko'nikmalarni o'zlashtirdi.
+                        {t('cert.description')}
                     </p>
                 </div>
 
@@ -122,11 +124,11 @@ const Certificates = () => {
                             <div style={{ width: '64px', height: '64px', border: '2px solid rgba(245,158,11,0.6)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(245,158,11,0.1)', boxShadow: '0 0 20px rgba(245,158,11,0.25),inset 0 0 15px rgba(245,158,11,0.05)', margin: '0 auto' }}>
                                 <SealCheck weight="fill" style={{ fontSize: '2rem', color: '#F59E0B' }} />
                             </div>
-                            <div style={{ fontSize: '0.5rem', letterSpacing: '2px', color: 'rgba(245,158,11,0.5)', textTransform: 'uppercase', marginTop: '0.3rem' }}>Tasdiqlangan</div>
+                            <div style={{ fontSize: '0.5rem', letterSpacing: '2px', color: 'rgba(245,158,11,0.5)', textTransform: 'uppercase', marginTop: '0.3rem' }}>{t('cert.verified')}</div>
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <div style={{ fontSize: 'clamp(0.7rem,1.2vw,0.85rem)', fontWeight: 600, color: 'rgba(255,255,255,0.9)', marginBottom: '0.2rem' }}>{cert.issueDate}</div>
-                            <div style={{ fontSize: 'clamp(0.55rem,0.9vw,0.65rem)', color: 'rgba(255,255,255,0.4)', letterSpacing: '1px', textTransform: 'uppercase' }}>Berilgan Sana</div>
+                            <div style={{ fontSize: 'clamp(0.55rem,0.9vw,0.65rem)', color: 'rgba(255,255,255,0.4)', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('cert.issueDate')}</div>
                             <div style={{ width: '80px', height: '1px', background: 'rgba(245,158,11,0.4)', marginTop: '0.3rem' }}></div>
                         </div>
                     </div>
@@ -137,14 +139,14 @@ const Certificates = () => {
 
     return (
         <div>
-            <h2 className="section-title">Mening Sertifikatlarim</h2>
+            <h2 className="section-title">{t('certificates.title')}</h2>
             <div className="grid-3">
                 {certificatesData.map(cert => (
                     <div key={cert.id} className="card cert-card" style={{ overflow: 'hidden', padding: 0 }}>
                         <div style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)', padding: '2rem', textAlign: 'center', position: 'relative' }}>
                             <CertIcon weight="fill" style={{ fontSize: '3.5rem', color: '#F59E0B', marginBottom: '0.8rem', display: 'inline-block' }} />
                             <h3 style={{ color: 'white', marginBottom: '0.3rem' }}>{cert.title}</h3>
-                            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>Kurs sertifikati</p>
+                            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{t('certificates.courseCert')}</p>
                         </div>
 
                         <div style={{ padding: '1.5rem' }}>
@@ -154,12 +156,12 @@ const Certificates = () => {
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
                                 <Calendar color="var(--color-primary)" />
-                                <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Berilgan sana: {cert.issueDate}</span>
+                                <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{t('certificates.issueDate')} {cert.issueDate}</span>
                             </div>
 
                             <div style={{ display: 'flex', gap: '0.8rem' }}>
                                 <button className="btn-primary" style={{ flex: 1, justifyContent: 'center' }} onClick={() => setModalCert(cert)}>
-                                    <Eye /> Ko'rish
+                                    <Eye /> {t('certificates.view')}
                                 </button>
                                 <button
                                     className="btn-primary"
@@ -185,10 +187,10 @@ const Certificates = () => {
 
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', justifyContent: 'center' }}>
                             <button className="btn-primary" onClick={printCert}>
-                                <Printer /> PDF sifatida saqlash
+                                <Printer /> {t('certificates.saveAsPdf')}
                             </button>
                             <button className="btn-primary" style={{ background: 'transparent', border: '1px solid white', color: 'white' }} onClick={() => setModalCert(null)}>
-                                <X /> Yopish
+                                <X /> {t('certificates.close')}
                             </button>
                         </div>
                     </div>

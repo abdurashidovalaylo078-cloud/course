@@ -5,9 +5,11 @@ import {
     Paperclip, Smiley
 } from '@phosphor-icons/react';
 import { chatData, currentUser } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 import './Chat.css';
 
 const Chat = () => {
+    const { t } = useLanguage();
     const [activeChat, setActiveChat] = useState(chatData.groups[0].id);
     const [messageText, setMessageText] = useState('');
     const [messages, setMessages] = useState([...chatData.messages]);
@@ -48,7 +50,7 @@ const Chat = () => {
             {/* Sidebar */}
             <div className="chat-sidebar">
                 <div className="chat-sidebar-header">
-                    <h3 style={{ margin: 0, fontSize: '1.2rem' }}>Xabarlar</h3>
+                    <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{t('chat.messages')}</h3>
                     <button className="icon-btn" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
                         <Plus />
                     </button>
@@ -56,7 +58,7 @@ const Chat = () => {
 
                 <div className="chat-search">
                     <MagnifyingGlass />
-                    <input type="text" placeholder="Guruh yoki ism..." />
+                    <input type="text" placeholder={t('chat.searchPlaceholder')} />
                 </div>
 
                 <div className="chat-list">
@@ -77,7 +79,7 @@ const Chat = () => {
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '140px' }}>
-                                        Yozishmoqda...
+                                        {t('chat.typing')}
                                     </p>
                                     {group.unread > 0 && (
                                         <span className="unread-badge">{group.unread}</span>
@@ -102,7 +104,7 @@ const Chat = () => {
                                         {currentGroup.name}
                                     </h3>
                                     <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-primary)' }}>
-                                        {currentGroup.type === 'group' ? '24 a\'zo, 5 onlayn' : 'Onlayn'}
+                                        {currentGroup.type === 'group' ? t('chat.groupStatus') : t('chat.online')}
                                     </p>
                                 </div>
                             </div>
@@ -117,7 +119,7 @@ const Chat = () => {
 
                         <div className="chat-body" ref={chatBodyRef}>
                             <div className="chat-date-divider">
-                                <span>Bugun</span>
+                                <span>{t('chat.today')}</span>
                             </div>
 
                             {messages.map((msg) => (
@@ -149,7 +151,7 @@ const Chat = () => {
                             <form className="chat-input-wrapper" onSubmit={handleSendMessage}>
                                 <input
                                     type="text"
-                                    placeholder="Xabar yozing..."
+                                    placeholder={t('chat.inputPlaceholder')}
                                     value={messageText}
                                     onChange={e => setMessageText(e.target.value)}
                                 />
@@ -169,7 +171,7 @@ const Chat = () => {
                     </>
                 ) : (
                     <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
-                        <h2>Guruhni tanlang</h2>
+                        <h2>{t('chat.selectGroup')}</h2>
                     </div>
                 )}
             </div>

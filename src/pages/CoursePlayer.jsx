@@ -7,10 +7,12 @@ import {
     UploadSimple, FileZip, Sparkle, DownloadSimple
 } from '@phosphor-icons/react';
 import { coursesData } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 const CoursePlayer = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { t } = useLanguage();
     const course = coursesData.find(c => c.id === parseInt(id));
 
     // Find first lesson for initial state
@@ -117,7 +119,7 @@ const CoursePlayer = () => {
     return (
         <>
             <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate(-1)}>
-                <ArrowLeft style={{ marginRight: '0.5rem' }} /> Kurslarga qaytish
+                <ArrowLeft style={{ marginRight: '0.5rem' }} /> {t('coursePlayer.backToCourses')}
             </button>
 
             <div className="player-container">
@@ -134,13 +136,13 @@ const CoursePlayer = () => {
                         ) : activeLesson.type === 'homework' ? (
                             <div className="video-placeholder-content" style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.03) 100%)', border: '2px dashed rgba(245,158,11,0.3)' }}>
                                 <FileArrowUp weight="fill" style={{ fontSize: '4rem', color: 'var(--color-primary)', marginBottom: '1rem' }} />
-                                <p style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.4rem' }}>Uyga Vazifa</p>
-                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Ishingizni pastdagi yuklash oynasiga yuboring</p>
+                                <p style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.4rem' }}>{t('coursePlayer.homework')}</p>
+                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{t('coursePlayer.homeworkDesc')}</p>
                             </div>
                         ) : (
                             <div className="video-placeholder-content">
                                 <PlayCircle weight="fill" />
-                                <p>Video yuklanmoqda: {activeLesson.title}</p>
+                                <p>{t('coursePlayer.loadingVideo')} {activeLesson.title}</p>
                             </div>
                         )}
                     </div>
@@ -148,12 +150,12 @@ const CoursePlayer = () => {
                     <div className="lesson-details card">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                             <div>
-                                <h2>{activeLesson.title}</h2>
+                                <h2>{t(`lesson.${activeLesson.id}.title`) !== `lesson.${activeLesson.id}.title` ? t(`lesson.${activeLesson.id}.title`) : activeLesson.title}</h2>
                                 <div className="lesson-meta" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Folder /> {courseState.title}</span>
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Folder /> {t(`course.${courseState.id}.title`) !== `course.${courseState.id}.title` ? t(`course.${courseState.id}.title`) : courseState.title}</span>
                                     {activeLesson.type === 'homework' && (
                                         <span style={{ marginLeft: '0.5rem', background: 'rgba(245,158,11,0.15)', color: 'var(--color-primary)', padding: '0.15rem 0.7rem', borderRadius: '999px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                                            <PencilLine /> Uyga Vazifa
+                                            <PencilLine /> {t('coursePlayer.homework')}
                                         </span>
                                     )}
                                 </div>
@@ -164,7 +166,7 @@ const CoursePlayer = () => {
                                 disabled={activeLesson.completed}
                                 style={activeLesson.completed ? { opacity: 0.7, cursor: 'default' } : {}}
                             >
-                                {activeLesson.completed ? <><Check weight="bold" style={{ marginRight: '0.3rem' }} /> Tugatilgan</> : 'Tugatdim'}
+                                {activeLesson.completed ? <><Check weight="bold" style={{ marginRight: '0.3rem' }} /> {t('coursePlayer.completed')}</> : t('coursePlayer.markCompleted')}
                             </button>
                         </div>
 
@@ -316,13 +318,13 @@ const CoursePlayer = () => {
                 {/* Playlist aside */}
                 <aside className="course-playlist">
                     <div className="playlist-header">
-                        <h3>Kurs Mundarijasi</h3>
-                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{courseState.completedLessons}/{courseState.totalLessons} dars tugatildi</p>
+                        <h3>{t('coursePlayer.syllabus')}</h3>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{courseState.completedLessons}/{courseState.totalLessons} {t('coursePlayer.lessonsCompleted')}</p>
                     </div>
                     <div className="playlist-content">
                         {courseState.modules.map((module, mIdx) => (
                             <div key={mIdx}>
-                                <div className="module-title">{module.title}</div>
+                                <div className="module-title">{t(`course.${courseState.id}.module.${mIdx}.title`) !== `course.${courseState.id}.module.${mIdx}.title` ? t(`course.${courseState.id}.module.${mIdx}.title`) : module.title}</div>
                                 {module.lessons.map(lesson => {
                                     const isActive = lesson.id === activeLesson.id;
                                     const isCompleted = lesson.completed;
@@ -341,7 +343,7 @@ const CoursePlayer = () => {
                                             )}
 
                                             <div className="lesson-info">
-                                                <span className="lesson-title">{lesson.title}</span>
+                                                <span className="lesson-title">{t(`lesson.${lesson.id}.title`) !== `lesson.${lesson.id}.title` ? t(`lesson.${lesson.id}.title`) : lesson.title}</span>
                                             </div>
                                         </div>
                                     );
