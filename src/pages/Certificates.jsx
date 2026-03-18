@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Certificate as CertIcon, UserCircle, Calendar, Eye, DownloadSimple, XCircle, Printer, X, SealCheck } from '@phosphor-icons/react';
-import { currentUser, certificatesData } from '../data';
+import { Certificate as CertIcon, UserCircle, Calendar, Eye, DownloadSimple, XCircle, Printer, X, SealCheck, LockSimple } from '@phosphor-icons/react';
+import { currentUser, certificatesData, coursesData } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
 const Certificates = () => {
@@ -46,134 +46,246 @@ const Certificates = () => {
         printWindow.document.close();
     };
 
-    const renderCertContent = (cert) => (
-        <div id="cert-document" style={{
-            background: 'linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 40%, #0f1923 100%)',
-            width: '100%',
-            aspectRatio: '1.414/1',
-            boxSizing: 'border-box',
-            position: 'relative',
-            fontFamily: "'Inter', sans-serif",
-            color: '#fff',
-            borderRadius: '12px',
-            overflow: 'hidden'
-        }}>
-            {/* Background shapes */}
-            <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '300px', height: '300px', border: '2px solid rgba(245,158,11,0.15)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', border: '2px solid rgba(245,158,11,0.1)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-            <div style={{ position: 'absolute', bottom: '-100px', left: '-60px', width: '280px', height: '280px', border: '1px solid rgba(245,158,11,0.08)', borderRadius: '50%', pointerEvents: 'none' }}></div>
-            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '6px', background: 'linear-gradient(to bottom,#F59E0B,#d97706,#92400e)' }}></div>
-            <div style={{ position: 'absolute', top: 0, right: 0, width: '250px', height: '200px', background: 'radial-gradient(ellipse at top right,rgba(245,158,11,0.18) 0%,transparent 70%)', pointerEvents: 'none' }}></div>
-            <div style={{ position: 'absolute', inset: '10px', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '8px', pointerEvents: 'none' }}></div>
+    const renderCertContent = (cert) => {
+        const isInteriorViz = cert.courseId === 2;
+        const isExteriorLand = cert.courseId === 3;
+        
+        let mainColor = '#F59E0B'; // Gold for basics
+        let secondaryColor = '#d97706';
+        let bgGradient = 'linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 40%, #0f1923 100%)';
 
-            <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', padding: '3% 4% 3% 5%' }}>
-                {/* Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <div style={{ width: '44px', height: '44px', background: 'linear-gradient(135deg,#F59E0B,#d97706)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(245,158,11,0.4)', flexShrink: 0 }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#1a1a1a" />
-                                <path d="M2 17l10 5 10-5" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" />
-                                <path d="M2 12l10 5 10-5" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                        </div>
-                        <div>
-                            <div style={{ fontSize: '1rem', fontWeight: 800, letterSpacing: '1px', color: '#fff', lineHeight: 1.1 }}>3D Max <span style={{ color: '#F59E0B' }}>Pro</span></div>
-                            <div style={{ fontSize: '0.55rem', letterSpacing: '3px', color: 'rgba(245,158,11,0.7)', textTransform: 'uppercase' }}>{t('cert.center')}</div>
-                        </div>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>{t('cert.id')}</div>
-                        <div style={{ fontSize: '0.75rem', color: 'rgba(245,158,11,0.8)', fontWeight: 600 }}>#3DMP-{cert.id.toString().padStart(4, '0')}-2024</div>
-                    </div>
-                </div>
+        if (isInteriorViz) {
+            mainColor = '#10B981'; // Green for Interior
+            secondaryColor = '#059669';
+            bgGradient = 'linear-gradient(135deg, #06110e 0%, #0d2a23 40%, #031511 100%)';
+        } else if (isExteriorLand) {
+            mainColor = '#3B82F6'; // Blue for Exterior/Landscape
+            secondaryColor = '#1D4ED8';
+            bgGradient = 'linear-gradient(135deg, #0a111a 0%, #112240 40%, #0a192f 100%)';
+        }
 
-                <div style={{ height: '1px', background: 'linear-gradient(to right,#F59E0B,rgba(245,158,11,0.3),transparent)', marginBottom: '4%' }}></div>
+        return (
+            <div id="cert-document" style={{
+                background: bgGradient,
+                width: '100%',
+                aspectRatio: '1.414/1',
+                boxSizing: 'border-box',
+                position: 'relative',
+                fontFamily: "'Inter', sans-serif",
+                color: '#fff',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+            }}>
+                {/* Background Pattern */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: 0.05,
+                    backgroundImage: `radial-gradient(${mainColor} 1px, transparent 1px)`,
+                    backgroundSize: '20px 20px',
+                    pointerEvents: 'none'
+                }}></div>
 
-                {/* Body */}
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: '0 2%' }}>
-                    <p style={{ fontSize: 'clamp(0.6rem,1.2vw,0.85rem)', letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(245,158,11,0.7)', marginBottom: '1rem' }}>{t('cert.title')}</p>
-                    <div style={{ marginBottom: '1rem' }}>
-                        <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem' }}>{t('cert.thisIsTo')}</p>
-                        <h2 style={{
-                            fontSize: 'clamp(1.6rem,4.5vw,3.2rem)',
-                            fontWeight: 800,
-                            margin: 0,
-                            background: 'linear-gradient(135deg,#ffffff 0%,#F59E0B 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
-                            lineHeight: 1.1,
-                            letterSpacing: '-0.5px'
-                        }}>{currentUser.name}</h2>
-                    </div>
-                    <p style={{ fontSize: 'clamp(0.65rem,1.1vw,0.8rem)', color: 'rgba(255,255,255,0.5)', marginBottom: '0.5rem' }}>{t('cert.forCompleting')}</p>
-                    <div style={{ display: 'inline-block', background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.4)', borderRadius: '8px', padding: '0.6rem 2rem', margin: '0 auto 0.8rem' }}>
-                        <h3 style={{ fontSize: 'clamp(0.85rem,2vw,1.3rem)', color: '#F59E0B', margin: 0, fontWeight: 700, letterSpacing: '0.5px' }}>{t(`course.${cert.id}.title`) || cert.title}</h3>
-                    </div>
-                    <p style={{ fontSize: 'clamp(0.55rem,1vw,0.75rem)', color: 'rgba(255,255,255,0.35)', maxWidth: '80%', margin: '0 auto' }}>
-                        {t('cert.description')}
-                    </p>
-                </div>
+                {/* Decorations */}
+                <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '300px', height: '300px', border: `2px solid ${mainColor}26`, borderRadius: '50%', pointerEvents: 'none' }}></div>
+                <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', border: `2px solid ${mainColor}1A`, borderRadius: '50%', pointerEvents: 'none' }}></div>
+                <div style={{ position: 'absolute', bottom: '-100px', left: '-60px', width: '280px', height: '280px', border: `1px solid ${mainColor}14`, borderRadius: '50%', pointerEvents: 'none' }}></div>
+                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '8px', background: `linear-gradient(to bottom, ${mainColor}, ${secondaryColor}, #111)` }}></div>
+                <div style={{ position: 'absolute', top: 0, right: 0, width: '300px', height: '250px', background: `radial-gradient(ellipse at top right, ${mainColor}2E 0%, transparent 70%)`, pointerEvents: 'none' }}></div>
+                <div style={{ position: 'absolute', inset: '15px', border: `1px solid ${mainColor}4D`, borderRadius: '10px', pointerEvents: 'none' }}></div>
 
-                {/* Footer */}
-                <div>
-                    <div style={{ height: '1px', background: 'linear-gradient(to right,transparent,rgba(245,158,11,0.3),transparent)', marginBottom: '2%' }}></div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ width: '64px', height: '64px', border: '2px solid rgba(245,158,11,0.6)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(245,158,11,0.1)', boxShadow: '0 0 20px rgba(245,158,11,0.25),inset 0 0 15px rgba(245,158,11,0.05)', margin: '0 auto' }}>
-                                <SealCheck weight="fill" style={{ fontSize: '2rem', color: '#F59E0B' }} />
+                <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column', padding: '3% 5% 4% 6%' }}>
+                    {/* Header */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3%' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                            <div style={{
+                                width: '50px',
+                                height: '50px',
+                                background: `linear-gradient(135deg, ${mainColor}, ${secondaryColor})`,
+                                borderRadius: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: `0 8px 25px ${mainColor}4D`,
+                                flexShrink: 0
+                            }}>
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#000" fillOpacity="0.8" />
+                                    <path d="M2 17l10 5 10-5" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.8" />
+                                    <path d="M2 12l10 5 10-5" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.8" />
+                                </svg>
                             </div>
-                            <div style={{ fontSize: '0.5rem', letterSpacing: '2px', color: 'rgba(245,158,11,0.5)', textTransform: 'uppercase', marginTop: '0.3rem' }}>{t('cert.verified')}</div>
+                            <div>
+                                <div style={{ fontSize: '1.1rem', fontWeight: 800, letterSpacing: '1px', color: '#fff', lineHeight: 1.1 }}>3D Max <span style={{ color: mainColor }}>Pro</span></div>
+                                <div style={{ fontSize: '0.6rem', letterSpacing: '3px', color: `${mainColor}CC`, textTransform: 'uppercase' }}>{t('cert.center')}</div>
+                            </div>
                         </div>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: 'clamp(0.7rem,1.2vw,0.85rem)', fontWeight: 600, color: 'rgba(255,255,255,0.9)', marginBottom: '0.2rem' }}>{cert.issueDate}</div>
-                            <div style={{ fontSize: 'clamp(0.55rem,0.9vw,0.65rem)', color: 'rgba(255,255,255,0.4)', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('cert.issueDate')}</div>
-                            <div style={{ width: '80px', height: '1px', background: 'rgba(245,158,11,0.4)', marginTop: '0.3rem' }}></div>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '0.6rem', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginBottom: '2px' }}>{t('cert.id')}</div>
+                            <div style={{ fontSize: '0.8rem', color: `${mainColor}CC`, fontWeight: 700, fontFamily: 'monospace' }}>MP-{cert.id.toString().padStart(4, '0')}-2026</div>
+                        </div>
+                    </div>
+
+                    <div style={{ height: '2px', background: `linear-gradient(to right, ${mainColor}, ${mainColor}4D, transparent)`, marginBottom: '5%' }}></div>
+
+                    {/* Body */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: 'center', padding: '0 5%' }}>
+                        <p style={{
+                            fontSize: '0.85rem',
+                            letterSpacing: '5px',
+                            textTransform: 'uppercase',
+                            color: `${mainColor}B3`,
+                            marginBottom: '1.2rem',
+                            fontWeight: 600
+                        }}>{t('cert.title')}</p>
+
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.6rem' }}>{t('cert.thisIsTo')}</p>
+                            <h2 style={{
+                                fontSize: 'clamp(2rem, 5vw, 3.8rem)',
+                                fontWeight: 900,
+                                margin: 0,
+                                background: `linear-gradient(135deg, #ffffff 30%, ${mainColor} 100%)`,
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text',
+                                lineHeight: 1,
+                                letterSpacing: '-1px'
+                            }}>{currentUser.name}</h2>
+                        </div>
+
+                        <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.7rem' }}>{t('cert.forCompleting')}</p>
+
+                        <div style={{
+                            display: 'inline-block',
+                            background: `${mainColor}14`,
+                            border: `1.5px solid ${mainColor}4D`,
+                            borderRadius: '10px',
+                            padding: '0.8rem 2.5rem',
+                            margin: '0 auto 1.2rem',
+                            boxShadow: `0 10px 30px rgba(0,0,0,0.2)`
+                        }}>
+                            <h3 style={{ fontSize: 'clamp(1rem, 2.2vw, 1.5rem)', color: mainColor, margin: 0, fontWeight: 800, letterSpacing: '0.5px' }}>
+                                {t(`course.${cert.courseId}.title`) || cert.title}
+                            </h3>
+                        </div>
+
+                        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', maxWidth: '85%', margin: '0 auto', lineHeight: 1.6 }}>
+                            {t('cert.description')}
+                        </p>
+                    </div>
+
+                    {/* Footer */}
+                    <div style={{ marginTop: 'auto' }}>
+                        <div style={{ height: '1px', background: `linear-gradient(to right, transparent, ${mainColor}4D, transparent)`, marginBottom: '3%' }}></div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <div style={{
+                                    width: '72px',
+                                    height: '72px',
+                                    border: `2px solid ${mainColor}99`,
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    background: `${mainColor}1A`,
+                                    boxShadow: `0 0 30px ${mainColor}40, inset 0 0 20px ${mainColor}1A`,
+                                    margin: '0 auto',
+                                    position: 'relative'
+                                }}>
+                                    <SealCheck weight="fill" style={{ fontSize: '2.5rem', color: mainColor }} />
+                                    {isInteriorViz && (
+                                        <div style={{ position: 'absolute', bottom: '-5px', background: mainColor, color: '#000', fontSize: '0.45rem', fontWeight: 900, padding: '2px 5px', borderRadius: '4px', textTransform: 'uppercase' }}>Expert</div>
+                                    )}
+                                    {isExteriorLand && (
+                                        <div style={{ position: 'absolute', bottom: '-5px', background: mainColor, color: '#fff', fontSize: '0.45rem', fontWeight: 900, padding: '2px 5px', borderRadius: '4px', textTransform: 'uppercase' }}>Pro</div>
+                                    )}
+                                </div>
+                                <div style={{ fontSize: '0.55rem', letterSpacing: '2px', color: `${mainColor}80`, textTransform: 'uppercase', marginTop: '0.6rem', fontWeight: 700 }}>{t('cert.verified')}</div>
+                            </div>
+
+                            <div style={{ textAlign: 'center', minWidth: '120px' }}>
+                                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'rgba(255,255,255,0.95)', marginBottom: '0.2rem' }}>{cert.issueDate}</div>
+                                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '1px', textTransform: 'uppercase' }}>{t('cert.issueDate')}</div>
+                                <div style={{ width: '100%', height: '2px', background: `linear-gradient(90deg, transparent, ${mainColor}80, transparent)`, marginTop: '0.5rem' }}></div>
+                            </div>
+
+                            <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                    <div style={{ width: '30px', height: '1px', background: 'rgba(255,255,255,0.2)' }}></div>
+                                    <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '1px' }}>Signature</span>
+                                </div>
+                                <div style={{ fontFamily: "'Dancing Script', cursive", fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', paddingRight: '10px' }}>Alisher Uzoqov</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    };
 
     return (
         <div>
             <h2 className="section-title">{t('certificates.title')}</h2>
             <div className="grid-3">
-                {certificatesData.map(cert => (
-                    <div key={cert.id} className="card cert-card" style={{ overflow: 'hidden', padding: 0 }}>
-                        <div style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)', padding: '2rem', textAlign: 'center', position: 'relative' }}>
-                            <CertIcon weight="fill" style={{ fontSize: '3.5rem', color: '#F59E0B', marginBottom: '0.8rem', display: 'inline-block' }} />
-                            <h3 style={{ color: 'white', marginBottom: '0.3rem' }}>{cert.title}</h3>
-                            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{t('certificates.courseCert')}</p>
-                        </div>
+                {certificatesData.map(cert => {
+                    const course = coursesData.find(c => c.id === cert.courseId);
+                    const isCompleted = course && course.progress >= 100;
 
-                        <div style={{ padding: '1.5rem' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-                                <UserCircle color="var(--color-primary)" />
-                                <span style={{ fontSize: '0.9rem' }}>{currentUser.name}</span>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
-                                <Calendar color="var(--color-primary)" />
-                                <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{t('certificates.issueDate')} {cert.issueDate}</span>
+                    return (
+                        <div key={cert.id} className={`card cert-card ${!isCompleted ? 'locked' : ''}`} style={{ overflow: 'hidden', padding: 0, opacity: isCompleted ? 1 : 0.8 }}>
+                            <div style={{
+                                background: isCompleted
+                                    ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
+                                    : 'linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #0a0a0a 100%)',
+                                padding: '2rem',
+                                textAlign: 'center',
+                                position: 'relative'
+                            }}>
+                                {isCompleted ? (
+                                    <CertIcon weight="fill" style={{ fontSize: '3.5rem', color: '#F59E0B', marginBottom: '0.8rem', display: 'inline-block' }} />
+                                ) : (
+                                    <LockSimple weight="fill" style={{ fontSize: '3.5rem', color: 'rgba(255,255,255,0.2)', marginBottom: '0.8rem', display: 'inline-block' }} />
+                                )}
+                                <h3 style={{ color: isCompleted ? 'white' : 'rgba(255,255,255,0.5)', marginBottom: '0.3rem' }}>{t(`course.${cert.courseId}.title`) || cert.title}</h3>
+                                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>{t('certificates.courseCert')}</p>
                             </div>
 
-                            <div style={{ display: 'flex', gap: '0.8rem' }}>
-                                <button className="btn-primary" style={{ flex: 1, justifyContent: 'center' }} onClick={() => setModalCert(cert)}>
-                                    <Eye /> {t('certificates.view')}
-                                </button>
-                                <button
-                                    className="btn-primary"
-                                    style={{ flex: 1, justifyContent: 'center', background: 'transparent', border: '1px solid var(--color-primary)', color: 'var(--color-primary)' }}
-                                    onClick={() => { setModalCert(cert); setTimeout(printCert, 100); }}
-                                >
-                                    <DownloadSimple /> PDF
-                                </button>
+                            <div style={{ padding: '1.5rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem', color: isCompleted ? 'inherit' : 'var(--color-text-muted)' }}>
+                                    <UserCircle color={isCompleted ? "var(--color-primary)" : "rgba(255,255,255,0.2)"} />
+                                    <span style={{ fontSize: '0.9rem' }}>{currentUser.name}</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: isCompleted ? 'inherit' : 'var(--color-text-muted)' }}>
+                                    <Calendar color={isCompleted ? "var(--color-primary)" : "rgba(255,255,255,0.2)"} />
+                                    <span style={{ fontSize: '0.9rem', color: isCompleted ? 'var(--color-text-muted)' : 'rgba(255,255,255,0.2)' }}>{t('certificates.issueDate')} {isCompleted ? cert.issueDate : '---'}</span>
+                                </div>
+
+                                <div style={{ display: 'flex', gap: '0.8rem' }}>
+                                    {isCompleted ? (
+                                        <>
+                                            <button className="btn-primary" style={{ flex: 1, justifyContent: 'center' }} onClick={() => setModalCert(cert)}>
+                                                <Eye /> {t('certificates.view')}
+                                            </button>
+                                            <button
+                                                className="btn-primary"
+                                                style={{ flex: 1, justifyContent: 'center', background: 'transparent', border: '1px solid var(--color-primary)', color: 'var(--color-primary)' }}
+                                                onClick={() => { setModalCert(cert); setTimeout(printCert, 100); }}
+                                            >
+                                                <DownloadSimple /> PDF
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button className="btn-primary" style={{ flex: 1, justifyContent: 'center', background: '#333', border: '1px solid #444', color: '#666', cursor: 'not-allowed' }} disabled>
+                                            <LockSimple style={{ marginRight: '0.4rem' }} /> {course?.progress}% {t('courses.completed')}
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {modalCert && (

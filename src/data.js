@@ -738,7 +738,7 @@ const coursesData = [
         title: "Eksteryer va Landshaft Dizayni",
         instructor: "Davronbek",
         progress: 0,
-        totalLessons: 33,
+        totalLessons: 28,
         completedLessons: 0,
         thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
         description: "Katta binolar va bog'larni loyihalash.",
@@ -1011,8 +1011,23 @@ const coursesData = [
 const certificatesData = [
     {
         id: 1,
+        courseId: 1,
         title: "3D Max Basic Course",
         issueDate: "2023-12-10",
+        url: "#"
+    },
+    {
+        id: 2,
+        courseId: 2,
+        title: "Photorealistic Interior Visualization Masterclass",
+        issueDate: "2024-03-22",
+        url: "#"
+    },
+    {
+        id: 3,
+        courseId: 3,
+        title: "Exterior & Landscape Design Professional",
+        issueDate: "2024-03-25",
         url: "#"
     }
 ];

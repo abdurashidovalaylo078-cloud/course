@@ -1,32 +1,57 @@
-import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import {
-    ArrowLeft, PlayCircle, FileText, CheckCircle,
-    Folder, PencilLine, Check, FileArrowUp, SealCheck,
-    Quotes, Clock, PaperPlaneTilt, ArrowClockwise,
-    UploadSimple, FileZip, Sparkle, DownloadSimple
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { 
+    Play, 
+    CheckCircle, 
+    Lock, 
+    ChevronLeft, 
+    Monitor, 
+    FileText, 
+    ChatCircleDots,
+    CaretRight,
+    SealCheck,
+    Sparkle,
+    Trophy,
+    X,
+    Folder,
+    PencilLine,
+    ArrowLeft,
+    Check,
+    Quotes,
+    Clock,
+    PaperPlaneTilt,
+    ArrowClockwise,
+    UploadSimple,
+    FileZip,
+    DownloadSimple,
+    PlayCircle,
+    FileArrowUp
 } from '@phosphor-icons/react';
 import { coursesData } from '../data';
 import { useLanguage } from '../context/LanguageContext';
+import '../styles/CoursePlayer.css';
 
 const CoursePlayer = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { t } = useLanguage();
-    const course = coursesData.find(c => c.id === parseInt(id));
+    
+    // Original course finding logic
+    const initialCourse = coursesData.find(c => c.id === parseInt(id));
+    const firstLesson = initialCourse?.modules.find(m => m.lessons.length > 0)?.lessons[0];
 
-    // Find first lesson for initial state
-    const firstLesson = course?.modules.find(m => m.lessons.length > 0)?.lessons[0];
-
+    // State management
+    const [courseState, setCourseState] = useState(initialCourse);
     const [activeLesson, setActiveLesson] = useState(firstLesson);
-    const [courseState, setCourseState] = useState(course);
-
+    const [showCongrats, setShowCongrats] = useState(false);
+    const [isFloating, setIsFloating] = useState(false);
+    
     // Homework local states
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isUploading, setIsUploading] = useState(false);
     const [showReuploader, setShowReuploader] = useState(false);
 
-    if (!course) {
+    if (!courseState) {
         return <h2>Kurs topilmadi</h2>;
     }
     if (!activeLesson) {
@@ -43,21 +68,26 @@ const CoursePlayer = () => {
     const markAsComplete = () => {
         if (activeLesson.completed) return;
 
-        // In a real app this would trigger an API call.
-        // For this migration, we mutably update state just like the legacy version.
         const newCourse = { ...courseState };
         const moduleIndex = newCourse.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
         const lessonIndex = newCourse.modules[moduleIndex].lessons.findIndex(l => l.id === activeLesson.id);
 
         newCourse.modules[moduleIndex].lessons[lessonIndex].completed = true;
         newCourse.completedLessons = Math.min(newCourse.completedLessons + 1, newCourse.totalLessons);
+        
+        const oldProgress = newCourse.progress;
         newCourse.progress = Math.round((newCourse.completedLessons / newCourse.totalLessons) * 100);
 
         setCourseState(newCourse);
         setActiveLesson({ ...activeLesson, completed: true });
 
-        // Simple toast simulation
-        alert('Dars muvaffaqiyatli tugatildi! 🎉');
+        // AUTOMATIC TRIGGER: If progress reaches 100%, show congrats
+        if (newCourse.progress === 100 && oldProgress < 100) {
+            setShowCongrats(true);
+        } else {
+            // Simple toast simulation for non-final lessons
+            // alert('Dars muvaffaqiyatli tugatildi! 🎉');
+        }
     };
 
     const handleFileUpload = (e) => {
@@ -116,14 +146,173 @@ const CoursePlayer = () => {
         }, 80);
     };
 
+    const CongratsModal = () => (
+        <div style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(10px)',
+            animation: 'fadeIn 0.3s ease-out'
+        }}>
+            <div className="CongratsModal-content" style={{
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+                width: '90%',
+                maxWidth: '500px',
+                borderRadius: '24px',
+                padding: '3rem 2rem',
+                position: 'relative',
+                textAlign: 'center',
+                border: '1px solid rgba(245,158,11,0.3)',
+                boxShadow: '0 25px 50px -12px rgba(245,158,11,0.25)',
+                overflow: 'hidden'
+            }}>
+                {/* Background Glow */}
+                <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '200px', height: '200px', background: 'rgba(245,158,11,0.15)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
+                
+                {/* Close Button */}
+                <button 
+                    onClick={() => setShowCongrats(false)}
+                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'rgba(255,255,255,0.05)', border: 'none', color: '#fff', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                >
+                    <X size={20} />
+                </button>
+
+                <div style={{ position: 'relative' }}>
+                    <div style={{ 
+                        width: '100px', 
+                        height: '100px', 
+                        background: 'linear-gradient(135deg, #F59E0B, #d97706)', 
+                        borderRadius: '30px', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        margin: '0 auto 1.5rem',
+                        boxShadow: '0 15px 35px rgba(245,158,11,0.4)',
+                        transform: 'rotate(-5deg)'
+                    }}>
+                        <Trophy size={50} weight="fill" color="#fff" />
+                    </div>
+
+                    <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.8rem', background: 'linear-gradient(to bottom, #fff, #F59E0B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        Super! Tabriklaymiz!
+                    </h2>
+                    
+                    <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem', fontWeight: 600 }}>
+                        {currentUser.name}, siz kursni muvaffaqiyatli yakunladingiz!
+                    </p>
+
+                    <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
+                        Siz o'z mahoratingizni isbotladingiz. Endi o'z yutuqlaringizni tasdiqlovchi sertifikatni yuklab olishingiz mumkin.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <button
+                            onClick={() => {
+                                setShowCongrats(false);
+                                navigate('/app/certificates');
+                            }}
+                            style={{ 
+                                background: 'linear-gradient(135deg, #F59E0B, #d97706)', 
+                                color: '#000', 
+                                border: 'none', 
+                                padding: '1.2rem', 
+                                borderRadius: '14px', 
+                                fontWeight: 800, 
+                                fontSize: '1.1rem', 
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '0.8rem',
+                                boxShadow: '0 10px 20px rgba(245,158,11,0.2)'
+                            }}
+                        >
+                            <SealCheck weight="fill" size={24} /> Sertifikatni yuklab olish
+                        </button>
+                        
+                        <button
+                            onClick={() => setShowCongrats(false)}
+                            style={{ 
+                                background: 'transparent', 
+                                color: 'rgba(255,255,255,0.5)', 
+                                border: '1px solid rgba(255,255,255,0.1)', 
+                                padding: '1rem', 
+                                borderRadius: '14px', 
+                                fontWeight: 600, 
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Keyinroq
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const currentUser = { name: "Abdurashidova Laylo" }; // Mock user for now
+
     return (
-        <>
+        <div className="course-player-wrapper">
+            <style>
+                {`
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    @keyframes slideUp {
+                        from { transform: translateY(30px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    @keyframes slideDown {
+                        from { transform: translateY(-30px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    .CongratsModal-content {
+                        animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+                `}
+            </style>
+            {showCongrats && <CongratsModal />}
             <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate(-1)}>
                 <ArrowLeft style={{ marginRight: '0.5rem' }} /> {t('coursePlayer.backToCourses')}
             </button>
 
             <div className="player-container">
                 <div className="video-section">
+                    {courseState.progress === 100 && (
+                        <div style={{
+                            background: 'linear-gradient(90deg, #059669, #10B981)',
+                            color: 'white',
+                            padding: '1rem 1.5rem',
+                            borderRadius: '12px',
+                            marginBottom: '1.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            boxShadow: '0 10px 25px rgba(16,185,129,0.3)',
+                            animation: 'slideDown 0.5s ease-out'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                                <Sparkle weight="fill" style={{ fontSize: '1.8rem' }} />
+                                <div>
+                                    <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>Tabriklaymiz! Kursni muvaffaqiyatli yakunladingiz!</h3>
+                                    <p style={{ margin: 0, fontSize: '0.9rem', opacity: 0.9 }}>Sertifikatingiz tayyor va yuklab olish uchun ochiq.</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => navigate('/app/certificates')}
+                                style={{ background: 'white', color: '#059669', border: 'none', padding: '0.5rem 1.2rem', borderRadius: '8px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                            >
+                                <SealCheck weight="fill" /> Sertifikatni ko'rish
+                            </button>
+                        </div>
+                    )}
+
                     <div className="video-wrapper">
                         {activeLesson.type === 'video' && activeLesson.videoUrl ? (
                             <iframe
@@ -160,14 +349,25 @@ const CoursePlayer = () => {
                                     )}
                                 </div>
                             </div>
-                            <button
-                                className="btn-primary"
-                                onClick={markAsComplete}
-                                disabled={activeLesson.completed}
-                                style={activeLesson.completed ? { opacity: 0.7, cursor: 'default' } : {}}
-                            >
-                                {activeLesson.completed ? <><Check weight="bold" style={{ marginRight: '0.3rem' }} /> {t('coursePlayer.completed')}</> : t('coursePlayer.markCompleted')}
-                            </button>
+                            <div style={{ display: 'flex', gap: '0.8rem' }}>
+                                {courseState.progress >= 100 && (
+                                    <button
+                                        className="btn-primary"
+                                        style={{ background: 'linear-gradient(135deg, #10B981, #059669)', border: 'none' }}
+                                        onClick={() => navigate('/app/certificates')}
+                                    >
+                                        <SealCheck weight="fill" style={{ marginRight: '0.3rem' }} /> {t('certificates.view')}
+                                    </button>
+                                )}
+                                <button
+                                    className="btn-primary"
+                                    onClick={markAsComplete}
+                                    disabled={activeLesson.completed}
+                                    style={activeLesson.completed ? { opacity: 0.7, cursor: 'default' } : {}}
+                                >
+                                    {activeLesson.completed ? <><Check weight="bold" style={{ marginRight: '0.3rem' }} /> {t('coursePlayer.completed')}</> : t('coursePlayer.markCompleted')}
+                                </button>
+                            </div>
                         </div>
 
                         <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.5rem', marginTop: '1rem' }}>
@@ -353,7 +553,7 @@ const CoursePlayer = () => {
                     </div>
                 </aside>
             </div>
-        </>
+        </div>
     );
 };
 
