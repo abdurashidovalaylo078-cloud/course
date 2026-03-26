@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import {
-    Play,
-    CheckCircle,
-    Lock,
-    Monitor,
-    FileText,
+import { 
+    Play, 
+    CheckCircle, 
+    Lock, 
+    ChevronLeft, 
+    Monitor, 
+    FileText, 
     ChatCircleDots,
     CaretRight,
     SealCheck,
@@ -29,116 +30,6 @@ import {
 import { coursesData } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 import '../styles/CoursePlayer.css';
-
-const currentUser = { name: "Abdurashidova Laylo" }; // Mock user for now
-
-const CongratsModal = ({ setShowCongrats, navigate, showCongrats }) => (
-    <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'rgba(0,0,0,0.85)',
-        backdropFilter: 'blur(10px)',
-        animation: 'fadeIn 0.3s ease-out'
-    }}>
-        <div className="CongratsModal-content" style={{
-            background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
-            width: '90%',
-            maxWidth: '500px',
-            borderRadius: '24px',
-            padding: '3rem 2rem',
-            position: 'relative',
-            textAlign: 'center',
-            border: '1px solid rgba(245,158,11,0.3)',
-            boxShadow: '0 25px 50px -12px rgba(245,158,11,0.25)',
-            overflow: 'hidden'
-        }}>
-            {/* Background Glow */}
-            <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '200px', height: '200px', background: 'rgba(245,158,11,0.15)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
-
-            {/* Close Button */}
-            <button
-                onClick={() => setShowCongrats(false)}
-                style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'rgba(255,255,255,0.05)', border: 'none', color: '#fff', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-            >
-                <X size={20} />
-            </button>
-
-            <div style={{ position: 'relative' }}>
-                <div style={{
-                    width: '100px',
-                    height: '100px',
-                    background: 'linear-gradient(135deg, #F59E0B, #d97706)',
-                    borderRadius: '30px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 1.5rem',
-                    boxShadow: '0 15px 35px rgba(245,158,11,0.4)',
-                    transform: 'rotate(-5deg)'
-                }}>
-                    <Trophy size={50} weight="fill" color="#fff" />
-                </div>
-
-                <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.8rem', background: 'linear-gradient(to bottom, #fff, #F59E0B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    Super! Tabriklaymiz!
-                </h2>
-
-                <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem', fontWeight: 600 }}>
-                    {currentUser.name}, siz kursni muvaffaqiyatli yakunladingiz!
-                </p>
-
-                <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
-                    Siz o'z mahoratingizni isbotladingiz. Endi o'z yutuqlaringizni tasdiqlovchi sertifikatni yuklab olishingiz mumkin.
-                </p>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <button
-                        onClick={() => {
-                            setShowCongrats(false);
-                            navigate('/app/certificates');
-                        }}
-                        style={{
-                            background: 'linear-gradient(135deg, #F59E0B, #d97706)',
-                            color: '#000',
-                            border: 'none',
-                            padding: '1.2rem',
-                            borderRadius: '14px',
-                            fontWeight: 800,
-                            fontSize: '1.1rem',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.8rem',
-                            boxShadow: '0 10px 20px rgba(245,158,11,0.2)'
-                        }}
-                    >
-                        <SealCheck weight="fill" size={24} /> Sertifikatni yuklab olish
-                    </button>
-
-                    <button
-                        onClick={() => setShowCongrats(false)}
-                        style={{
-                            background: 'transparent',
-                            color: 'rgba(255,255,255,0.5)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            padding: '1rem',
-                            borderRadius: '14px',
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Keyinroq
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-);
 
 const CoursePlayer = () => {
     const { id } = useParams();
@@ -255,6 +146,116 @@ const CoursePlayer = () => {
         }, 80);
     };
 
+    const CongratsModal = () => (
+        <div style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(10px)',
+            animation: 'fadeIn 0.3s ease-out'
+        }}>
+            <div className="CongratsModal-content" style={{
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
+                width: '90%',
+                maxWidth: '500px',
+                borderRadius: '24px',
+                padding: '3rem 2rem',
+                position: 'relative',
+                textAlign: 'center',
+                border: '1px solid rgba(245,158,11,0.3)',
+                boxShadow: '0 25px 50px -12px rgba(245,158,11,0.25)',
+                overflow: 'hidden'
+            }}>
+                {/* Background Glow */}
+                <div style={{ position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '200px', height: '200px', background: 'rgba(245,158,11,0.15)', filter: 'blur(60px)', borderRadius: '50%' }}></div>
+                
+                {/* Close Button */}
+                <button 
+                    onClick={() => setShowCongrats(false)}
+                    style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'rgba(255,255,255,0.05)', border: 'none', color: '#fff', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                >
+                    <X size={20} />
+                </button>
+
+                <div style={{ position: 'relative' }}>
+                    <div style={{ 
+                        width: '100px', 
+                        height: '100px', 
+                        background: 'linear-gradient(135deg, #F59E0B, #d97706)', 
+                        borderRadius: '30px', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        margin: '0 auto 1.5rem',
+                        boxShadow: '0 15px 35px rgba(245,158,11,0.4)',
+                        transform: 'rotate(-5deg)'
+                    }}>
+                        <Trophy size={50} weight="fill" color="#fff" />
+                    </div>
+
+                    <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.8rem', background: 'linear-gradient(to bottom, #fff, #F59E0B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        Super! Tabriklaymiz!
+                    </h2>
+                    
+                    <p style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem', fontWeight: 600 }}>
+                        {currentUser.name}, siz kursni muvaffaqiyatli yakunladingiz!
+                    </p>
+
+                    <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '2.5rem', lineHeight: 1.6 }}>
+                        Siz o'z mahoratingizni isbotladingiz. Endi o'z yutuqlaringizni tasdiqlovchi sertifikatni yuklab olishingiz mumkin.
+                    </p>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <button
+                            onClick={() => {
+                                setShowCongrats(false);
+                                navigate('/app/certificates');
+                            }}
+                            style={{ 
+                                background: 'linear-gradient(135deg, #F59E0B, #d97706)', 
+                                color: '#000', 
+                                border: 'none', 
+                                padding: '1.2rem', 
+                                borderRadius: '14px', 
+                                fontWeight: 800, 
+                                fontSize: '1.1rem', 
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '0.8rem',
+                                boxShadow: '0 10px 20px rgba(245,158,11,0.2)'
+                            }}
+                        >
+                            <SealCheck weight="fill" size={24} /> Sertifikatni yuklab olish
+                        </button>
+                        
+                        <button
+                            onClick={() => setShowCongrats(false)}
+                            style={{ 
+                                background: 'transparent', 
+                                color: 'rgba(255,255,255,0.5)', 
+                                border: '1px solid rgba(255,255,255,0.1)', 
+                                padding: '1rem', 
+                                borderRadius: '14px', 
+                                fontWeight: 600, 
+                                cursor: 'pointer'
+                            }}
+                        >
+                            Keyinroq
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const currentUser = { name: "Abdurashidova Laylo" }; // Mock user for now
+
     return (
         <div className="course-player-wrapper">
             <style>
@@ -276,7 +277,7 @@ const CoursePlayer = () => {
                     }
                 `}
             </style>
-            {showCongrats && <CongratsModal setShowCongrats={setShowCongrats} navigate={navigate} />}
+            {showCongrats && <CongratsModal />}
             <button className="btn-primary" style={{ marginBottom: '1rem', padding: '0.5rem 1rem', fontSize: '0.9rem' }} onClick={() => navigate(-1)}>
                 <ArrowLeft style={{ marginRight: '0.5rem' }} /> {t('coursePlayer.backToCourses')}
             </button>

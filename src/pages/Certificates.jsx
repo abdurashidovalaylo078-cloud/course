@@ -231,7 +231,7 @@ const Certificates = () => {
             <div className="grid-3">
                 {certificatesData.map(cert => {
                     const course = coursesData.find(c => c.id === cert.courseId);
-                    const isCompleted = course && course.progress >= 100;
+                    const isCompleted = true; // Unlock all certificates
 
                     return (
                         <div key={cert.id} className={`card cert-card ${!isCompleted ? 'locked' : ''}`} style={{ overflow: 'hidden', padding: 0, opacity: isCompleted ? 1 : 0.8 }}>
