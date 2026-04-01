@@ -24,7 +24,9 @@ import {
     FileZip,
     DownloadSimple,
     PlayCircle,
-    FileArrowUp
+    FileArrowUp,
+    BookBookmark,
+    CheckSquare
 } from '@phosphor-icons/react';
 import { coursesData } from '../data';
 import { useLanguage } from '../context/LanguageContext';
@@ -159,6 +161,7 @@ const CoursePlayer = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isUploading, setIsUploading] = useState(false);
     const [showReuploader, setShowReuploader] = useState(false);
+    const [activeTab, setActiveTab] = useState('about');
 
     if (!courseState) {
         return <h2>Kurs topilmadi</h2>;
@@ -172,6 +175,29 @@ const CoursePlayer = () => {
         setUploadProgress(0);
         setIsUploading(false);
         setShowReuploader(false);
+        setActiveTab('about');
+    };
+
+    const goToNextLesson = () => {
+        const currentModuleIndex = courseState.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
+        if (currentModuleIndex === -1) return;
+        const currentLessonIndex = courseState.modules[currentModuleIndex].lessons.findIndex(l => l.id === activeLesson.id);
+        
+        let nextLesson = null;
+        if (currentLessonIndex + 1 < courseState.modules[currentModuleIndex].lessons.length) {
+            nextLesson = courseState.modules[currentModuleIndex].lessons[currentLessonIndex + 1];
+        } else if (currentModuleIndex + 1 < courseState.modules.length) {
+            if (courseState.modules[currentModuleIndex + 1].lessons.length > 0) {
+                nextLesson = courseState.modules[currentModuleIndex + 1].lessons[0];
+            }
+        }
+
+        if (nextLesson) {
+            handleLessonChange(nextLesson);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            alert("Siz oxirgi darsdasiz!");
+        }
     };
 
     const markAsComplete = () => {
@@ -335,6 +361,27 @@ const CoursePlayer = () => {
                         )}
                     </div>
 
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem', marginBottom: '1rem' }}>
+                        <button onClick={goToNextLesson} style={{ color: '#3B82F6', background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '1rem', fontWeight: 600 }}>
+                            Keyingi darsni boshlash <CaretRight weight="bold" />
+                        </button>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--color-surface, #f9fafb)', borderRadius: '12px', padding: '0.5rem', marginBottom: '1.5rem', border: '1px solid var(--color-border, #e5e7eb)', flexWrap: 'wrap' }}>
+                        <button onClick={() => setActiveTab('about')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.8rem', background: activeTab === 'about' ? 'var(--color-bg, white)' : 'transparent', border: activeTab === 'about' ? '1px solid var(--color-border, #e5e7eb)' : 'none', color: activeTab === 'about' ? '#3B82F6' : 'var(--color-text-muted, #4B5563)', fontWeight: activeTab === 'about' ? 700 : 600, cursor: 'pointer', borderRadius: '8px', boxShadow: activeTab === 'about' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none', transition: 'all 0.2s', minWidth: '130px' }}>
+                            <FileText weight={activeTab === 'about' ? 'fill' : 'regular'} size={20} /> Kurs haqida
+                        </button>
+                        <button onClick={() => setActiveTab('qa')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.8rem', background: activeTab === 'qa' ? 'var(--color-bg, white)' : 'transparent', border: activeTab === 'qa' ? '1px solid var(--color-border, #e5e7eb)' : 'none', color: activeTab === 'qa' ? '#3B82F6' : 'var(--color-text-muted, #4B5563)', fontWeight: activeTab === 'qa' ? 700 : 600, cursor: 'pointer', borderRadius: '8px', boxShadow: activeTab === 'qa' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none', transition: 'all 0.2s', minWidth: '130px' }}>
+                            <ChatCircleDots weight={activeTab === 'qa' ? 'fill' : 'regular'} size={20} /> Q&A
+                        </button>
+                        <button onClick={() => setActiveTab('notes')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.8rem', background: activeTab === 'notes' ? 'var(--color-bg, white)' : 'transparent', border: activeTab === 'notes' ? '1px solid var(--color-border, #e5e7eb)' : 'none', color: activeTab === 'notes' ? '#3B82F6' : 'var(--color-text-muted, #4B5563)', fontWeight: activeTab === 'notes' ? 700 : 600, cursor: 'pointer', borderRadius: '8px', boxShadow: activeTab === 'notes' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none', transition: 'all 0.2s', minWidth: '130px' }}>
+                            <BookBookmark weight={activeTab === 'notes' ? 'fill' : 'regular'} size={20} /> Daftarcha
+                        </button>
+                        <button onClick={() => setActiveTab('homework')} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.8rem', background: activeTab === 'homework' ? 'var(--color-bg, white)' : 'transparent', border: activeTab === 'homework' ? '1px solid var(--color-border, #e5e7eb)' : 'none', color: activeTab === 'homework' ? '#3B82F6' : 'var(--color-text-muted, #4B5563)', fontWeight: activeTab === 'homework' ? 700 : 600, cursor: 'pointer', borderRadius: '8px', boxShadow: activeTab === 'homework' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none', transition: 'all 0.2s', minWidth: '130px' }}>
+                            <CheckSquare weight={activeTab === 'homework' ? 'fill' : 'regular'} size={20} /> Uyga vazifa
+                        </button>
+                    </div>
+
                     <div className="lesson-details card">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                             <div>
@@ -369,29 +416,76 @@ const CoursePlayer = () => {
                             </div>
                         </div>
 
-                        <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.5rem', marginTop: '1rem' }}>
-                            {activeLesson.type === 'homework'
-                                ? "Vazifani bajaring va faylingizni quyidagi maydonga yuklang. Qo'llab-quvvatlanadigan formatlar: .rar, .zip, .max, .jpg, .png, .pdf"
-                                : `Ushbu darsda siz ${activeLesson.title.toLowerCase()} haqida batafsil ma'lumot olasiz. Diqqat bilan kuzating va amaliyotda qo'llang.`}
-                        </p>
+                        {activeTab === 'about' && (
+                            <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                                <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.5rem', marginTop: '1rem' }}>
+                                    {activeLesson.type === 'homework'
+                                        ? "Vazifani bajaring va faylingizni uyga vazifa bo'limiga yuklang. Bu darsda siz amaliy vazifani qanday bajarish kerakligini ko'rib chiqasiz."
+                                        : `Ushbu darsda siz ${activeLesson.title.toLowerCase()} haqida batafsil ma'lumot olasiz. Diqqat bilan kuzating va amaliyotda qo'llang.`}
+                                </p>
+        
+                                {activeLesson.criteria && (
+                                    <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(245,158,11,0.04)', borderRadius: '12px', border: '1px solid rgba(245,158,11,0.15)' }}>
+                                        <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem', fontSize: '0.95rem', color: 'var(--color-primary)' }}>
+                                            <Sparkle weight="fill" /> Baholanish talablari:
+                                        </h4>
+                                        <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+                                            {activeLesson.criteria.map((item, idx) => (
+                                                <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
-                        {activeLesson.criteria && (
-                            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(245,158,11,0.04)', borderRadius: '12px', border: '1px solid rgba(245,158,11,0.15)' }}>
-                                <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem', fontSize: '0.95rem', color: 'var(--color-primary)' }}>
-                                    <Sparkle weight="fill" /> Baholanish talablari:
-                                </h4>
-                                <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
-                                    {activeLesson.criteria.map((item, idx) => (
-                                        <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
-                                    ))}
-                                </ul>
+                        {activeTab === 'qa' && (
+                            <div style={{ animation: 'fadeIn 0.3s ease-out', textAlign: 'center', padding: '3rem 1rem', color: 'var(--color-text-muted)' }}>
+                                <ChatCircleDots weight="light" style={{ fontSize: '3.5rem', opacity: 0.5, marginBottom: '1rem' }} />
+                                <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>Hozircha savollar yo'q</p>
+                                <p style={{ margin: '0.3rem 0 1.5rem', fontSize: '0.9rem', opacity: 0.8 }}>Dars bo'yicha savollaringiz bo'lsa bemalol so'rang.</p>
+                                <button style={{ background: 'var(--color-surface, #f9fafb)', border: '1px solid var(--color-border, #e5e7eb)', padding: '0.7rem 1.4rem', borderRadius: '8px', color: 'var(--color-text, #111827)', cursor: 'pointer', fontWeight: 600 }}>Savol berish</button>
+                            </div>
+                        )}
+
+                        {activeTab === 'notes' && (
+                            <div style={{ animation: 'fadeIn 0.3s ease-out', marginTop: '1rem' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    <textarea 
+                                        placeholder="Ushbu dars uchun o'z shaxsiy qaydlaringizni yozing..." 
+                                        style={{ width: '100%', minHeight: '180px', padding: '1rem', borderRadius: '12px', border: '1px solid var(--color-border, #e5e7eb)', background: 'var(--color-surface, #f9fafb)', color: 'var(--color-text, #111827)', resize: 'vertical', fontFamily: 'inherit', outline: 'none' }}
+                                    ></textarea>
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                        <button style={{ background: '#3B82F6', color: 'white', border: 'none', padding: '0.7rem 1.4rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 600 }}>Saqlash</button>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
                         {/* HOMEWORK LOGIC */}
-                        {activeLesson.type === 'homework' && (
-                            <>
-                                <div style={{ marginBottom: '1.2rem' }}>
+                        {activeTab === 'homework' && (
+                            <div style={{ animation: 'fadeIn 0.3s ease-out', marginTop: '1rem' }}>
+                                {activeLesson.type !== 'homework' ? (
+                                    <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--color-text-muted)' }}>
+                                        <CheckSquare weight="light" style={{ fontSize: '3.5rem', opacity: 0.5, marginBottom: '1rem' }} />
+                                        <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 600 }}>Ushbu darsda majburiy uyga vazifa yo'q</p>
+                                        <p style={{ margin: '0.3rem 0 0', fontSize: '0.9rem', opacity: 0.8 }}>Darsni tushungan bo'lsangiz, keyingisiga o'tishingiz mumkin.</p>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {activeLesson.criteria && (
+                                            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(245,158,11,0.04)', borderRadius: '12px', border: '1px solid rgba(245,158,11,0.15)' }}>
+                                                <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem', fontSize: '0.95rem', color: 'var(--color-primary)' }}>
+                                                    <Sparkle weight="fill" /> Baholanish talablari:
+                                                </h4>
+                                                <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+                                                    {activeLesson.criteria.map((item, idx) => (
+                                                        <li key={idx} style={{ marginBottom: '0.4rem' }}>{item}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                        <div style={{ marginBottom: '1.2rem' }}>
                                     {activeLesson.reviewStatus === 'checked' ? (
                                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '1rem 1.2rem', borderRadius: '12px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0, marginTop: '0.1rem' }}>
@@ -509,7 +603,9 @@ const CoursePlayer = () => {
                                         </a>
                                     </div>
                                 )}
-                            </>
+                                    </>
+                                )}
+                            </div>
                         )}
                     </div>
                 </div>
