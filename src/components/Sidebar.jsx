@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { Cube, Video, Certificate, ChatsCircle, Gear, SignOut, WarningCircle } from '@phosphor-icons/react';
+import { Cube, Video, Certificate, ChatsCircle, Gear, SignOut, WarningCircle, FolderOpen } from '@phosphor-icons/react';
 import { currentUser } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -24,6 +24,10 @@ const Sidebar = () => {
                 <NavLink to="/app" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Video />
                     <span>{t('sidebar.myCourses')}</span>
+                </NavLink>
+                <NavLink to="/app/projects" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                    <FolderOpen />
+                    <span>Mening Loyihalarim</span>
                 </NavLink>
                 <NavLink to="/app/certificates" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Certificate />

@@ -6,6 +6,7 @@ import CoursePlayer from './pages/CoursePlayer';
 import Certificates from './pages/Certificates';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings';
+import Projects from './pages/Projects';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/app" element={<Layout />}>
           <Route index element={<Courses />} />
           <Route path="courses/:id" element={<CoursePlayer />} />
+          <Route path="projects" element={<Projects />} />
           <Route path="certificates" element={<Certificates />} />
           <Route path="chat" element={<Chat />} />
           <Route path="settings" element={<Settings />} />
