@@ -246,7 +246,7 @@ const Landing = () => {
                             style={{ cursor: 'pointer', userSelect: 'none', gap: '6px' }}
                         >
                             <Globe weight="fill" />
-                            <span>{t.flag} {t.name}</span>
+                            <span>{t.name}</span>
                             <CaretDown size={14} style={{ transition: 'transform 0.2s', transform: showLangMenu ? 'rotate(180deg)' : 'rotate(0deg)' }} />
                         </div>
 
