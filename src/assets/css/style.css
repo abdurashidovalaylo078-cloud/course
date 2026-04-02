@@ -251,8 +251,8 @@ ul {
 .search-bar input {
     width: 100%;
     padding: 0.6rem 1rem 0.6rem 2.8rem;
-    background-color: var(--color-bg-card);
-    border: 1px solid transparent;
+    background-color: var(--color-bg-hover);
+    border: 1px solid var(--color-border);
     border-radius: 20px;
     color: white;
     transition: var(--anim-fast);

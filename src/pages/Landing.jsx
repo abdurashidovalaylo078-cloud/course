@@ -291,21 +291,36 @@ const Landing = () => {
 
             {/* ── HERO ── */}
             <main className="container hero-section">
-                <h1 className="hero-title">
-                    <span className="highlight">{t.hero.title}</span>
-                </h1>
-                <p className="hero-subtitle">
-                    {t.hero.subtitle.split('\n').map((line, i) => (
-                        <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
-                    ))}
-                </p>
-                <div className="hero-buttons">
-                    <button onClick={() => setShowRegister(true)} className="btn btn-white" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-                        {t.hero.btnRegister} <RocketLaunch size={20} />
-                    </button>
-                    <button onClick={() => setShowAbout(true)} className="btn btn-outline" style={{ cursor: 'pointer', fontFamily: 'inherit' }}>
-                        {t.hero.btnAbout} <Star size={20} color="#FBBF24" weight="fill" />
-                    </button>
+                <div className="hero-content">
+                    <h1 className="hero-title">
+                        <span className="highlight">{t.hero.title}</span>
+                    </h1>
+                    <p className="hero-subtitle">
+                        {t.hero.subtitle.split('\n').map((line, i) => (
+                            <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
+                        ))}
+                    </p>
+                    <div className="hero-buttons">
+                        <button onClick={() => setShowRegister(true)} className="btn btn-white" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+                            {t.hero.btnRegister} <RocketLaunch size={20} />
+                        </button>
+                        <button onClick={() => setShowAbout(true)} className="btn btn-outline" style={{ cursor: 'pointer', fontFamily: 'inherit' }}>
+                            {t.hero.btnAbout} <Star size={20} color="#FBBF24" weight="fill" />
+                        </button>
+                    </div>
+                </div>
+                <div className="hero-image-container">
+                    <div className="hero-3d-model">
+                        {[...Array(20)].map((_, i) => (
+                            <img 
+                                key={i} 
+                                src="/hero-3d.png" 
+                                alt="Creative 3D Assets Layer" 
+                                className="hero-3d-layer" 
+                                style={{ transform: `translateZ(${-i * 1.5}px)` }} 
+                            />
+                        ))}
+                    </div>
                 </div>
             </main>
 
