@@ -310,17 +310,17 @@ const Landing = () => {
                     </div>
                 </div>
                 <div className="hero-image-container">
-                    <div className="hero-3d-model">
-                        {[...Array(20)].map((_, i) => (
-                            <img 
-                                key={i} 
-                                src="/hero-3d.png" 
-                                alt="Creative 3D Assets Layer" 
-                                className="hero-3d-layer" 
-                                style={{ transform: `translateZ(${-i * 1.5}px)` }} 
-                            />
-                        ))}
-                    </div>
+                    <img 
+                        src="/hero-3d.png" 
+                        alt="Creative 3D Assets" 
+                        style={{ 
+                            width: '100%', 
+                            maxWidth: '500px', 
+                            objectFit: 'contain', 
+                            filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.4))',
+                            clipPath: 'inset(5px)'
+                        }} 
+                    />
                 </div>
             </main>
 
