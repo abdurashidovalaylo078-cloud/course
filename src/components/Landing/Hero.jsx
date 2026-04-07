@@ -19,7 +19,6 @@ const Hero = ({ t, setShowRegister, setShowAbout }) => {
             </div>
             <div className="hero-visual">
                 <div className="hero-3d-placeholder">
-                    <div className="mesh-gradient"></div>
                     <img src="/hero-3d.png" alt="3D Visual" />
                 </div>
             </div>

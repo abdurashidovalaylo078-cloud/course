@@ -210,7 +210,7 @@ const Header = () => {
                                 <li><Link to="/app/settings" onClick={() => setIsProfileOpen(false)}><User /> {t('header.edit')}</Link></li>
                                 <li><Link to="/app/settings" onClick={() => setIsProfileOpen(false)}><Gear /> {t('sidebar.settings')}</Link></li>
                                 <li className="divider"></li>
-                                <li><Link to="/" className="danger"><SignOut /> {t('header.logout')}</Link></li>
+                                <li><a href="/" className="danger" onClick={(e) => { e.preventDefault(); localStorage.removeItem('currentUser'); window.location.href = '/'; }}><SignOut /> {t('header.logout')}</a></li>
                             </ul>
                         </div>
                     )}

@@ -1,7 +1,7 @@
 export const translations = {
     uz: {
         flag: '🇺🇿', name: "O'zbek",
-        nav: { certs: "Sertifikatlar", chat: "Guruh Chat", settings: "Sozlamalar", profile: "Profil" },
+        nav: { certs: "Sertifikatlar", chat: "Guruh Chat", settings: "Sozlamalar", profile: "Profil", logout: "Chiqish", login: "Kirish" },
         hero: {
             badge: "🚀 O'z kelajagingizni bugundan quring",
             title: "Ijodkorlik olamiga birinchi qadamingizni qo'ying!",
@@ -40,7 +40,7 @@ export const translations = {
         features: {
             title: "Nega aynan 3D Max Pro?",
             subtitle: "Biz sizga eng tajribali ustozlar va zamonaviy o'quv dasturini taqdim etamiz.",
-            f1title: "Sifatli darslar", f1desc: "Barcha darslar professional darajada tayyorlangan, amaliyotga asoslangan va tushunarli.",
+            f1title: "Sifatli darslar", f1desc: "Ballar darslar professional darajada tayyorlangan, amaliyotga asoslangan va tushunarli.",
             f2title: "Kuchli hamjamiyat", f2desc: "Boshqa o'quvchilar va ustozlar bilan doimiy aloqada bo'ling, savollaringizga javob oling.",
             f3title: "Maxsus sertifikat", f3desc: "Kursni tugatganingizdan so'ng, bilimlaringizni tasdiqlovchi rasmiy sertifikatga ega bo'ling.",
             f4title: "Karyera uchun qadam", f4desc: "O'rganilgan bilimlar orqali real loyihalarda qatnashib, daromad topishni boshlang.",
@@ -102,10 +102,21 @@ export const translations = {
                  { n: "7-modul", t: "Eksteryer va landshaft", d: "14 dars" },
              ],
         },
+        login: {
+            title: "Tizimga kirish",
+            subtitle: "Profilingizga kiring va o'qishni davom ettiring",
+            email: "Email manzilingiz",
+            password: "Parolingiz",
+            submit: "Kirish",
+            noAccount: "Hisobingiz yo'qmi?",
+            registerNow: "Ro'yxatdan o'ting",
+            success: "Xush kelibsiz!",
+            error: "Email yoki parol noto'g'ri",
+        },
     },
     ru: {
         flag: '🇷🇺', name: "Русский",
-        nav: { certs: "Сертификаты", chat: "Групп чат", settings: "Настройки", profile: "Профиль" },
+        nav: { certs: "Сертификаты", chat: "Групп чат", settings: "Настройки", profile: "Профиль", logout: "Выход", login: "Вход" },
         hero: {
             badge: "🚀 Постройте свое будущее сегодня",
             title: "Сделайте первый шаг в мир творчества!",
@@ -205,11 +216,22 @@ export const translations = {
                  { n: "6", t: "Corona", d: "18 уроков" },
                  { n: "7", t: "Экстерьер", d: "14 уроков" },
              ],
-        }
+        },
+        login: {
+            title: "Вход в систему",
+            subtitle: "Войдите в свой профиль и продолжите обучение",
+            email: "Ваш Email",
+            password: "Ваш пароль",
+            submit: "Войти",
+            noAccount: "Нет аккаунта?",
+            registerNow: "Зарегистрируйтесь",
+            success: "Добро пожаловать!",
+            error: "Неверный Email или пароль",
+        },
     },
     en: {
         flag: '🇬🇧', name: "English",
-        nav: { certs: "Certificates", chat: "Group Chat", settings: "Settings", profile: "Profile" },
+        nav: { certs: "Certificates", chat: "Group Chat", settings: "Settings", profile: "Profile", logout: "Logout", login: "Login" },
         hero: {
             badge: "🚀 Build your future today",
             title: "Take your first step into the world of creativity!",
@@ -309,6 +331,17 @@ export const translations = {
                  { n: "6", t: "Corona", d: "18 lessons" },
                  { n: "7", t: "Exterior", d: "14 lessons" },
              ],
-        }
+        },
+        login: {
+            title: "Login",
+            subtitle: "Access your profile and continue learning",
+            email: "Your Email",
+            password: "Your Password",
+            submit: "Login",
+            noAccount: "Don't have an account?",
+            registerNow: "Register now",
+            success: "Welcome back!",
+            error: "Invalid Email or password",
+        },
     },
 };

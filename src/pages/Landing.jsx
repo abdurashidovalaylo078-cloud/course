@@ -16,6 +16,7 @@ import Modals from '../components/Landing/Modals';
 
 const Landing = () => {
     const [showRegister, setShowRegister] = useState(false);
+    const [showLogin,    setShowLogin]    = useState(false);
     const [showAbout,    setShowAbout]    = useState(false);
     const [lang,         setLang]         = useState('uz');
     const [showLangMenu, setShowLangMenu] = useState(false);
@@ -31,6 +32,7 @@ const Landing = () => {
                 setLang={setLang} 
                 showLangMenu={showLangMenu} 
                 setShowLangMenu={setShowLangMenu} 
+                setShowLogin={setShowLogin}
             />
 
             <Hero 
@@ -56,9 +58,12 @@ const Landing = () => {
             <Modals 
                 showRegister={showRegister} 
                 setShowRegister={setShowRegister} 
+                showLogin={showLogin}
+                setShowLogin={setShowLogin}
                 showAbout={showAbout} 
                 setShowAbout={setShowAbout} 
                 tr={t.register} 
+                tl={t.login}
                 ta={t.about} 
             />
 

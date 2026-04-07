@@ -67,7 +67,7 @@ const Sidebar = () => {
                                 <button onClick={() => setShowLogoutConfirm(false)} style={{ padding: '0.4rem 1rem', borderRadius: '6px', border: '1px solid #D1D5DB', background: '#fff', color: '#1F2937', fontSize: '1rem', fontWeight: 500, cursor: 'pointer', outline: 'none' }}>
                                     Yo'q
                                 </button>
-                                <button onClick={() => navigate('/')} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px', border: 'none', background: '#F05234', color: '#fff', fontSize: '1.05rem', fontWeight: 500, cursor: 'pointer', outline: 'none' }}>
+                                <button onClick={() => { localStorage.removeItem('currentUser'); window.location.href = '/'; }} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px', border: 'none', background: '#F05234', color: '#fff', fontSize: '1.05rem', fontWeight: 500, cursor: 'pointer', outline: 'none' }}>
                                     Ha
                                 </button>
                             </div>
