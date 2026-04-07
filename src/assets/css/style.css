@@ -1,20 +1,18 @@
-/* Design System & Variables */
 :root {
-    /* UI/UX Pro Max Premium Palette (Amber & Slate) */
-    --color-primary: #f59e0b;
-    /* Amber 500 */
-    --color-primary-hover: #fbbf24;
-    /* Amber 400 */
-    --color-primary-light: #fef3c7;
-    /* Amber 100 */
+    /* UI/UX Pro Max Premium Palette (Neon Purple & Cyan) */
+    --color-primary: #8b5cf6;
+    /* Purple 500 */
+    --color-primary-hover: #b400ff;
+    /* Magenta Glow */
+    --color-primary-light: rgba(139, 92, 246, 0.2);
 
-    /* Dark Mode (Default) - Deep rich slate */
-    --color-bg-dark: #020617;
-    /* Slate 950 */
-    --color-bg-card: #0f172a;
-    /* Slate 900 */
-    --color-bg-hover: #1e293b;
-    /* Slate 800 */
+    /* Dark Mode (Default) - Deep space dark */
+    --color-bg-dark: #070a1a;
+    /* Midnight */
+    --color-bg-card: #0f1430;
+    /* Deep space card */
+    --color-bg-hover: #192047;
+    /* Hover deep */
 
     /* High contrast text */
     --color-text-main: #f8fafc;
@@ -130,14 +128,14 @@ ul {
 .logo-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, var(--color-primary), #ff6b6b);
+    background: linear-gradient(to top right, #7c3aed, #ec4899);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 1.5rem;
-    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
 }
 
 .logo-area h1 {
@@ -169,7 +167,7 @@ ul {
 }
 
 .nav-item.active {
-    background-color: rgba(245, 158, 11, 0.15);
+    background-color: var(--color-primary-light);
     color: var(--color-primary);
 }
 
@@ -541,7 +539,7 @@ ul {
 }
 
 .lesson-item.active {
-    background-color: rgba(245, 158, 11, 0.15);
+    background-color: var(--color-primary-light);
     border-left: 3px solid var(--color-primary);
 }
 
@@ -650,7 +648,7 @@ ul {
 }
 
 .notification-item.unread {
-    background-color: rgba(245, 158, 11, 0.05);
+    background-color: var(--color-primary-light);
 }
 
 .notif-icon {
@@ -811,7 +809,7 @@ ul {
 }
 
 .chat-list-item.active {
-    background-color: rgba(245, 158, 11, 0.1);
+    background-color: rgba(139, 92, 246, 0.1);
     border-left-color: var(--color-primary);
 }
 
@@ -1004,7 +1002,7 @@ ul {
 }
 
 .message-own .message-bubble {
-    background: linear-gradient(135deg, var(--color-primary), #FBBF24);
+    background: linear-gradient(135deg, var(--color-primary), #c084fc);
     color: black;
     border-bottom-right-radius: 2px;
 }
@@ -1131,7 +1129,7 @@ ul {
 }
 
 .settings-nav-item.active {
-    background-color: rgba(245, 158, 11, 0.15);
+    background-color: rgba(139, 92, 246, 0.15);
     color: var(--color-primary);
 }
 
