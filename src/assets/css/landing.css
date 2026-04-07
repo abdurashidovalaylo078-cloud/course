@@ -723,106 +723,361 @@ body {
 }
 
 /* Modals */
+/* Modals - Premium Redesign */
 .modal-overlay {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
+    background: rgba(2, 6, 23, 0.85); /* Slate 950 with alpha */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    animation: fadeIn 0.3s ease-out;
+    padding: 1.5rem;
+    animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-content-premium {
-    background: var(--color-bg-card);
+    background: #0f172a; /* Slate 900 */
     width: 100%;
-    max-width: 700px;
-    border-radius: 32px;
+    max-width: 650px;
+    border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     position: relative;
-    max-height: 90vh;
+    max-height: 92vh;
     display: flex;
     flex-direction: column;
+    animation: modalSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.5), transparent);
+    z-index: 10;
 }
 
 .modal-header-premium {
-    padding: 2rem;
-    border-bottom: 1px solid var(--glass-border);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .header-title {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
+}
+
+.icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.bg-amber-gradient {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.title-text h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin: 0;
+}
+
+.title-text .subtitle {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 2px 0 0;
 }
 
 .close-btn {
-    background: none;
-    border: none;
-    color: var(--color-text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2);
+    transform: rotate(90deg);
 }
 
 .modal-body-premium {
-    padding: 2.5rem;
+    padding: 2rem;
     overflow-y: auto;
     flex: 1;
 }
 
-.alert-warning {
-    background: rgba(245, 158, 11, 0.1);
-    padding: 1rem;
-    border-radius: 12px;
+/* Custom Alert */
+.alert-warning-premium {
+    background: rgba(245, 158, 11, 0.08);
     border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 16px;
+    padding: 1.25rem;
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
+.alert-icon {
+    color: #f59e0b;
+    font-size: 1.5rem;
+    margin-top: 2px;
+}
+
+.alert-text strong {
+    display: block;
+    color: #f59e0b;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.alert-text p {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Form Styling */
 .register-form-premium {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.form-row {
+.form-group-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 }
 
-.register-form-premium input,
-.select-box select {
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-field label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-left: 4px;
+}
+
+.input-field input,
+.select-box-premium select {
     width: 100%;
-    padding: 1.25rem;
+    padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: #fff;
     font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s;
 }
 
-.btn-submit {
-    background: var(--color-primary);
+.input-field input:focus,
+.select-box-premium select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+}
+
+/* Fix double icon bug */
+.select-box-premium {
+    position: relative;
+}
+
+.select-box-premium select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 3rem;
+    cursor: pointer;
+}
+
+.select-icon {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.select-box-premium select:focus + .select-icon {
+    color: #f59e0b;
+}
+
+/* Modal Footer */
+.modal-footer-premium {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-cancel-premium {
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-cancel-premium:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.btn-submit-premium {
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.25);
+}
+
+.btn-submit-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4);
+}
+
+.btn-submit-premium:active {
+    transform: translateY(0);
+}
+
+/* Scrollbar styling */
+.modal-body-premium::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body-premium::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-body-premium::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* About Modal adjustments */
+.about-modal {
+    max-width: 800px;
+}
+
+.modal-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.m-stat {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.m-val {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #f59e0b;
+    margin-bottom: 4px;
+}
+
+.m-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.m-section h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 1rem;
+}
+
+.m-section p {
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.btn-modal-cta {
+    width: 100%;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
     padding: 1.25rem;
-    border: none;
     border-radius: 16px;
+    font-size: 1.1rem;
     font-weight: 800;
+    border: none;
     cursor: pointer;
-    transition: var(--transition);
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+    transition: all 0.3s;
 }
 
-.btn-submit:hover {
-    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+.btn-modal-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.4);
 }
+
 
 /* Animation Keyframes */
 @keyframes fadeIn {
