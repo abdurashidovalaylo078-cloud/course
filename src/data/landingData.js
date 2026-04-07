@@ -1,0 +1,314 @@
+export const translations = {
+    uz: {
+        flag: '🇺🇿', name: "O'zbek",
+        nav: { certs: "Sertifikatlar", chat: "Guruh Chat", settings: "Sozlamalar", profile: "Profil" },
+        hero: {
+            badge: "🚀 O'z kelajagingizni bugundan quring",
+            title: "Ijodkorlik olamiga birinchi qadamingizni qo'ying!",
+            subtitle: "3D modellashtirish, animatsiya, o'yin dizayni, VFX va boshqa ijodiy yo'nalishlarni eng zamonaviy uslubda o'rganing.",
+            btnRegister: "Ro'yxatdan o'tish",
+            btnAbout: "Kurs Haqida",
+        },
+        stats: [
+            { id: 1, val: "1200+", label: "O'quvchilar" },
+            { id: 2, val: "120+", label: "Darslar" },
+            { id: 3, val: "4.9⭐", label: "Reyting" },
+            { id: 4, val: "400+", label: "Portfoliolar" },
+        ],
+        process: {
+            title: "Qanday qilib professional bo'lish mumkin?",
+            subtitle: "Sizning muvaffaqiyatga olib boradigan yo'lingiz",
+            steps: [
+                { id: 1, title: "Ro'yxatdan o'ting", desc: "O'zingizga ma'qul bo'lgan yo'nalishni tanlang va kursga yoziling." },
+                { id: 2, title: "Video darslarni ko'ring", desc: "Har bir dars amaliyotga asoslangan va tushunarli tilda tushuntirilgan." },
+                { id: 3, title: "Vazifalarni bajaring", desc: "O'rgangan bilimlaringizni real loyihalarda sinab ko'ring." },
+                { id: 4, title: "Sertifikat oling", desc: "Kursni muvaffaqiyatli tugatib, xalqaro darajadagi sertifikatga ega bo'ling." },
+            ]
+        },
+        courses: {
+            title: "Bizning Kurslar",
+            subtitle: "Eng ko'p talab qilinadigan yo'nalishlar bo'yicha professional ta'lim",
+            lessons: "ta dars", modules: "ta modul", start: "Boshlash",
+            badge1: "Yangi", badge2: "Top", badge3: "Pro",
+            c1title: "3D Max Asoslari: Noldan Pro",
+            c1desc: "Dasturni noldan o'rnatishdan boshlab murakkab interyerlarni vizualizatsiya qilishgacha bo'lgan barcha bilimlarni qamrab oladi.",
+            c2title: "Interyer Vizualizatsiyasi (Corona)",
+            c2desc: "Fotorealistik interyer vizualizatsiyasi sirlari va Corona Render'da yorug'lik hamda materiallar bilan ishlash chuqur o'rgatiladi.",
+            c3title: "Eksteryer va Landshaft Dizayni",
+            c3desc: "Katta bino va inshootlar, shuningdek mintaqa va xususiy bog'larni (landshaft) loyihalash bo'yicha maxsus darslar to'plami.",
+        },
+        features: {
+            title: "Nega aynan 3D Max Pro?",
+            subtitle: "Biz sizga eng tajribali ustozlar va zamonaviy o'quv dasturini taqdim etamiz.",
+            f1title: "Sifatli darslar", f1desc: "Barcha darslar professional darajada tayyorlangan, amaliyotga asoslangan va tushunarli.",
+            f2title: "Kuchli hamjamiyat", f2desc: "Boshqa o'quvchilar va ustozlar bilan doimiy aloqada bo'ling, savollaringizga javob oling.",
+            f3title: "Maxsus sertifikat", f3desc: "Kursni tugatganingizdan so'ng, bilimlaringizni tasdiqlovchi rasmiy sertifikatga ega bo'ling.",
+            f4title: "Karyera uchun qadam", f4desc: "O'rganilgan bilimlar orqali real loyihalarda qatnashib, daromad topishni boshlang.",
+        },
+        testimonials: {
+            title: "O'quvchilarimiz fikri",
+            items: [
+                { id: 1, name: "Sanjar Jumaev", role: "3D Vizualizator", text: "Kurs juda zo'r! Noldan boshlab hozirda o'z loyihalarimni boshlayapman.", avatar: "SJ" },
+                { id: 2, name: "Dilbar Azimova", role: "Interyer Dizayner", text: "Corona Render bo'yicha darslar menga haqiqiy fotorealizmni o'rgatdi.", avatar: "DA" },
+            ]
+        },
+        faq: {
+            title: "Ko'p beriladigan savollar",
+            items: [
+                { q: "Kursga yozilish uchun qanday kompyuter kerak?", a: "Eng kamida 16GB RAM va i5 yoki undan yuqori protsessor tavsiya etiladi." },
+                { q: "Kursni tugatib ish topish mumkinmi?", a: "Ha, bizning ko'p o'quvchilarimiz kurs davomidayoq buyurtmalar olishni boshlashadi." },
+                { q: "Darslar qancha vaqt davom etadi?", a: "Darslarni o'z sur'atingizda ko'rib chiqishingiz mumkin, odatda 3-6 oy vaqt ketadi." },
+            ]
+        },
+        footer: {
+            about: "3D Max Pro - Markaziy Osiyodagi eng yirik 3D ta'lim markazlaridan biri. Biz sizning kreativ salohiyatingizni dunyo darajasiga olib chiqamiz.",
+            links: "Foydali havolalar",
+            contact: "Bog'lanish",
+            rights: "Barcha huquqlar himoyalangan."
+        },
+        register: {
+            title: "Ro'yxatdan o'tish",
+            warning: "Diqqat! Shaxsiy ma'lumotlaringizni pasportingizdagi kabi to'liq va aniq kiriting.",
+            firstName: "Ism*", lastName: "Familiya*", middleName: "Sharifi*",
+            selectDir: "Yo'nalishni tanlang*", selectRegion: "Yashash hududingizni tanlang",
+            phone: "+998", email: "Pochta manzilingizni kiriting*",
+            cancel: "Bekor qilish", submit: "Jo'natish",
+            dir1: "3D Max Asoslari", dir2: "Interyer Vizualizatsiyasi", dir3: "Eksteryer va Landshaft Dizayni",
+        },
+        about: {
+             title: "Kurs haqida ma'lumot",
+             statStudents: "O'quvchi", statLessons: "Dars", statRating: "Reyting", statTeachers: "Ustoz",
+             whoTitle: "🎯 Bu kurs kimlar uchun?",
+             whoText: "Ushbu kurs 3D dizayn va vizualizatsiya olamiga yangi kirib kelayotganlar, shuningdek o'z mahoratini oshirmoqchi bo'lgan arxitektor, qurilish muhandisi va interyer dizaynerlar uchun mo'ljallangan.",
+             modulesTitle: "📚 Kurs modullari",
+             skillsTitle: "✅ Nimalarni o'rganasiz?",
+             detailsTitle: "📋 Kurs tafsilotlari",
+             ctaBtn: "🚀 Hoziroq Ro'yxatdan O'tish",
+             detailRows: [
+                 { label: "Darslar soni", val: "120+ ta video dars" },
+                 { label: "Umumiy davomiyligi", val: "3–6 oy (o'z sur'atingizda)" },
+                 { label: "Daraja", val: "Boshlang'ich → Professional" },
+                 { label: "Til", val: "O'zbek tili" },
+                 { label: "Sertifikat", val: "Kurs yakunida taqdim etiladi ✅" },
+             ],
+             skills: ["3D Max interfeysi","Modellashtirish","Vizualizatsiya","Materiallar","Yorug'lik","Corona Render","Landshaft","Photoshop","Portfolio","Freelance sirlari"],
+             modules: [
+                 { n: "1-modul", t: "3D Max bilan tanishish", d: "10 dars" },
+                 { n: "2-modul", t: "Geometrik modellashtirish", d: "18 dars" },
+                 { n: "3-modul", t: "Interyer loyihalash", d: "25 dars" },
+                 { n: "4-modul", t: "Materiallar va teksturalar", d: "20 dars" },
+                 { n: "5-modul", t: "Yorug'lik va kamera", d: "15 dars" },
+                 { n: "6-modul", t: "Corona Render", d: "18 dars" },
+                 { n: "7-modul", t: "Eksteryer va landshaft", d: "14 dars" },
+             ],
+        },
+    },
+    ru: {
+        flag: '🇷🇺', name: "Русский",
+        nav: { certs: "Сертификаты", chat: "Групп чат", settings: "Настройки", profile: "Профиль" },
+        hero: {
+            badge: "🚀 Постройте свое будущее сегодня",
+            title: "Сделайте первый шаг в мир творчества!",
+            subtitle: "Изучите 3D-моделирование, анимацию, геймдизайн и VFX с использованием самых современных технологий.",
+            btnRegister: "Регистрация",
+            btnAbout: "О курсе",
+        },
+        stats: [
+            { id: 1, val: "1200+", label: "Студентов" },
+            { id: 2, val: "120+", label: "Уроков" },
+            { id: 3, val: "4.9⭐", label: "Рейтинг" },
+            { id: 4, val: "400+", label: "Портфолио" },
+        ],
+        process: {
+            title: "Как стать профессионалом?",
+            subtitle: "Ваш путь к успеху",
+            steps: [
+                { id: 1, title: "Зарегистрируйтесь", desc: "Выберите направление и запишитесь на курс." },
+                { id: 2, title: "Смотрите уроки", desc: "Каждый урок основан на практике и доступен для понимания." },
+                { id: 3, title: "Выполняйте задания", desc: "Проверяйте свои знания на реальных проектах." },
+                { id: 4, title: "Получите сертификат", desc: "Завершите курс и получите международный сертификат." },
+            ]
+        },
+        courses: {
+            title: "Наши курсы",
+            subtitle: "Профессиональное обучение по востребованным направлениям",
+            lessons: " уроков", modules: " модулей", start: "Начать",
+            badge1: "Новый", badge2: "Топ", badge3: "Про",
+            c1title: "Основы 3D Max: с нуля до Pro",
+            c1desc: "Охватывает всё от установки программы до визуализации сложных интерьеров.",
+            c2title: "Визуализация интерьера (Corona)",
+            c2desc: "Секреты фотореалистичной визуализации и работа со светом в Corona Render.",
+            c3title: "Экстерьер и ландшафтный дизайн",
+            c3desc: "Проектирование зданий, сооружений и ландшафтов частных садов.",
+        },
+        features: {
+            title: "Почему именно 3D Max Pro?",
+            subtitle: "Мы предоставляем опытных наставников и современную программу обучения.",
+            f1title: "Качественные уроки", f1desc: "Все уроки подготовлены профессионально и ориентированы на практику.",
+            f2title: "Сильное сообщество", f2desc: "Будьте в контакте с другими студентами и преподавателями.",
+            f3title: "Сертификат", f3desc: "Официальный сертификат, подтверждающий ваши знания.",
+            f4title: "Шаг к карьере", f4desc: "Участвуйте в реальных проектах и начните зарабатывать.",
+        },
+        testimonials: {
+            title: "Отзывы наших студентов",
+            items: [
+                { id: 1, name: "Санжар Джумаев", role: "3D Визуализатор", text: "Курс отличный! Начинаю свои собственные проекты.", avatar: "СД" },
+                { id: 2, name: "Дильбар Азимова", role: "Дизайнер интерьера", text: "Уроки по Corona Render научили меня настоящему фотореализму.", avatar: "ДА" },
+            ]
+        },
+        faq: {
+            title: "Часто задаваемые вопросы",
+            items: [
+                { q: "Какой компьютер нужен?", a: "Рекомендуется минимум 16 ГБ ОЗУ и процессор i5 или выше." },
+                { q: "Можно ли найти работу после курса?", a: "Да, многие студенты начинают брать заказы еще во время обучения." },
+                { q: "Сколько времени длятся видео-уроки?", a: "Вы можете учиться в своем темпе, обычно это занимает 3-6 месяцев." },
+            ]
+        },
+        footer: {
+            about: "3D Max Pro - одна из крупнейших школ 3D обучения в Центральной Азии. Мы выводим ваш творческий потенциал на мировой уровень.",
+            links: "Полезные ссылки",
+            contact: "Контакты",
+            rights: "Все права защищены."
+        },
+        register: {
+            title: "Регистрация",
+            warning: "Внимание! Введите данные точно, как в паспорте.",
+            firstName: "Имя*", lastName: "Фамилия*", middleName: "Отчество*",
+            selectDir: "Выберите направление*", selectRegion: "Выберите регион",
+            phone: "+998", email: "Электронная почта*",
+            cancel: "Отмена", submit: "Отправить",
+            dir1: "Основы 3D Max", dir2: "Визуализация интерьера", dir3: "Экстерьер и ландшафт",
+        },
+        about: {
+             title: "Информация о курсе",
+             statStudents: "Студентов", statLessons: "Уроков", statRating: "Рейтинг", statTeachers: "Преподов",
+             whoTitle: "🎯 Для кого этот курс?",
+             whoText: "Для новичков, архитекторов и дизайнеров интерьера, желающих повысить свой уровень.",
+             modulesTitle: "📚 Модули",
+             skillsTitle: "✅ Чему научитесь?",
+             detailsTitle: "📋 Детали",
+             ctaBtn: "🚀 Регистрация",
+             detailRows: [
+                 { label: "Уроков", val: "120+ видео" },
+                 { label: "Продолжительность", val: "3–6 мес" },
+                 { label: "Уровень", val: "Begginer → Pro" },
+                 { label: "Язык", val: "Узбекский" },
+                 { label: "Сертификат", val: "Выдается ✅" },
+             ],
+             skills: ["Интерфейс","Моделирование","Визуализация","Материалы","Свет","Corona Render","Ландшафт","Photoshop","Портфолио","Фриланс"],
+             modules: [
+                 { n: "1", t: "Знакомство", d: "10 уроков" },
+                 { n: "2", t: "Геометрия", d: "18 уроков" },
+                 { n: "3", t: "Интерьер", d: "25 уроков" },
+                 { n: "4", t: "Текстуры", d: "20 уроков" },
+                 { n: "5", t: "Свет", d: "15 уроков" },
+                 { n: "6", t: "Corona", d: "18 уроков" },
+                 { n: "7", t: "Экстерьер", d: "14 уроков" },
+             ],
+        }
+    },
+    en: {
+        flag: '🇬🇧', name: "English",
+        nav: { certs: "Certificates", chat: "Group Chat", settings: "Settings", profile: "Profile" },
+        hero: {
+            badge: "🚀 Build your future today",
+            title: "Take your first step into the world of creativity!",
+            subtitle: "Learn 3D modeling, animation, game design, and VFX using the most modern techniques.",
+            btnRegister: "Register",
+            btnAbout: "About",
+        },
+        stats: [
+            { id: 1, val: "1200+", label: "Students" },
+            { id: 2, val: "120+", label: "Lessons" },
+            { id: 3, val: "4.9⭐", label: "Rating" },
+            { id: 4, val: "400+", label: "Portfolios" },
+        ],
+        process: {
+            title: "How to become a pro?",
+            subtitle: "Your roadmap to success",
+            steps: [
+                { id: 1, title: "Register", desc: "Choose your direction and join the course." },
+                { id: 2, title: "Watch Lessons", desc: "Every lesson is practice-oriented and easy to follow." },
+                { id: 3, title: "Complete Tasks", desc: "Test your skills on real projects." },
+                { id: 4, title: "Get Certified", desc: "Finish successfully and get a world-class certificate." },
+            ]
+        },
+        courses: {
+            title: "Our Courses",
+            subtitle: "Professional education in the most in-demand fields",
+            lessons: " lessons", modules: " modules", start: "Start",
+            badge1: "New", badge2: "Top", badge3: "Pro",
+            c1title: "3D Max Basics: Zero to Pro",
+            c1desc: "Covers everything from software installation to complex interior visualization.",
+            c2title: "Interior Viz (Corona)",
+            c2desc: "Secrets of photorealistic visualization and lighting in Corona Render.",
+            c3title: "Exterior & Landscape",
+            c3desc: "Designing large buildings, structures, and private garden landscapes.",
+        },
+        features: {
+            title: "Why 3D Max Pro?",
+            subtitle: "We provide experienced mentors and a modern curriculum.",
+            f1title: "Quality Lessons", f1desc: "All lessons are professionally prepared and practice-oriented.",
+            f2title: "Strong Community", f2desc: "Stay in constant touch with other students and mentors.",
+            f3title: "Certificate", f3desc: "Official certificate confirming your expertise.",
+            f4title: "Career Step", f4desc: "Work on real projects and start earning money.",
+        },
+        testimonials: {
+            title: "What our students say",
+            items: [
+                { id: 1, name: "Sanjar Jumaev", role: "3D Visualizer", text: "The course is amazing! I'm starting my own projects now.", avatar: "SJ" },
+                { id: 2, name: "Dilbar Azimova", role: "Interior Designer", text: "Corona Render lessons taught me true photorealism.", avatar: "DA" },
+            ]
+        },
+        faq: {
+            title: "Frequently Asked Questions",
+            items: [
+                { q: "What computer do I need?", a: "Minimum 16GB RAM and i5 or higher processor recommended." },
+                { q: "Can I find a job after?", a: "Yes, many students start getting orders during the course." },
+                { q: "How long are the lessons?", a: "Study at your own pace; usually, it takes 3-6 months." },
+            ]
+        },
+        footer: {
+            about: "3D Max Pro - one of the largest 3D education centers in Central Asia. We take your creative potential to the global level.",
+            links: "Quick Links",
+            contact: "Contact us",
+            rights: "All rights reserved."
+        },
+        register: {
+            title: "Registration",
+            warning: "Note! Enter your data accurately as in your passport.",
+            firstName: "First Name*", lastName: "Last Name*", middleName: "Middle Name*",
+            selectDir: "Select Direction*", selectRegion: "Select Region",
+            phone: "+998", email: "Email Address*",
+            cancel: "Cancel", submit: "Submit",
+            dir1: "3D Max Basics", dir2: "Interior Viz", dir3: "Exterior & Landscape",
+        },
+        about: {
+             title: "Information",
+             statStudents: "Students", statLessons: "Lessons", statRating: "Rating", statTeachers: "Teachers",
+             whoTitle: "🎯 Who is it for?",
+             whoText: "Newcomers, architects and interior designers wanting to level up.",
+             modulesTitle: "📚 Modules",
+             skillsTitle: "✅ Skills",
+             detailsTitle: "📋 Details",
+             ctaBtn: "🚀 Register",
+             detailRows: [
+                 { label: "Lessons", val: "120+ videos" },
+                 { label: "Duration", val: "3–6 months" },
+                 { label: "Level", val: "Begginer → Pro" },
+                 { label: "Language", val: "Uzbek" },
+                 { label: "Certificate", val: "Provided ✅" },
+             ],
+             skills: ["Interface","Modeling","Visualization","Materials","Light","Corona","Landscape","Photoshop","Portfolio","Freelance tips"],
+             modules: [
+                 { n: "1", t: "Intro", d: "10 lessons" },
+                 { n: "2", t: "Geometry", d: "18 lessons" },
+                 { n: "3", t: "Interior", d: "25 lessons" },
+                 { n: "4", t: "Textures", d: "20 lessons" },
+                 { n: "5", t: "Light", d: "15 lessons" },
+                 { n: "6", t: "Corona", d: "18 lessons" },
+                 { n: "7", t: "Exterior", d: "14 lessons" },
+             ],
+        }
+    },
+};
