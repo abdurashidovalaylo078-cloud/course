@@ -4,9 +4,10 @@ import Landing from './pages/Landing';
 import Courses from './pages/Courses';
 import CoursePlayer from './pages/CoursePlayer';
 import Certificates from './pages/Certificates';
-import Chat from './pages/Chat';
+// Chat import removed
 import Settings from './pages/Settings';
 import Projects from './pages/Projects';
+import Rating from './pages/Rating';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="courses/:id" element={<CoursePlayer />} />
           <Route path="projects" element={<Projects />} />
           <Route path="certificates" element={<Certificates />} />
-          <Route path="chat" element={<Chat />} />
+          {/* Chat route removed */}
+          <Route path="rating" element={<Rating />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

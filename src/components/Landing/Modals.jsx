@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { User, X, Bell, CaretDown, Star, Lock, Envelope, SignIn } from '@phosphor-icons/react';
+import { User, X, Bell, CaretDown, Star, Lock, Envelope, SignIn, Trophy, Crown, Medal } from '@phosphor-icons/react';
 
 const Modals = ({ 
     showRegister, setShowRegister, 
     showLogin, setShowLogin,
     showAbout, setShowAbout, 
+    showRating, setShowRating,
     tr, tl, ta 
 }) => {
     // Registration State
@@ -120,9 +121,9 @@ const Modals = ({
                                                 onChange={e => setRegData({...regData, direction: e.target.value})}
                                             >
                                                 <option value="" disabled>{tr.selectDir}</option>
-                                                <option>{tr.dir1}</option>
-                                                <option>{tr.dir2}</option>
-                                                <option>{tr.dir3}</option>
+                                                {[tr.dir1, tr.dir2, tr.dir3, tr.dir4].map((dir, i) => (
+                                                    <option key={i} value={dir}>{dir}</option>
+                                                ))}
                                             </select>
                                             <CaretDown className="select-icon" />
                                         </div>
@@ -136,9 +137,9 @@ const Modals = ({
                                                 onChange={e => setRegData({...regData, region: e.target.value})}
                                             >
                                                 <option value="" disabled>{tr.selectRegion}</option>
-                                                <option>Toshkent</option>
-                                                <option>Samarqand</option>
-                                                <option>Andijon</option>
+                                                {tr.regions && tr.regions.map((reg, i) => (
+                                                    <option key={i} value={reg}>{reg}</option>
+                                                ))}
                                             </select>
                                             <CaretDown className="select-icon" />
                                         </div>
@@ -292,6 +293,35 @@ const Modals = ({
                                 </div>
                             </div>
 
+                            {ta.whyUs && (
+                                <div className="m-section">
+                                    <h4>{ta.whyUs.title}</h4>
+                                    <ul className="m-ul-list">
+                                        {ta.whyUs.items.map((item, i) => <li key={i}>{item}</li>)}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {ta.opp && (
+                                <div className="m-section">
+                                    <h4>{ta.opp.title}</h4>
+                                    <ul className="m-ul-list">
+                                        {ta.opp.items.map((item, i) => <li key={i}>{item}</li>)}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {ta.tools && (
+                                <div className="m-section">
+                                    <h4>{ta.tools.title}</h4>
+                                    <div className="tools-tags">
+                                        {ta.tools.items.map((tool, i) => (
+                                            <span key={i} className="tool-tag">{tool}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="m-section">
                                 <h4>{ta.detailsTitle}</h4>
                                 <div className="details-grid">
@@ -316,6 +346,83 @@ const Modals = ({
                                 </div>
                             </div>
                             <button className="btn-modal-cta" onClick={() => { setShowAbout(false); setShowRegister(true); }}>{ta.ctaBtn}</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Rating Modal */}
+            {showRating && (
+                <div className="modal-overlay" onClick={() => setShowRating(false)}>
+                    <div className="modal-content-premium rating-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+                        <div className="modal-header-premium" style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #B45309 100%)' }}>
+                             <div className="header-title">
+                                <div className="icon-wrapper" style={{ background: 'rgba(255,255,255,0.2)' }}>
+                                    <Trophy weight="fill" color="#fff" size={24} />
+                                </div>
+                                <div className="title-text">
+                                    <h3 style={{ color: '#fff' }}>O'quvchilar Reytingi</h3>
+                                    <p className="subtitle" style={{ color: 'rgba(255,255,255,0.8)' }}>Eng faol o'quvchilar ro'yxati</p>
+                                </div>
+                             </div>
+                             <button className="close-btn" onClick={() => setShowRating(false)}><X size={24} weight="bold" color="#fff" /></button>
+                        </div>
+                        <div className="modal-body-premium" style={{ padding: '0' }}>
+                            <div className="rating-list-premium">
+                                {[
+                                    { id: 1, name: "Sanjar Jumaev", points: 2850, completed: 12, avatar: "SJ", rank: 1 },
+                                    { id: 2, name: "Olimjon Sobirov", points: 2640, completed: 10, avatar: "OS", rank: 2 },
+                                    { id: 3, name: "Dilbar Azimova", points: 2420, completed: 9, avatar: "DA", rank: 3 },
+                                    { id: 4, name: "Azizbek Karimov", points: 2100, completed: 8, avatar: "AK", rank: 4 },
+                                    { id: 5, name: "Madina Shokirova", points: 1950, completed: 7, avatar: "MS", rank: 5 },
+                                ].map((user, index) => (
+                                    <div key={user.id} className="rating-row-premium" style={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        padding: '1.2rem 1.5rem',
+                                        borderBottom: '1px solid rgba(255,255,255,0.05)',
+                                        background: index === 0 ? 'rgba(245, 158, 11, 0.05)' : 'transparent'
+                                    }}>
+                                        <div className="rank-badge" style={{ 
+                                            width: '32px', 
+                                            display: 'flex', 
+                                            justifyContent: 'center',
+                                            marginRight: '1rem'
+                                        }}>
+                                            {index === 0 ? <Crown size={24} weight="fill" color="#F59E0B" /> : 
+                                             index === 1 ? <Medal size={24} weight="fill" color="#CBD5E1" /> :
+                                             index === 2 ? <Medal size={24} weight="fill" color="#B45309" /> :
+                                             <span style={{ fontWeight: 600, color: 'var(--color-text-muted)' }}>{index + 1}</span>}
+                                        </div>
+                                        <div className="user-info-rating" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
+                                            <div className="avatar-sm" style={{ 
+                                                background: index === 0 ? '#F59E0B' : 'var(--color-primary)', 
+                                                color: '#000', 
+                                                fontWeight: 600,
+                                                width: '40px',
+                                                height: '40px',
+                                                fontSize: '0.9rem'
+                                            }}>
+                                                {user.avatar}
+                                            </div>
+                                            <div>
+                                                <p style={{ fontWeight: 600, margin: 0 }}>{user.name}</p>
+                                                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: 0 }}>{user.completed} ta dars tugatilgan</p>
+                                            </div>
+                                        </div>
+                                        <div className="points-cell" style={{ textAlign: 'right' }}>
+                                            <p style={{ fontWeight: 700, color: '#F59E0B', margin: 0, fontSize: '1.1rem' }}>{user.points}</p>
+                                            <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', margin: 0, textTransform: 'uppercase' }}>Ball</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div style={{ padding: '1.5rem', textAlign: 'center', background: 'rgba(255,255,255,0.02)' }}>
+                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>Siz ham reytingda qatnashishni xohlaysizmi?</p>
+                                <button className="btn-modal-cta" style={{ margin: 0, width: 'auto', padding: '0.8rem 2rem' }} onClick={() => { setShowRating(false); setShowRegister(true); }}>
+                                    Hoziroq qo'shiling
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

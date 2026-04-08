@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { Cube, Video, Certificate, ChatsCircle, Gear, SignOut, WarningCircle, FolderOpen } from '@phosphor-icons/react';
+import { Cube, Video, Certificate, Gear, SignOut, WarningCircle, FolderOpen, Trophy } from '@phosphor-icons/react';
 import { currentUser } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -8,6 +8,14 @@ const Sidebar = () => {
     const { t } = useLanguage();
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const navigate = useNavigate();
+
+    // Dynamic user data
+    const savedUser = localStorage.getItem('currentUser');
+    const user = savedUser ? JSON.parse(savedUser) : currentUser;
+    
+    const userName = user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : (user.name || "User");
+    const userRole = user.profession || user.role || "Talaba";
+    const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 
     return (
         <aside className="sidebar">
@@ -19,6 +27,7 @@ const Sidebar = () => {
                     <h1>3D Max Pro</h1>
                 </div>
             </Link>
+
 
             <nav className="nav-menu">
                 <NavLink to="/app" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
@@ -33,9 +42,9 @@ const Sidebar = () => {
                     <Certificate />
                     <span>{t('sidebar.certificates')}</span>
                 </NavLink>
-                <NavLink to="/app/chat" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                    <ChatsCircle />
-                    <span>{t('sidebar.groupChat')}</span>
+                <NavLink to="/app/rating" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                    <Trophy />
+                    <span>{t('sidebar.rating')}</span>
                 </NavLink>
                 <NavLink to="/app/settings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                     <Gear />

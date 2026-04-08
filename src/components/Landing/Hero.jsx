@@ -1,5 +1,4 @@
-import React from 'react';
-import { ArrowRight, Play } from '@phosphor-icons/react';
+import { ArrowRight, BookOpen } from '@phosphor-icons/react';
 
 const Hero = ({ t, setShowRegister, setShowAbout }) => {
     return (
@@ -13,7 +12,7 @@ const Hero = ({ t, setShowRegister, setShowAbout }) => {
                         {t.hero.btnRegister} <ArrowRight weight="bold" />
                     </button>
                     <button onClick={() => setShowAbout(true)} className="btn-secondary-hero">
-                        <Play weight="fill" /> {t.hero.btnAbout}
+                        <BookOpen weight="fill" /> {t.hero.btnAbout}
                     </button>
                 </div>
             </div>

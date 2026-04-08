@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Cube, Certificate, ChatsCircle, GearSix, Globe, CaretDown } from '@phosphor-icons/react';
+import { Cube, Certificate, ChatsCircle, GearSix, Globe, CaretDown, Trophy } from '@phosphor-icons/react';
 
-const Header = ({ t, lang, translations, setLang, showLangMenu, setShowLangMenu, setShowLogin }) => {
+const Header = ({ t, lang, translations, setLang, showLangMenu, setShowLangMenu, setShowLogin, setShowRating }) => {
     return (
         <header className="container header">
             <div className="logo">
@@ -15,8 +15,8 @@ const Header = ({ t, lang, translations, setLang, showLangMenu, setShowLangMenu,
                     <Link to="/app/certificates" className="nav-link-item">
                         <Certificate weight="fill" /> <span>{t.nav.certs}</span>
                     </Link>
-                    <Link to="/app/chat" className="nav-link-item">
-                        <ChatsCircle weight="fill" /> <span>{t.nav.chat}</span>
+                    <Link to="/app/rating" className="nav-link-item">
+                        <Trophy weight="fill" /> <span>{t.nav.rating}</span>
                     </Link>
                     <Link to="/app/settings" className="nav-link-item">
                         <GearSix weight="fill" /> <span>{t.nav.settings}</span>

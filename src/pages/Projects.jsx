@@ -9,7 +9,7 @@ import { coursesData } from '../data';
 /* ── helper: barcha homework larni olish ── */
 const buildProjects = () => {
     const list = [];
-    const colors = { 1: '#F59E0B', 2: '#10B981', 3: '#3B82F6' };
+    const colors = { 1: '#F59E0B', 2: '#10B981', 3: '#3B82F6', 4: '#8B5CF6' };
     coursesData.forEach(course => {
         course.modules.forEach(mod => {
             mod.lessons.forEach(lesson => {

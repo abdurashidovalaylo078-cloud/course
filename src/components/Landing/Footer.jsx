@@ -30,7 +30,6 @@ const Footer = ({ t }) => {
                 <div className="footer-contact">
                     <h4>{t.footer.contact}</h4>
                     <ul>
-                        <li><Link to="/app/chat">Guruh Chat</Link></li>
                         <li><a href="tel:+998901234567">+998 90 123-45-67</a></li>
                         <li><a href="mailto:info@3dmaxpro.uz">info@3dmaxpro.uz</a></li>
                     </ul>

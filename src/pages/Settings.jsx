@@ -7,6 +7,19 @@ const Settings = () => {
     const [toastMessage, setToastMessage] = useState('');
     const { language, setLanguage, t } = useLanguage();
 
+    // Load user data from localStorage or fallback to defaults
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) return JSON.parse(savedUser);
+        return {
+            firstName: "Olimjon",
+            lastName: "Sobirov",
+            profession: "3D Artist / Talaba",
+            about: "Men 3D dizayn va interyer vizualizatsiyasiga qiziqaman...",
+            email: "olim@example.com"
+        };
+    });
+
     const showToast = (msg) => {
         setToastMessage(msg);
         setTimeout(() => setToastMessage(''), 3000);
@@ -14,8 +27,19 @@ const Settings = () => {
 
     const handleSave = (e) => {
         e.preventDefault();
+        
+        // Save to currentUser
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        
+        // Update in global users list
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const updatedUsers = users.map(u => u.email === user.email ? user : u);
+        localStorage.setItem('users', JSON.stringify(updatedUsers));
+
         showToast(t('settings.savedConfig'));
     };
+
+    const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || "User Name";
 
     return (
         <div>
@@ -55,27 +79,60 @@ const Settings = () => {
                         <div className="settings-panel active">
                             <h3>{t('settings.profileSettings')}</h3>
                             <form className="settings-form" onSubmit={handleSave}>
-                                <div className="profile-avatar-section">
-                                    <img src="https://ui-avatars.com/api/?name=User+Name&background=F59E0B&color=fff" alt="Avatar" className="profile-avatar" />
-                                    <div className="profile-avatar-actions">
-                                        <button type="button" className="btn-primary" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}>{t('settings.uploadPic')}</button>
-                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: 0 }}>{t('settings.maxSize')}</p>
+                                <div className="profile-avatar-section" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2.5rem' }}>
+                                    <img 
+                                        src={`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=F59E0B&color=fff`} 
+                                        alt="Avatar" 
+                                        className="profile-avatar" 
+                                        style={{ width: '80px', height: '80px', fontSize: '1.5rem' }}
+                                    />
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, color: '#fff' }}>{fullName}</h3>
+                                        <p style={{ margin: '4px 0 0 0', color: 'var(--color-text-muted)', fontSize: '1rem', fontWeight: 500 }}>{user.profession || user.role || 'Talaba'}</p>
+                                    </div>
+                                </div>
+
+                                <div className="form-group-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', width: '100%', marginBottom: '1.5rem' }}>
+                                    <div className="form-group" style={{ marginBottom: 0 }}>
+                                        <label>{t('settings.fullName').split(' ')[0]}</label>
+                                        <input 
+                                            type="text" 
+                                            value={user.firstName} 
+                                            onChange={e => setUser({...user, firstName: e.target.value})}
+                                            className="form-control" 
+                                        />
+                                    </div>
+                                    <div className="form-group" style={{ marginBottom: 0 }}>
+                                        <label>{t('settings.fullName').split(' ')[1] || 'Familiya'}</label>
+                                        <input 
+                                            type="text" 
+                                            value={user.lastName} 
+                                            onChange={e => setUser({...user, lastName: e.target.value})}
+                                            className="form-control" 
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
-                                    <label>{t('settings.fullName')}</label>
-                                    <input type="text" defaultValue="Olimjon Sobirov" className="form-control" />
-                                </div>
-
-                                <div className="form-group">
                                     <label>{t('settings.profession')}</label>
-                                    <input type="text" defaultValue="3D Artist / Talaba" className="form-control" />
+                                    <input 
+                                        type="text" 
+                                        value={user.profession || ''} 
+                                        onChange={e => setUser({...user, profession: e.target.value})}
+                                        className="form-control" 
+                                        placeholder="Kasbingiz..."
+                                    />
                                 </div>
 
                                 <div className="form-group">
                                     <label>{t('settings.about')}</label>
-                                    <textarea rows="4" className="form-control" defaultValue="Men 3D dizayn va interyer vizualizatsiyasiga qiziqaman..."></textarea>
+                                    <textarea 
+                                        rows="4" 
+                                        className="form-control" 
+                                        value={user.about || ''} 
+                                        onChange={e => setUser({...user, about: e.target.value})}
+                                        placeholder="O'zingiz haqingizda..."
+                                    ></textarea>
                                 </div>
 
                                 <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-start' }}>{t('settings.save')}</button>

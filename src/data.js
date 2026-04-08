@@ -1010,20 +1010,87 @@ const coursesData = [
         title: "3ds Max: arxitektura kursi",
         instructor: "Alisher Uzoqov",
         progress: 0,
-        totalLessons: 24,
+        totalLessons: 36,
         completedLessons: 0,
         thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
         description: "Arxitektura va binolarni yuqori sifatda modellashtirish va vizualizatsiya qilish.",
         modules: [
             {
-                title: "1-Modul. Arxitektura asoslari",
+                title: "1-Modul. Instrumentlar bilan ishlash",
                 lessons: [
-                    {
-                        id: 401,
-                        title: "Arxitektura modellashtirishga kirish",
-                        completed: false,
-                        type: "video",
-                        videoUrl: "https://www.youtube.com/embed/9NmZNUSG1_E"
+                    { id: 401, title: "3ds Max tushunarsizmi? Bu videoni ko'ring", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/U8hmx9GEXec" },
+                    { id: 402, title: "Hamma instrumentlarni 1 videoda o'rganasiz", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/R-xzoIYrUMw" },
+                    { id: 403, title: "45 daqiqada 3ds Max oson usulda", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/s8ZNr7SH32Q" },
+                    { id: 404, title: "3D shakllar uchun 3 ta asosiy narsa", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/OiBPmcrxNl8" },
+                    { id: 405, title: "37 daqiqada qiyin shakllarni yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/ZFDaPfcNOgM" },
+                    { id: 406, title: "2D dizaynlarni 3D qilish sirlari", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/pbauF3U2ixQ" },
+                    { id: 407, title: "2D rasmdan 3D model yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/Mg6uwVtIDVQ" },
+                    { id: 408, title: "3D uy rejasini 17 daqiqada tuzish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/W_-LIErh5Go" },
+                    { id: 409, title: "Boshlang'ichlar uchun oson modellashtirish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/PBjzuZTQZXE" }
+                ]
+            },
+            {
+                title: "2-Modul. Professional Modellashtirish",
+                lessons: [
+                    { id: 410, title: "Haqiqiy 3D model chiqarish siri", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/jOn1T94wEaA" },
+                    { id: 411, title: "Vaqtingizni tejaydigan muhim instrument", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/YvWTm9LpyiA" },
+                    { id: 412, title: "1 ta instrument = har qanday shakl", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/FOD98lKNnRY" },
+                    { id: 413, title: "3ds Max'da vaqtni tejash siri", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/wrKhKoSO5vw" },
+                    { id: 414, title: "Xatolarni oldini olish va optimizatsiya", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/NXr4Pd337ug" },
+                    { id: 415, title: "Maxfiy instrumentlar bilan tanishuv", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/8BMDCWKBOf0" },
+                    { id: 416, title: "Professional 3D ish jarayoni", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/pIFXk2oR4SA" },
+                    { id: 417, title: "Ixtiyoriy 3D model yaratish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/X1nI43h9wVw" },
+                    { id: 418, title: "Xatosiz modellashtirish usullari", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/E1-SHKJU85I" }
+                ]
+            },
+            {
+                title: "3-Modul. Arxitektura Elementlari",
+                lessons: [
+                    { id: 419, title: "Hech kim aytmaydigan instrument siri", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/U7ljQd0iihA" },
+                    { id: 420, title: "Modellarni PRO ko'rsatish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/k318Eo51_2Q" },
+                    { id: 421, title: "Ishni 10 barobar tezlashtirish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/yrsBQiSc67U" },
+                    { id: 422, title: "3D uy modelini 0 dan yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/AYixxHB-kZ0" },
+                    { id: 423, title: "3D deraza yasash texnikasi", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/6fobPPB2MnY" },
+                    { id: 424, title: "Fasad va balkon modellashtirish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/X1_jn_aNn4E" },
+                    { id: 425, title: "3D uy arkasini yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/6Dp4qSGjpuo" },
+                    { id: 426, title: "Ko'p qavatli uy modellashtirish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/YZNuB_vmEXs" },
+                    { id: 427, title: "Tepa qavat dizayni va detallari", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/6yFpZiG4jck" },
+                    { 
+                        id: 4271, 
+                        title: "3D Uy Modelini Yakunlash", 
+                        completed: false, 
+                        type: "homework",
+                        status: "pending",
+                        criteria: [
+                            "Deraza va eshiklar to'g'ri o'rnatilganligi",
+                            "Fasad detallari (balkon, dekor) mavjudligi",
+                            "Geometriya tozaligi (Polygon optimization)"
+                        ]
+                    }
+                ]
+            },
+            {
+                title: "4-Modul. Yakuniy Vizualizatsiya",
+                lessons: [
+                    { id: 428, title: "3 qadamda uy tomini yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/-dAb7YxIcoI" },
+                    { id: 429, title: "Vaqtni tejash bo'yicha yakuniy maslahatlar", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/1wJbfAADhBg" },
+                    { id: 430, title: "40 daqiqada 3D landshaft yaratish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/dSA1hDdnfnU" },
+                    { id: 431, title: "30 daqiqada uy panjarasini yasash", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/QBjpzdQMpiw" },
+                    { id: 432, title: "1 soatda PRO render qilish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/A6nQDgm3FhM" },
+                    { id: 433, title: "Lumion dasturida animatsiya qilish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/4-05mMXlFRA" },
+                    { id: 434, title: "Fiverr orqali daromad topish", completed: false, type: "video", videoUrl: "https://www.youtube.com/embed/068p0BCq59U" },
+                    { 
+                        id: 4341, 
+                        title: "Yakuniy Arxitektura Vizualizatsiyasi", 
+                        completed: false, 
+                        type: "homework",
+                        status: "pending",
+                        criteria: [
+                            "Fotorealistik yorug'lik sozlamalari",
+                            "Landshaft va atrof-muhit dizayni",
+                            "Materiallarning realligi",
+                            "Yakuniy render sifati (HD+)"
+                        ]
                     }
                 ]
             }
@@ -1052,6 +1119,13 @@ const certificatesData = [
         courseId: 3,
         title: "Exterior & Landscape Design Professional",
         issueDate: "2024-03-25",
+        url: "#"
+    },
+    {
+        id: 4,
+        courseId: 4,
+        title: "3ds Max: Professional Architecture Visualization",
+        issueDate: "2024-04-09",
         url: "#"
     }
 ];

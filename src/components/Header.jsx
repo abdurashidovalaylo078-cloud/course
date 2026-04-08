@@ -7,8 +7,8 @@ import { useLanguage } from '../context/LanguageContext';
 const initialNotifications = [
     {
         id: 1,
-        type: 'message',
-        text: 'Alisher Uzoqov guruhga xabar yozdi.',
+        type: 'lesson',
+        text: "Yangi kurs: '3ds Max: arxitektura kursi' qo'shildi.",
         time: '5 daqiqa oldin',
         read: false,
     },
@@ -35,13 +35,43 @@ const Header = () => {
     const [isDark, setIsDark] = useState(true);
     const [notifications, setNotifications] = useState(initialNotifications);
 
+    // Dynamic user data
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) return JSON.parse(savedUser);
+        return currentUser; // Fallback to mock data
+    });
+
     const { language, setLanguage, t } = useLanguage();
 
     const notifRef = useRef(null);
     const profileRef = useRef(null);
     const langRef = useRef(null);
 
+    // Sync with localStorage changes (optional but good for multi-tab or immediate updates)
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) setUser(JSON.parse(savedUser));
+        };
+        window.addEventListener('storage', handleStorageChange);
+        
+        // Polling as a fallback for same-tab updates if not using global state
+        const interval = setInterval(handleStorageChange, 1000);
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            clearInterval(interval);
+        };
+    }, []);
+
     const unreadCount = notifications.filter(n => !n.read).length;
+    
+    const userName = user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : (user.name || "User");
+    const userRole = user.profession || user.role || "Talaba";
+    const userAvatar = user.firstName 
+        ? `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=F59E0B&color=fff`
+        : user.avatar;
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -194,16 +224,16 @@ const Header = () => {
                 {/* Profile */}
                 <div style={{ position: 'relative' }} ref={profileRef}>
                     <div className="profile-dropdown" onClick={() => setIsProfileOpen(!isProfileOpen)} style={{ cursor: 'pointer' }}>
-                        <img src={currentUser.avatar} alt="User" className="avatar-sm" />
+                        <img src={userAvatar} alt="User" className="avatar-sm" />
                     </div>
 
                     {isProfileOpen && (
                         <div className="dropdown-menu profile-menu active">
                             <div className="profile-header">
-                                <img src={currentUser.avatar} alt="User" className="avatar-sm" />
+                                <img src={userAvatar} alt="User" className="avatar-sm" />
                                 <div>
-                                    <p className="name">{currentUser.name}</p>
-                                    <p className="role">{currentUser.role}</p>
+                                    <p className="name">{userName}</p>
+                                    <p className="role">{userRole}</p>
                                 </div>
                             </div>
                             <ul className="menu-list">

@@ -18,6 +18,7 @@ const Landing = () => {
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin,    setShowLogin]    = useState(false);
     const [showAbout,    setShowAbout]    = useState(false);
+    const [showRating,   setShowRating]   = useState(false);
     const [lang,         setLang]         = useState('uz');
     const [showLangMenu, setShowLangMenu] = useState(false);
 
@@ -33,6 +34,7 @@ const Landing = () => {
                 showLangMenu={showLangMenu} 
                 setShowLangMenu={setShowLangMenu} 
                 setShowLogin={setShowLogin}
+                setShowRating={setShowRating}
             />
 
             <Hero 
@@ -62,6 +64,8 @@ const Landing = () => {
                 setShowLogin={setShowLogin}
                 showAbout={showAbout} 
                 setShowAbout={setShowAbout} 
+                showRating={showRating}
+                setShowRating={setShowRating}
                 tr={t.register} 
                 tl={t.login}
                 ta={t.about} 

@@ -1,7 +1,7 @@
 export const translations = {
     uz: {
         flag: '🇺🇿', name: "O'zbek",
-        nav: { certs: "Sertifikatlar", chat: "Guruh Chat", settings: "Sozlamalar", profile: "Profil", logout: "Chiqish", login: "Kirish" },
+        nav: { certs: "Sertifikatlar", rating: "Reyting", settings: "Sozlamalar", profile: "Profil", logout: "Chiqish", login: "Kirish" },
         hero: {
             badge: "🚀 O'z kelajagingizni bugundan quring",
             title: "Ijodkorlik olamiga birinchi qadamingizni qo'ying!",
@@ -76,6 +76,11 @@ export const translations = {
             phone: "+998", email: "Pochta manzilingizni kiriting*",
             cancel: "Bekor qilish", submit: "Jo'natish",
             dir1: "3D Max Asoslari", dir2: "Interyer Vizualizatsiyasi", dir3: "Eksteryer va Landshaft Dizayni", dir4: "3ds Max: arxitektura kursi",
+            regions: [
+                "Toshkent shahri", "Toshkent viloyati", "Andijon", "Buxoro", "Farg'ona", 
+                "Jizzax", "Xorazm", "Namangan", "Navoiy", "Qashqadaryo", 
+                "Samarqand", "Sirdaryo", "Surxondaryo", "Qoraqalpog'iston"
+            ]
         },
         about: {
              title: "Kurs haqida ma'lumot",
@@ -87,21 +92,43 @@ export const translations = {
              detailsTitle: "📋 Kurs tafsilotlari",
              ctaBtn: "🚀 Hoziroq Ro'yxatdan O'tish",
              detailRows: [
-                 { label: "Darslar soni", val: "120+ ta video dars" },
-                 { label: "Umumiy davomiyligi", val: "3–6 oy (o'z sur'atingizda)" },
+                 { label: "Darslar soni", val: "150+ ta professional video dars" },
+                 { label: "Umumiy davomiyligi", val: "3–8 oy (o'z sur'atingizda)" },
                  { label: "Daraja", val: "Boshlang'ich → Professional" },
-                 { label: "Til", val: "O'zbek tili" },
+                 { label: "O'quv tizimi", val: "Nazariya + Amaliyot + Portfolio" },
                  { label: "Sertifikat", val: "Kurs yakunida taqdim etiladi ✅" },
              ],
-             skills: ["3D Max interfeysi","Modellashtirish","Vizualizatsiya","Materiallar","Yorug'lik","Corona Render","Landshaft","Photoshop","Portfolio","Freelance sirlari"],
+             skills: ["3D Max interfeysi","Arxitektura modellashtirish","Interyer dizayni","Eksteryer loyihalash","Corona Render & V-Ray","Materiallar va Tekstura","Yorug'lik effektlari","Photoshop post-production","Portfolio yaratish","Mijozlar bilan ishlash"],
+             whyUs: {
+                 title: "⭐ Nega aynan bizning kurs?",
+                 items: [
+                     "Amaliyotga asoslangan o'quv dasturi (80% amaliyot, 20% nazariya)",
+                     "Doimiy yangilanib boruvchi darslar va yangi metodikalar",
+                     "Professional ustozlardan shaxsiy fikr-mulohazalar (Feedback)",
+                     "O'quvchilar uchun yopiq hamjamiyat va doimiy qo'llab-quvvatlash"
+                 ]
+             },
+             opp: {
+                 title: "💼 Kursdan so'ng nima kutyapti?",
+                 items: [
+                     "Freelance platformalarda (Upwork, Fiverr) ishlash imkoniyati",
+                     "Arxitektura va dizayn studiyalarida ishlash uchun tayyor portfolio",
+                     "O'z shaxsiy dizayn studiyangizni ochish bo'yicha maslahatlar"
+                 ]
+             },
+             tools: {
+                 title: "🛠️ Ishlatiladigan dasturlar",
+                 items: ["3ds Max 2024", "Corona Render 10/11", "V-Ray 6", "Adobe Photoshop", "Chaos Cosmos", "iToo Software"]
+             },
              modules: [
-                 { n: "1-modul", t: "3D Max bilan tanishish", d: "10 dars" },
-                 { n: "2-modul", t: "Geometrik modellashtirish", d: "18 dars" },
-                 { n: "3-modul", t: "Interyer loyihalash", d: "25 dars" },
-                 { n: "4-modul", t: "Materiallar va teksturalar", d: "20 dars" },
-                 { n: "5-modul", t: "Yorug'lik va kamera", d: "15 dars" },
-                 { n: "6-modul", t: "Corona Render", d: "18 dars" },
-                 { n: "7-modul", t: "Eksteryer va landshaft", d: "14 dars" },
+                 { n: "1-modul", t: "3D Max Asoslari", d: "15 dars" },
+                 { n: "2-modul", t: "Professional Modellashtirish", d: "20 dars" },
+                 { n: "3-modul", t: "Arxitektura va Qurilish", d: "25 dars" },
+                 { n: "4-modul", t: "Materiallar va Teksturalar", d: "18 dars" },
+                 { n: "5-modul", t: "Interyer Vizualizatsiyasi", d: "22 dars" },
+                 { n: "6-modul", t: "Eksteryer va Landshaft", d: "18 dars" },
+                 { n: "7-modul", t: "Corona Render Sirlari", d: "20 dars" },
+                 { n: "8-modul", t: "Portfolio va Freelance", d: "12 dars" },
              ],
         },
         login: {
@@ -118,7 +145,7 @@ export const translations = {
     },
     ru: {
         flag: '🇷🇺', name: "Русский",
-        nav: { certs: "Сертификаты", chat: "Групп чат", settings: "Настройки", profile: "Профиль", logout: "Выход", login: "Вход" },
+        nav: { certs: "Сертификаты", rating: "Рейтинг", settings: "Настройки", profile: "Профиль", logout: "Выход", login: "Вход" },
         hero: {
             badge: "🚀 Постройте свое будущее сегодня",
             title: "Сделайте первый шаг в мир творчества!",
@@ -193,6 +220,11 @@ export const translations = {
             phone: "+998", email: "Электронная почта*",
             cancel: "Отмена", submit: "Отправить",
             dir1: "Основы 3D Max", dir2: "Визуализация интерьера", dir3: "Экстерьер и ландшафт", dir4: "3ds Max: Архитектурный курс",
+            regions: [
+                "г. Ташкент", "Ташкентская обл.", "Андижан", "Бухара", "Фергана", 
+                "Джизак", "Хорезм", "Наманган", "Навои", "Кашкадарья", 
+                "Самарканд", "Сырдарья", "Сурхандарья", "Каракалпакстан"
+            ]
         },
         about: {
              title: "Информация о курсе",
@@ -235,7 +267,7 @@ export const translations = {
     },
     en: {
         flag: '🇬🇧', name: "English",
-        nav: { certs: "Certificates", chat: "Group Chat", settings: "Settings", profile: "Profile", logout: "Logout", login: "Login" },
+        nav: { certs: "Certificates", rating: "Rating", settings: "Settings", profile: "Profile", logout: "Logout", login: "Login" },
         hero: {
             badge: "🚀 Build your future today",
             title: "Take your first step into the world of creativity!",
@@ -310,6 +342,11 @@ export const translations = {
             phone: "+998", email: "Email Address*",
             cancel: "Cancel", submit: "Submit",
             dir1: "3D Max Basics", dir2: "Interior Viz", dir3: "Exterior & Landscape", dir4: "3ds Max: Architectural Course",
+            regions: [
+                "Tashkent City", "Tashkent Region", "Andijan", "Bukhara", "Fergana", 
+                "Jizzakh", "Khorezm", "Namangan", "Navoi", "Kashkadarya", 
+                "Samarkand", "Sirdaryo", "Surkhandarya", "Karakalpakstan"
+            ]
         },
         about: {
              title: "Information",
