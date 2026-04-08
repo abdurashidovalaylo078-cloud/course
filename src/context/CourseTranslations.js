@@ -110,7 +110,9 @@ export const courseTranslationsUz = {
     "lesson.512.title": "3Ds Max  I  Interior Modeling  I UPDATE",
     "lesson.513.title": "3Ds Max da No'ldan Interyer Vizualizatsiya qilish I  3Ds Max + Corona Render",
     "lesson.514.title": "3Ds Max I Oshxona mebelini yasash (Kitchen Modeling)",
-    "lesson.515.title": "Yakuniy loyiha: To'liq interyer"
+    "lesson.515.title": "Yakuniy loyiha: To'liq interyer",
+    "course.4.module.0.title": "1-Modul. Arxitektura asoslari",
+    "lesson.401.title": "Arxitektura modellashtirishga kirish"
 };
 export const courseTranslationsRu = {
     "course.1.module.0.title": "Модуль 1. Введение и интерфейс",
@@ -224,7 +226,9 @@ export const courseTranslationsRu = {
     "lesson.512.title": "3Ds Max  I  Interior Modeling  I UPDATE",
     "lesson.513.title": "3Ds Max da No'ldan Interyer Vizualizatsiya qilish I  3Ds Max + Corona Render",
     "lesson.514.title": "3Ds Max I Oshxona mebelini yasash (Kitchen Modeling)",
-    "lesson.515.title": "Yakuniy loyiha: To'liq interyer"
+    "lesson.515.title": "Yakuniy loyiha: To'liq interyer",
+    "course.4.module.0.title": "Модуль 1. Основы архитектуры",
+    "lesson.401.title": "Введение в архитектурное моделирование"
 };
 export const courseTranslationsEn = {
     "course.1.module.0.title": "Module 1. Introduction and Interface",
@@ -338,5 +342,7 @@ export const courseTranslationsEn = {
     "lesson.512.title": "3Ds Max  I  Interior Modeling  I UPDATE",
     "lesson.513.title": "3Ds Max da No'ldan Interyer Vizualizatsiya qilish I  3Ds Max + Corona Render",
     "lesson.514.title": "3Ds Max I Oshxona mebelini yasash (Kitchen Modeling)",
-    "lesson.515.title": "Yakuniy loyiha: To'liq interyer"
+    "lesson.515.title": "Yakuniy loyiha: To'liq interyer",
+    "course.4.module.0.title": "Module 1. Architecture Basics",
+    "lesson.401.title": "Introduction to Architectural Modeling"
 };

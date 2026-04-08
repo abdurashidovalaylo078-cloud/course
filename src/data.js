@@ -1004,6 +1004,30 @@ const coursesData = [
                 ]
             }
         ]
+    },
+    {
+        id: 4,
+        title: "3ds Max: arxitektura kursi",
+        instructor: "Alisher Uzoqov",
+        progress: 0,
+        totalLessons: 24,
+        completedLessons: 0,
+        thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+        description: "Arxitektura va binolarni yuqori sifatda modellashtirish va vizualizatsiya qilish.",
+        modules: [
+            {
+                title: "1-Modul. Arxitektura asoslari",
+                lessons: [
+                    {
+                        id: 401,
+                        title: "Arxitektura modellashtirishga kirish",
+                        completed: false,
+                        type: "video",
+                        videoUrl: "https://www.youtube.com/embed/9NmZNUSG1_E"
+                    }
+                ]
+            }
+        ]
     }
 ];
 

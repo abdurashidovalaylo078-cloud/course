@@ -7,6 +7,7 @@ const Courses = ({ tc, setShowRegister }) => {
         { id: 1, title: tc.c1title, desc: tc.c1desc, badge: tc.badge1, img: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80", lessons: 57, modules: 5, accent: "orange" },
         { id: 2, title: tc.c2title, desc: tc.c2desc, badge: tc.badge3, img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1000&auto=format&fit=crop", lessons: 33, modules: 4, accent: "emerald" },
         { id: 3, title: tc.c3title, desc: tc.c3desc, badge: tc.badge2, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop", lessons: 28, modules: 4, accent: "blue" },
+        { id: 4, title: tc.c4title, desc: tc.c4desc, badge: tc.badge1, img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop", lessons: 24, modules: 1, accent: "purple" },
     ];
 
     return (

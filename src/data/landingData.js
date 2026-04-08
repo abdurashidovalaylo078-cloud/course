@@ -36,6 +36,8 @@ export const translations = {
             c2desc: "Fotorealistik interyer vizualizatsiyasi sirlari va Corona Render'da yorug'lik hamda materiallar bilan ishlash chuqur o'rgatiladi.",
             c3title: "Eksteryer va Landshaft Dizayni",
             c3desc: "Katta bino va inshootlar, shuningdek mintaqa va xususiy bog'larni (landshaft) loyihalash bo'yicha maxsus darslar to'plami.",
+            c4title: "3ds Max: arxitektura kursi",
+            c4desc: "Murakkab arxitektura shakllarini modellashtirish va professional vizualizatsiya qilishni o'rganing.",
         },
         features: {
             title: "Nega aynan 3D Max Pro?",
@@ -73,7 +75,7 @@ export const translations = {
             selectDir: "Yo'nalishni tanlang*", selectRegion: "Yashash hududingizni tanlang",
             phone: "+998", email: "Pochta manzilingizni kiriting*",
             cancel: "Bekor qilish", submit: "Jo'natish",
-            dir1: "3D Max Asoslari", dir2: "Interyer Vizualizatsiyasi", dir3: "Eksteryer va Landshaft Dizayni",
+            dir1: "3D Max Asoslari", dir2: "Interyer Vizualizatsiyasi", dir3: "Eksteryer va Landshaft Dizayni", dir4: "3ds Max: arxitektura kursi",
         },
         about: {
              title: "Kurs haqida ma'lumot",
@@ -151,6 +153,8 @@ export const translations = {
             c2desc: "Секреты фотореалистичной визуализации и работа со светом в Corona Render.",
             c3title: "Экстерьер и ландшафтный дизайн",
             c3desc: "Проектирование зданий, сооружений и ландшафтов частных садов.",
+            c4title: "3ds Max: Архитектурный курс",
+            c4desc: "Изучите моделирование сложных архитектурных форм и профессиональную визуализацию.",
         },
         features: {
             title: "Почему именно 3D Max Pro?",
@@ -188,7 +192,7 @@ export const translations = {
             selectDir: "Выберите направление*", selectRegion: "Выберите регион",
             phone: "+998", email: "Электронная почта*",
             cancel: "Отмена", submit: "Отправить",
-            dir1: "Основы 3D Max", dir2: "Визуализация интерьера", dir3: "Экстерьер и ландшафт",
+            dir1: "Основы 3D Max", dir2: "Визуализация интерьера", dir3: "Экстерьер и ландшафт", dir4: "3ds Max: Архитектурный курс",
         },
         about: {
              title: "Информация о курсе",
@@ -266,6 +270,8 @@ export const translations = {
             c2desc: "Secrets of photorealistic visualization and lighting in Corona Render.",
             c3title: "Exterior & Landscape",
             c3desc: "Designing large buildings, structures, and private garden landscapes.",
+            c4title: "3ds Max: Architectural Course",
+            c4desc: "Learn modeling of complex architectural forms and professional visualization.",
         },
         features: {
             title: "Why 3D Max Pro?",
@@ -303,7 +309,7 @@ export const translations = {
             selectDir: "Select Direction*", selectRegion: "Select Region",
             phone: "+998", email: "Email Address*",
             cancel: "Cancel", submit: "Submit",
-            dir1: "3D Max Basics", dir2: "Interior Viz", dir3: "Exterior & Landscape",
+            dir1: "3D Max Basics", dir2: "Interior Viz", dir3: "Exterior & Landscape", dir4: "3ds Max: Architectural Course",
         },
         about: {
              title: "Information",
