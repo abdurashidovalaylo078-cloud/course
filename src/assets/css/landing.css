@@ -559,6 +559,47 @@ body {
     justify-content: center;
     font-size: 2rem;
     margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.feature-card-premium.color-orange .feature-icon-box {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+}
+
+.feature-card-premium.color-blue .feature-icon-box {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.feature-card-premium.color-emerald .feature-icon-box {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.feature-card-premium.color-purple .feature-icon-box {
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+}
+
+.feature-card-premium.color-orange:hover {
+    border-color: rgba(249, 115, 22, 0.4);
+    box-shadow: 0 20px 40px rgba(249, 115, 22, 0.1);
+}
+
+.feature-card-premium.color-blue:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+}
+
+.feature-card-premium.color-emerald:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+.feature-card-premium.color-purple:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1);
 }
 
 /* Testimonials */

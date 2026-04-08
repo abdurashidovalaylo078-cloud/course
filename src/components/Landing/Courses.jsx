@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Monitor, BookOpen, Star, ArrowRight } from '@phosphor-icons/react';
 
-const Courses = ({ tc }) => {
+const Courses = ({ tc, setShowRegister }) => {
     const coursesData = [
         { id: 1, title: tc.c1title, desc: tc.c1desc, badge: tc.badge1, img: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80", lessons: 57, modules: 5, accent: "orange" },
         { id: 2, title: tc.c2title, desc: tc.c2desc, badge: tc.badge3, img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1000&auto=format&fit=crop", lessons: 33, modules: 4, accent: "emerald" },
@@ -34,7 +34,13 @@ const Courses = ({ tc }) => {
                                     <div className="avatar">A</div>
                                     <span>3D Max Expert</span>
                                 </div>
-                                <Link to="/app" className="btn-start">{tc.start} <ArrowRight /></Link>
+                                <button 
+                                    onClick={() => setShowRegister(true)} 
+                                    className="btn-start" 
+                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}
+                                >
+                                    {tc.start} <ArrowRight />
+                                </button>
                             </div>
                         </div>
                     </div>

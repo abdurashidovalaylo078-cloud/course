@@ -43,7 +43,7 @@ const Landing = () => {
 
             <Stats stats={t.stats} />
 
-            <Courses tc={t.courses} />
+            <Courses tc={t.courses} setShowRegister={setShowRegister} />
 
             <Process process={t.process} />
 
