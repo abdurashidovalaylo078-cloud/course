@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { PlayCircle } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import { coursesData } from '../data';
@@ -7,11 +8,64 @@ const Courses = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
 
+    const [courses, setCourses] = useState(coursesData);
+
+    useEffect(() => {
+        const updatedCourses = coursesData.map(course => {
+            // ALWAYS calculate counts dynamically from the modules to prevent data mismatch bugs
+            const totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+            const totalVideos = course.modules.reduce((acc, m) => 
+                acc + m.lessons.filter(l => l.type === 'video').length, 0
+            );
+
+            let completedVideos = 0;
+            let currentCompleted = course.completedLessons;
+            let currentProgress = course.progress;
+
+            const saved = localStorage.getItem(`course_progress_${course.id}`);
+            if (saved) {
+                try {
+                    const savedCourse = JSON.parse(saved);
+                    // Recalculate completed count from saved modules for accuracy
+                    currentCompleted = savedCourse.modules.reduce((acc, m) => 
+                        acc + m.lessons.filter(l => l.completed).length, 0
+                    );
+                    
+                    completedVideos = savedCourse.modules.reduce((acc, m) => 
+                        acc + m.lessons.filter(l => l.type === 'video' && l.completed).length, 0
+                    );
+
+                    currentProgress = Math.round((currentCompleted / totalLessons) * 100);
+                } catch (e) {
+                    console.error("Error parsing saved progress for course", course.id, e);
+                }
+            } else {
+                currentCompleted = course.modules.reduce((acc, m) => 
+                    acc + m.lessons.filter(l => l.completed).length, 0
+                );
+                completedVideos = course.modules.reduce((acc, m) => 
+                    acc + m.lessons.filter(l => l.type === 'video' && l.completed).length, 0
+                );
+                currentProgress = Math.round((currentCompleted / totalLessons) * 100);
+            }
+
+            return {
+                ...course,
+                totalLessons, // Override static count
+                totalVideos,
+                completedLessons: currentCompleted,
+                completedVideos,
+                progress: currentProgress
+            };
+        });
+        setCourses(updatedCourses);
+    }, []);
+
     return (
         <div>
             <h2 className="section-title">{t('courses.title')}</h2>
             <div className="grid-3">
-                {coursesData.map(course => (
+                {courses.map(course => (
                     <div
                         key={course.id}
                         className="card course-card"
@@ -52,7 +106,7 @@ const Courses = () => {
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
                                     <span>{course.progress}% {t('courses.completed')}</span>
-                                    <span>{course.completedLessons}/{course.totalLessons} {t('courses.lessons')}</span>
+                                    <span>{course.completedVideos}/{course.totalVideos} {t('courses.lessons')}</span>
                                 </div>
                             </div>
                         </div>

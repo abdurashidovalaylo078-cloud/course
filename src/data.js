@@ -14,6 +14,7 @@ const coursesData = [
         progress: 15,
         totalLessons: 57,
         completedLessons: 7,
+        minProgressToUnlock: 80,
         thumbnail: "/3dmax_thumb.png",
         description: "Ushbu kursda siz 3D Max dasturini o'rnatishdan boshlab, murakkab interyerlarni vizualizatsiya qilishgacha o'rganasiz.",
         modules: [
@@ -468,6 +469,7 @@ const coursesData = [
         progress: 0,
         totalLessons: 33,
         completedLessons: 0,
+        minProgressToUnlock: 80,
         thumbnail: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1000&auto=format&fit=crop",
         description: "Fotorealistik interyer vizualizatsiyasi sirlari.",
         modules: [
@@ -738,8 +740,9 @@ const coursesData = [
         title: "Eksteryer va Landshaft Dizayni",
         instructor: "Davronbek",
         progress: 0,
-        totalLessons: 28,
+        totalLessons: 33,
         completedLessons: 0,
+        minProgressToUnlock: 80,
         thumbnail: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
         description: "Katta binolar va bog'larni loyihalash.",
         modules: [
@@ -1012,6 +1015,7 @@ const coursesData = [
         progress: 0,
         totalLessons: 36,
         completedLessons: 0,
+        minProgressToUnlock: 80,
         thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
         description: "Arxitektura va binolarni yuqori sifatda modellashtirish va vizualizatsiya qilish.",
         modules: [

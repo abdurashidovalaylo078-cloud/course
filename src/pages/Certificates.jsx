@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Certificate as CertIcon, UserCircle, Calendar, Eye, DownloadSimple, XCircle, Printer, X, SealCheck, LockSimple } from '@phosphor-icons/react';
 import { currentUser, certificatesData, coursesData } from '../data';
 import { useLanguage } from '../context/LanguageContext';
@@ -7,8 +7,34 @@ const Certificates = () => {
     const [modalCert, setModalCert] = useState(null);
     const { t } = useLanguage();
 
+    // Dynamic user data
+    const savedUser = localStorage.getItem('currentUser');
+    const user = savedUser ? JSON.parse(savedUser) : currentUser;
+    const userName = user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : (user.name || "User");
+
+    const [courses, setCourses] = useState(coursesData);
+
+    useEffect(() => {
+        const updatedCourses = coursesData.map(course => {
+            const saved = localStorage.getItem(`course_progress_${course.id}`);
+            if (saved) {
+                try {
+                    const savedCourse = JSON.parse(saved);
+                    return {
+                        ...course,
+                        progress: savedCourse.progress,
+                        completedLessons: savedCourse.completedLessons
+                    };
+                } catch (e) {
+                    console.error("Error parsing saved progress for course", course.id, e);
+                }
+            }
+            return course;
+        });
+        setCourses(updatedCourses);
+    }, []);
+
     const printCert = () => {
-        // This simple approach recreates the print structure from legacy app
         const printWindow = window.open('', '_blank');
         const content = document.getElementById('cert-document').outerHTML;
 
@@ -34,7 +60,6 @@ const Certificates = () => {
       <body>
         ${content}
         <script>
-          // Timeout helps wait for fonts to load
           setTimeout(() => {
             window.print();
             window.close();
@@ -152,7 +177,7 @@ const Certificates = () => {
                                 backgroundClip: 'text',
                                 lineHeight: 1,
                                 letterSpacing: '-1px'
-                            }}>{currentUser.name}</h2>
+                            }}>{userName}</h2>
                         </div>
 
                         <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.7rem' }}>{t('cert.forCompleting')}</p>
@@ -230,8 +255,9 @@ const Certificates = () => {
             <h2 className="section-title">{t('certificates.title')}</h2>
             <div className="grid-3">
                 {certificatesData.map(cert => {
-                    const course = coursesData.find(c => c.id === cert.courseId);
-                    const isCompleted = true; // Unlock all certificates
+                    const course = courses.find(c => c.id === cert.courseId);
+                    const threshold = course?.minProgressToUnlock || 100;
+                    const isCompleted = course && course.progress >= threshold;
 
                     return (
                         <div key={cert.id} className={`card cert-card ${!isCompleted ? 'locked' : ''}`} style={{ overflow: 'hidden', padding: 0, opacity: isCompleted ? 1 : 0.8 }}>
@@ -255,7 +281,7 @@ const Certificates = () => {
                             <div style={{ padding: '1.5rem' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem', color: isCompleted ? 'inherit' : 'var(--color-text-muted)' }}>
                                     <UserCircle color={isCompleted ? "var(--color-primary)" : "rgba(255,255,255,0.2)"} />
-                                    <span style={{ fontSize: '0.9rem' }}>{currentUser.name}</span>
+                                    <span style={{ fontSize: '0.9rem' }}>{userName}</span>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: isCompleted ? 'inherit' : 'var(--color-text-muted)' }}>
                                     <Calendar color={isCompleted ? "var(--color-primary)" : "rgba(255,255,255,0.2)"} />
@@ -278,7 +304,7 @@ const Certificates = () => {
                                         </>
                                     ) : (
                                         <button className="btn-primary" style={{ flex: 1, justifyContent: 'center', background: '#333', border: '1px solid #444', color: '#666', cursor: 'not-allowed' }} disabled>
-                                            <LockSimple style={{ marginRight: '0.4rem' }} /> {course?.progress}% {t('courses.completed')}
+                                            <LockSimple style={{ marginRight: '0.4rem' }} /> {course?.progress || 0}% / {threshold}% {t('courses.completed')}
                                         </button>
                                     )}
                                 </div>

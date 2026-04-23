@@ -148,12 +148,50 @@ const CoursePlayer = () => {
     const { t } = useLanguage();
     
     // Original course finding logic
-    const initialCourse = coursesData.find(c => c.id === parseInt(id));
+    const initialCourse = (() => {
+        const course = coursesData.find(c => c.id === parseInt(id));
+        if (course) {
+            course.totalLessons = course.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+            return course;
+        }
+        return null;
+    })();
     const firstLesson = initialCourse?.modules.find(m => m.lessons.length > 0)?.lessons[0];
 
     // State management
-    const [courseState, setCourseState] = useState(initialCourse);
-    const [activeLesson, setActiveLesson] = useState(firstLesson);
+    const [courseState, setCourseState] = useState(() => {
+        const saved = localStorage.getItem(`course_progress_${id}`);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                // ALWAYS RECALCULATE totalLessons to prevent mismatch bugs
+                parsed.totalLessons = parsed.modules.reduce((acc, m) => acc + m.lessons.length, 0);
+                return parsed;
+            } catch (e) {
+                console.error("Error parsing saved course progress:", e);
+            }
+        }
+        return initialCourse;
+    });
+    const [activeLesson, setActiveLesson] = useState(() => {
+        const savedActiveId = localStorage.getItem(`course_active_lesson_${id}`);
+        if (savedActiveId && courseState) {
+            for (const module of courseState.modules) {
+                const lesson = module.lessons.find(l => l.id === parseInt(savedActiveId));
+                if (lesson) return lesson;
+            }
+        }
+        
+        // Default to first incomplete lesson
+        if (courseState) {
+            for (const module of courseState.modules) {
+                const incomplete = module.lessons.find(l => !l.completed);
+                if (incomplete) return incomplete;
+            }
+        }
+        return firstLesson;
+    });
+
     const [showCongrats, setShowCongrats] = useState(false);
     const [isFloating, setIsFloating] = useState(false);
     
@@ -162,6 +200,27 @@ const CoursePlayer = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [showReuploader, setShowReuploader] = useState(false);
     const [activeTab, setActiveTab] = useState('about');
+
+    // Persistence
+    useEffect(() => {
+        if (courseState) {
+            localStorage.setItem(`course_progress_${id}`, JSON.stringify(courseState));
+        }
+    }, [courseState, id]);
+
+    useEffect(() => {
+        if (activeLesson) {
+            localStorage.setItem(`course_active_lesson_${id}`, activeLesson.id.toString());
+            
+            // Auto-mark video as watched/completed after 3 seconds
+            if (activeLesson.type === 'video' && !activeLesson.completed) {
+                const timer = setTimeout(() => {
+                    markAsComplete();
+                }, 3000); // 3 seconds delay
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [activeLesson, id]);
 
     if (!courseState) {
         return <h2>Kurs topilmadi</h2>;
@@ -200,30 +259,48 @@ const CoursePlayer = () => {
         }
     };
 
-    const markAsComplete = () => {
-        if (activeLesson.completed) return;
+    const markAsComplete = React.useCallback(() => {
+        setCourseState(prevCourse => {
+            if (!prevCourse || !activeLesson) return prevCourse;
+            
+            // Check if already completed in the current state
+            const mIdx = prevCourse.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
+            if (mIdx === -1) return prevCourse;
+            
+            const lIdx = prevCourse.modules[mIdx].lessons.findIndex(l => l.id === activeLesson.id);
+            if (prevCourse.modules[mIdx].lessons[lIdx].completed) return prevCourse;
 
-        const newCourse = { ...courseState };
-        const moduleIndex = newCourse.modules.findIndex(m => m.lessons.some(l => l.id === activeLesson.id));
-        const lessonIndex = newCourse.modules[moduleIndex].lessons.findIndex(l => l.id === activeLesson.id);
+            const newCourse = { ...prevCourse };
+            newCourse.modules = [...newCourse.modules];
+            newCourse.modules[mIdx] = { ...newCourse.modules[mIdx] };
+            newCourse.modules[mIdx].lessons = [...newCourse.modules[mIdx].lessons];
+            
+            const updatedLesson = { ...newCourse.modules[mIdx].lessons[lIdx], completed: true };
+            newCourse.modules[mIdx].lessons[lIdx] = updatedLesson;
+            
+            newCourse.completedLessons = newCourse.modules.reduce((acc, m) => 
+                acc + m.lessons.filter(l => l.completed).length, 0
+            );
+            
+            const oldProgress = newCourse.progress;
+            newCourse.progress = Math.round((newCourse.completedLessons / newCourse.totalLessons) * 100);
 
-        newCourse.modules[moduleIndex].lessons[lessonIndex].completed = true;
-        newCourse.completedLessons = Math.min(newCourse.completedLessons + 1, newCourse.totalLessons);
-        
-        const oldProgress = newCourse.progress;
-        newCourse.progress = Math.round((newCourse.completedLessons / newCourse.totalLessons) * 100);
+            // Update active lesson if it's the one we just completed
+            setActiveLesson(prevActive => {
+                if (prevActive && prevActive.id === updatedLesson.id) {
+                    return updatedLesson;
+                }
+                return prevActive;
+            });
 
-        setCourseState(newCourse);
-        setActiveLesson({ ...activeLesson, completed: true });
+            const threshold = newCourse.minProgressToUnlock || 100;
+            if (newCourse.progress >= threshold && oldProgress < threshold) {
+                setShowCongrats(true);
+            }
 
-        // AUTOMATIC TRIGGER: If progress reaches 100%, show congrats
-        if (newCourse.progress === 100 && oldProgress < 100) {
-            setShowCongrats(true);
-        } else {
-            // Simple toast simulation for non-final lessons
-            // alert('Dars muvaffaqiyatli tugatildi! 🎉');
-        }
-    };
+            return newCourse;
+        });
+    }, [activeLesson?.id]);
 
     const handleFileUpload = (e) => {
         const file = e.target.files ? e.target.files[0] : e.dataTransfer?.files[0];
