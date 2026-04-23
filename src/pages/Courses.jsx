@@ -96,9 +96,6 @@ const Courses = () => {
 
                         <div className="course-info" style={{ padding: '1.2rem' }}>
                             <h3 style={{ marginBottom: '0.5rem', fontSize: '1.1rem' }}>{t(`course.${course.id}.title`) || course.title}</h3>
-                            <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                                {t(`course.${course.id}.instructor`) || course.instructor}
-                            </p>
 
                             <div className="progress-container">
                                 <div style={{ background: 'var(--color-bg-dark)', height: '6px', borderRadius: '3px', overflow: 'hidden', marginBottom: '0.5rem' }}>
