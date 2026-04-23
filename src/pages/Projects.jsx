@@ -105,11 +105,11 @@ const Projects = () => {
 
             {/* ── Page title ── */}
             <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ display:'flex', alignItems:'center', gap:'0.7rem', fontSize:'1.9rem', fontWeight:800, color:'#fff', margin:0 }}>
+                <h1 style={{ display:'flex', alignItems:'center', gap:'0.7rem', fontSize:'1.9rem', fontWeight:800, color:'var(--color-text-main)', margin:0 }}>
                     <FolderOpen weight="fill" color="#F59E0B" size={34} />
                     Mening Loyihalarim
                 </h1>
-                <p style={{ color:'#9CA3AF', fontSize:'0.95rem', marginTop:'0.4rem' }}>
+                <p style={{ color:'var(--color-text-muted)', fontSize:'0.95rem', marginTop:'0.4rem' }}>
                     Kurs bo'yicha barcha uyga vazifa va yakuniy loyihalaringiz
                 </p>
             </div>
@@ -121,13 +121,13 @@ const Projects = () => {
                     { icon: <CheckCircle weight="fill" size={22}/>, label:'Yuborilgan',     value:stats.submitted, color:'#10B981' },
                     { icon: <Trophy weight="fill" size={22}/>,      label:'Baholangan',     value:stats.graded,    color:'#F59E0B' },
                 ].map((s,i) => (
-                    <div key={i} style={{ background:'hsl(220,20%,14%)', borderRadius:16, padding:'1.3rem', border:'1px solid rgba(255,255,255,0.05)', display:'flex', alignItems:'center', gap:'1rem' }}>
+                    <div key={i} style={{ background:'var(--color-bg-card)', borderRadius:16, padding:'1.3rem', border:'1px solid var(--color-border)', display:'flex', alignItems:'center', gap:'1rem' }}>
                         <div style={{ width:48, height:48, borderRadius:12, background:`${s.color}22`, display:'flex', alignItems:'center', justifyContent:'center', color:s.color }}>
                             {s.icon}
                         </div>
                         <div>
-                            <div style={{ fontSize:'2rem', fontWeight:800, color:'#fff', lineHeight:1 }}>{s.value}</div>
-                            <div style={{ fontSize:'0.8rem', color:'#9CA3AF', marginTop:2 }}>{s.label}</div>
+                            <div style={{ fontSize:'2rem', fontWeight:800, color:'var(--color-text-main)', lineHeight:1 }}>{s.value}</div>
+                            <div style={{ fontSize:'0.8rem', color:'var(--color-text-muted)', marginTop:2 }}>{s.label}</div>
                         </div>
                     </div>
                 ))}
@@ -143,8 +143,8 @@ const Projects = () => {
                     <button key={tab.key} onClick={() => setFilter(tab.key)}
                         style={{
                             padding:'0.5rem 1.2rem', borderRadius:30, border:'none',
-                            background: filter===tab.key ? 'linear-gradient(135deg,#F59E0B,#EA580C)' : 'hsl(220,20%,18%)',
-                            color: filter===tab.key ? '#fff' : '#9CA3AF',
+                            background: filter===tab.key ? 'linear-gradient(135deg,#F59E0B,#EA580C)' : 'var(--color-bg-hover)',
+                            color: filter===tab.key ? '#fff' : 'var(--color-text-muted)',
                             fontWeight:600, fontSize:'0.88rem', cursor:'pointer',
                             transition:'all 0.2s', fontFamily:'inherit',
                         }}>
@@ -165,9 +165,9 @@ const Projects = () => {
                         const st = statusCfg[proj.status] || statusCfg.pending;
                         return (
                             <div key={idx}
-                                style={{ background:'hsl(220,20%,14%)', border:'1px solid rgba(255,255,255,0.06)', borderRadius:16, padding:'1.4rem', position:'relative', overflow:'hidden', transition:'all 0.25s', cursor:'default' }}
-                                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.borderColor=proj.courseColor+'44'; e.currentTarget.style.boxShadow='0 12px 30px rgba(0,0,0,0.3)'; }}
-                                onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.borderColor='rgba(255,255,255,0.06)'; e.currentTarget.style.boxShadow=''; }}>
+                                style={{ background:'var(--color-bg-card)', border:'1px solid var(--color-border)', borderRadius:16, padding:'1.4rem', position:'relative', overflow:'hidden', transition:'all 0.25s', cursor:'default' }}
+                                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.borderColor=proj.courseColor+'44'; e.currentTarget.style.boxShadow='var(--shadow-md)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.transform=''; e.currentTarget.style.borderColor='var(--color-border)'; e.currentTarget.style.boxShadow=''; }}>
 
                                 {/* top color bar */}
                                 <div style={{ position:'absolute', top:0, left:0, right:0, height:3, background:`linear-gradient(90deg,${proj.courseColor},transparent)` }}/>
@@ -184,8 +184,8 @@ const Projects = () => {
                                     )}
                                 </div>
 
-                                <h3 style={{ fontSize:'1rem', fontWeight:700, color:'#fff', marginBottom:'0.3rem', lineHeight:1.4 }}>{proj.title}</h3>
-                                <p  style={{ fontSize:'0.78rem', color:'#6B7280', marginBottom:'1rem' }}>{proj.moduleName}</p>
+                                <h3 style={{ fontSize:'1rem', fontWeight:700, color:'var(--color-text-main)', marginBottom:'0.3rem', lineHeight:1.4 }}>{proj.title}</h3>
+                                <p  style={{ fontSize:'0.78rem', color:'var(--color-text-muted)', marginBottom:'1rem' }}>{proj.moduleName}</p>
 
                                 {/* Ustoz izohi (agar bo'lsa) */}
                                 {proj.reviewComment && (
@@ -235,7 +235,7 @@ const Projects = () => {
                 <div onClick={() => setDetail(null)}
                     style={{ position:'fixed', inset:0, zIndex:9000, background:'rgba(0,0,0,0.65)', backdropFilter:'blur(6px)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}>
                     <div onClick={e => e.stopPropagation()}
-                        style={{ background:'#1a2035', border:'1px solid rgba(255,255,255,0.1)', borderRadius:20, width:'100%', maxWidth:520, overflow:'hidden', boxShadow:'0 30px 60px rgba(0,0,0,0.5)' }}>
+                        style={{ background:'var(--color-bg-card)', border:'1px solid var(--color-border)', borderRadius:20, width:'100%', maxWidth:520, overflow:'hidden', boxShadow:'var(--shadow-md)' }}>
 
                         {/* Header */}
                         <div style={{ padding:'1.4rem 1.5rem', borderBottom:'1px solid rgba(255,255,255,0.07)', background:`linear-gradient(135deg,${detail.courseColor}18,transparent)`, display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
@@ -243,8 +243,8 @@ const Projects = () => {
                                 <span style={{ fontSize:'0.72rem', fontWeight:700, padding:'3px 10px', borderRadius:20, background:`${detail.courseColor}33`, color:detail.courseColor, display:'inline-block', marginBottom:'0.5rem' }}>
                                     {detail.courseTitle}
                                 </span>
-                                <h2 style={{ fontSize:'1.15rem', fontWeight:800, color:'#fff', margin:0 }}>{detail.title}</h2>
-                                <p style={{ color:'#9CA3AF', fontSize:'0.82rem', marginTop:3 }}>{detail.moduleName} · {detail.instructor}</p>
+                                <h2 style={{ fontSize:'1.15rem', fontWeight:800, color:'var(--color-text-main)', margin:0 }}>{detail.title}</h2>
+                                <p style={{ color:'var(--color-text-muted)', fontSize:'0.82rem', marginTop:3 }}>{detail.moduleName} · {detail.instructor}</p>
                             </div>
                             <div style={{ display:'flex', alignItems:'center', gap:'0.6rem', flexShrink:0, marginLeft:'1rem' }}>
                                 {detail.reviewGrade && (
@@ -263,7 +263,7 @@ const Projects = () => {
 
                             {/* Status */}
                             <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:'1.2rem' }}>
-                                <span style={{ fontSize:'0.82rem', color:'#9CA3AF', fontWeight:600 }}>Holat:</span>
+                                <span style={{ fontSize:'0.82rem', color:'var(--color-text-muted)', fontWeight:600 }}>Holat:</span>
                                 <span style={{ fontSize:'0.82rem', fontWeight:700, color:statusCfg[detail.status]?.color, background:statusCfg[detail.status]?.bg, padding:'3px 10px', borderRadius:20 }}>
                                     {detail.status==='submitted' ? <CheckCircle size={13} weight="fill" style={{marginRight:4}}/> : <Clock size={13} weight="fill" style={{marginRight:4}}/>}
                                     {statusCfg[detail.status]?.label}
@@ -277,17 +277,17 @@ const Projects = () => {
                                         <Star weight="fill" size={15} color="#10B981"/>
                                         <span style={{ fontSize:'0.82rem', fontWeight:700, color:'#10B981' }}>Ustoz izohi</span>
                                     </div>
-                                    <p style={{ color:'#D1FAE5', fontSize:'0.9rem', lineHeight:1.6, margin:0 }}>{detail.reviewComment}</p>
+                                    <p style={{ color:'var(--color-text-main)', fontSize:'0.9rem', lineHeight:1.6, margin:0 }}>{detail.reviewComment}</p>
                                 </div>
                             )}
 
                             {/* Mezonlar */}
                             {detail.criteria && (
                                 <div style={{ marginBottom:'1.2rem' }}>
-                                    <p style={{ fontSize:'0.85rem', fontWeight:700, color:'#9CA3AF', marginBottom:'0.7rem' }}>📋 Baholash mezonlari:</p>
+                                    <p style={{ fontSize:'0.85rem', fontWeight:700, color:'var(--color-text-muted)', marginBottom:'0.7rem' }}>📋 Baholash mezonlari:</p>
                                     <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
                                         {detail.criteria.map((c,i) => (
-                                            <div key={i} style={{ display:'flex', gap:8, alignItems:'flex-start', fontSize:'0.86rem', color:'#E5E7EB', background:'rgba(255,255,255,0.03)', borderRadius:8, padding:'0.6rem 0.8rem' }}>
+                                            <div key={i} style={{ display:'flex', gap:8, alignItems:'flex-start', fontSize:'0.86rem', color:'var(--color-text-main)', background:'var(--color-bg-hover)', borderRadius:8, padding:'0.6rem 0.8rem' }}>
                                                 <CheckCircle weight="fill" size={16} color="#10B981" style={{ flexShrink:0, marginTop:1 }}/>
                                                 {c}
                                             </div>
@@ -336,7 +336,7 @@ const Projects = () => {
                 <div onClick={() => { if (!submitting) setUpload(null); }}
                     style={{ position:'fixed', inset:0, zIndex:9999, background:'rgba(0,0,0,0.7)', backdropFilter:'blur(8px)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem' }}>
                     <div onClick={e => e.stopPropagation()}
-                        style={{ background:'#1a2035', border:'1px solid rgba(255,255,255,0.1)', borderRadius:20, width:'100%', maxWidth:500, overflow:'hidden', boxShadow:'0 30px 80px rgba(0,0,0,0.6)' }}>
+                        style={{ background:'var(--color-bg-card)', border:'1px solid var(--color-border)', borderRadius:20, width:'100%', maxWidth:500, overflow:'hidden', boxShadow:'var(--shadow-md)' }}>
 
                         {/* Header */}
                         <div style={{ padding:'1.3rem 1.5rem', borderBottom:'1px solid rgba(255,255,255,0.07)', display:'flex', justifyContent:'space-between', alignItems:'center', background: isResubmit ? 'rgba(99,102,241,0.06)' : 'rgba(245,158,11,0.06)' }}>
@@ -345,8 +345,8 @@ const Projects = () => {
                                     {isResubmit ? <ArrowCounterClockwise size={20} weight="fill"/> : <FileArrowUp size={20} weight="fill"/>}
                                 </div>
                                 <div>
-                                    <h3 style={{ margin:0, fontSize:'1.05rem', fontWeight:800, color:'#fff' }}>{isResubmit ? 'Loyihani qayta yuborish' : 'Loyihani yuborish'}</h3>
-                                    <p style={{ margin:0, fontSize:'0.75rem', color:'#9CA3AF', marginTop:1 }}>{upload.title}</p>
+                                    <h3 style={{ margin:0, fontSize:'1.05rem', fontWeight:800, color:'var(--color-text-main)' }}>{isResubmit ? 'Loyihani qayta yuborish' : 'Loyihani yuborish'}</h3>
+                                    <p style={{ margin:0, fontSize:'0.75rem', color:'var(--color-text-muted)', marginTop:1 }}>{upload.title}</p>
                                 </div>
                             </div>
                             {!submitting && (
@@ -409,9 +409,9 @@ const Projects = () => {
                                     rows={4}
                                     style={{
                                         width:'100%', padding:'0.9rem 1rem',
-                                        background:'rgba(255,255,255,0.05)',
-                                        border:'1px solid rgba(255,255,255,0.1)',
-                                        borderRadius:12, color:'#fff',
+                                        background:'var(--color-bg-dark)',
+                                        border:'1px solid var(--color-border)',
+                                        borderRadius:12, color:'var(--color-text-main)',
                                         fontSize:'0.88rem', resize:'vertical',
                                         outline:'none', fontFamily:'inherit',
                                         lineHeight:1.6, transition:'border-color 0.2s',

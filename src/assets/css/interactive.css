@@ -226,16 +226,16 @@
     animation: navActiveSlide 0.3s ease both;
 }
 
-.nav-item i {
+.nav-item i, .nav-item svg {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.nav-item:hover i {
+.nav-item:hover i, .nav-item:hover svg {
     transform: scale(1.2) rotate(-5deg);
     color: var(--color-primary);
 }
 
-.nav-item.active i {
+.nav-item.active i, .nav-item.active svg {
     animation: float 3s ease-in-out infinite;
 }
 
@@ -553,10 +553,10 @@ input:checked+.slider {
 
 /* ---- 30. Glassmorphism on top-header ---- */
 .top-header {
-    background: rgba(16, 18, 27, 0.7) !important;
+    background: var(--color-header-bg) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-header-border) !important;
 }
 
 /* ---- 31. Sidebar Glassmorphism ---- */
@@ -569,9 +569,7 @@ input:checked+.slider {
 
 /* ---- 32. Active Nav Item Glow ---- */
 .nav-item.active {
-    background: linear-gradient(90deg,
-            rgba(245, 158, 11, 0.18) 0%,
-            rgba(245, 158, 11, 0.04) 100%) !important;
+    background: var(--color-active-bg) !important;
     box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.05);
 }
 

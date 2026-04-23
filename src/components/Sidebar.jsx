@@ -85,7 +85,7 @@ const Sidebar = () => {
                         </div>
                     </>
                 )}
-                <div onClick={() => setShowLogoutConfirm(!showLogoutConfirm)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.8rem 1rem', background: 'transparent', borderRadius: '8px', color: '#fff', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>
+                <div onClick={() => setShowLogoutConfirm(!showLogoutConfirm)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.8rem 1rem', background: 'transparent', borderRadius: '8px', color: 'var(--color-text-main)', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>
                     <span style={{ fontSize: '1.1rem', fontWeight: 600 }}>Chiqish</span>
                     <SignOut size={24} color="#9CA3AF" />
                 </div>
